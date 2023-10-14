@@ -8,13 +8,11 @@ import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
 import CustomReport from '../pages/customReport';
 import EmployeeByDept from '../pages/employeeByDept';
-import EmployeeDetails from '../pages/employeeDetails';
 import EmployeeReports from '../pages/employeeReports';
 import Leaves from '../pages/leaves';
 import LeavesByDept from '../pages/leavesByDept';
 import NewEmployee from '../pages/newEmpoyee';
 import Profile from '../pages/profile';
-import Reports from '../pages/reports';
 import Subordinates from '../pages/subordinates';
 import { SidebarData } from './sidebarData';
 import SubMenu from './subMenu';
@@ -93,12 +91,12 @@ const Sidebar = () => {
                     <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
                     <Route path='/reports/emplyee-reports' element={<EmployeeReports/>} />
                     <Route path='/reports/custom-report' element={<CustomReport/>} />
-                    <Route path='/reports' element={<Reports/>} />
+                    {/* <Route path='/reports' element={<Reports/>} /> */}
 
                     <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
                     <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
                     <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
-                    <Route path='/employee-details' element={<EmployeeDetails/>} />
+                    {/* <Route path='/employee-details' element={<EmployeeDetails/>} /> */}
 
                     <Route path='/abs-func' element={<AbsenceFunc/>} />
                     <Route path='/leaves' element={<Leaves/>} />
