@@ -14,6 +14,7 @@ import LeavesByDept from '../pages/leavesByDept';
 import NewEmployee from '../pages/newEmpoyee';
 import Profile from '../pages/profile';
 import Subordinates from '../pages/subordinates';
+import NotificationBell from './notifications';
 import { SidebarData } from './sidebarData';
 import SubMenu from './subMenu';
 
@@ -67,6 +68,9 @@ const Sidebar = () => {
                     <NavIcon to='#'>
                         <FaBars onClick={showSidebar} />
                     </NavIcon>
+                    <div style={{marginLeft: 'auto', marginRight: '2rem'}}>
+                        <NotificationBell notificationList={["Notification 1", "Notification 2", "Notification shsuih siudsd sbsidbs sbush",'Notification 4',"Notification 5","Notification 6"]} /> {/* need to pass notifications by props */}
+                    </div>
                 </Nav>
 
                 <SidebarNav $sidebar={sidebar}>
@@ -89,7 +93,7 @@ const Sidebar = () => {
 
                     <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
                     <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
-                    <Route path='/reports/emplyee-reports' element={<EmployeeReports/>} />
+                    <Route path='/reports/empolyee-reports' element={<EmployeeReports/>} />
                     <Route path='/reports/custom-report' element={<CustomReport/>} />
                     {/* <Route path='/reports' element={<Reports/>} /> */}
 
