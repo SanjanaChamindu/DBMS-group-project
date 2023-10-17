@@ -3,8 +3,8 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
 //import LoginForm from './components/loginForm';
+import Sidebar from './components/Sidebar';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -22,14 +22,3 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-/*used packages
-
-1) npm i bootstrap
-2) npm install react-router-dom
-3) npm i react-router-dom
-4) npm i joi-browser
-5) npm i framer-motion
-6) npm i react-icons
-7) npm i styled-components
-*/

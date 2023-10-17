@@ -1,15 +1,63 @@
 import React, { Component } from 'react';
-
+import Pagination from '../components/common/pagination';
+import { getEmployees } from '../services/fakeEmployeeService';
+import { paginate } from '../utils/paginate';
 class AllEmployees extends Component {
-    state = {  }
+    state = {
+        employees: getEmployees(),
+        pageSize: 5,
+        currentPage: 1
+    }
     render() {
-        console.log('Reports/AllEmployees');
+        const { length: count } = this.state.employees;     //length property of the employees object is stored in count
+        if(count === 0) return <p>Add new employees to manage them</p>;
+
+        const emplyeesInPage = paginate(this.state.employees, this.state.currentPage, this.state.pageSize);
+
         return (
-            <div className='employeeDetails'>
-                <h1>Reports/All employees</h1>
-            </div>
+            <React.Fragment>
+                <p>Total employees : {count}</p>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th onClick={()=>this.handleSort("employee_id")}>Employee ID</th>
+                            <th onClick={()=>this.handleSort("employee_name")}>Name</th>
+                            <th onClick={()=>this.handleSort("job_title")}>Job Title</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {emplyeesInPage.map(employee => (
+                            <tr onClick={this.viewEmployee(employee)} key={employee.employee_id}>
+                                <td>{employee.employee_id}</td>
+                                <td>{employee.employee_name}</td>
+                                <td>{employee.job_title}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <Pagination>
+                    itemsCount={count}
+                    pageSize={this.state.pageSize}
+                    currentPage={this.state.currentPage}
+                    onPageChange={this.handlePageChange}
+                </Pagination>
+            </React.Fragment>
         );
     }
+
+        handlePageChange=(page)=>{
+            console.log("handle page change called");
+            this.setState({currentPage: page});
+        }
+
+        handleSort=(path)=>{
+            console.log(path);
+            this.setState({sortColumn: {path, order: 'asc'}}); // set the sortColumn object
+        }
+
+        viewEmployee=(employee)=>{
+            console.log("viewing",employee);
+        }
 }
 
 export default AllEmployees;
