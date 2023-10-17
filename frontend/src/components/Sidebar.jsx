@@ -93,7 +93,7 @@ const Sidebar = () => {
 
                     <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
                     <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
-                    <Route path='/reports/emplyee-reports' element={<EmployeeReports/>} />
+                    <Route path='/reports/empolyee-reports' element={<EmployeeReports/>} />
                     <Route path='/reports/custom-report' element={<CustomReport/>} />
                     {/* <Route path='/reports' element={<Reports/>} /> */}
 

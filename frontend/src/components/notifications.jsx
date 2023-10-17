@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaBell } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -13,6 +13,8 @@ const NotificationsContainer = styled.div`
     top: 100%;
     right: 0;
     background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border: 1px solid #ccc;
     padding: 10px;
     z-index: 100;
@@ -42,8 +44,6 @@ const NotificationsContainer = styled.div`
     &::-webkit-scrollbar-thumb:hover {
         background: #555;
     }
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 `;
 
 const NotificationBell = ({ notificationList }) => {
@@ -54,20 +54,20 @@ const NotificationBell = ({ notificationList }) => {
         setBellIcon(!bellIcon);
     };
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         console.log('clicked outside');
-    //         if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-    //             setBellIcon(false);
-    //         }
-    //     };
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            console.log('clicked outside');
+            if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+                setBellIcon(false);
+            }
+        };
 
-    //     document.addEventListener('click', handleClickOutside);
+        document.addEventListener('click', handleClickOutside);
 
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside);
-    //     };
-    // }, []);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
 
     return (
         <Container>

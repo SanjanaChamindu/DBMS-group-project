@@ -8,8 +8,8 @@ class Pagination extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.itemsCount !== this.props.itemsCount) {
             this.setState({ pagesCount: this.props.itemsCount / this.props.pageSize });
-            }
         }
+    }
 
     fillPagination(page) {
         let paginationClass = "page-item";
@@ -18,12 +18,14 @@ class Pagination extends Component {
 
         return (
             <li key={page} className={paginationClass}>
-                <a className='page-link' onClick={() => this.props.onPageChange(page)}>{page}</a>
+                <a className='page-link' onClick={() => this.props.pageChange(page)}>{page}</a>
             </li>
         );
     }
 
     render() {
+        console.log(this.state.pagesCount)
+        console.log(this.props.pageSize)
         const pages = _.range(1, this.state.pagesCount + 1);
         if (this.state.pagesCount <= 1) return null;
         return (

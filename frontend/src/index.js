@@ -3,7 +3,6 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-//import LoginForm from './components/loginForm';
 import Sidebar from './components/Sidebar';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
