@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Sidebar from './components/Sidebar';
 import LoginForm from './components/loginForm';
@@ -8,9 +8,6 @@ function App() {
   return (
     <div className="App">
       <div className="App-header">
-      <Link to="/dashboard">
-        <button>Sidebar</button>
-      </Link>
       <Routes>
             <Route path="/login" element={<LoginForm/>} />
             <Route path="/dashboard" element={<Sidebar/>} /> {/*sidebar component*/}

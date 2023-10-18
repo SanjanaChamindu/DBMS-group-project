@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import Pagination from '../components/common/pagination';
 import { getSubordinates } from '../services/fakeSubordinateService';
@@ -6,20 +7,26 @@ class AllEmployees extends Component {
     state = {
         employees: getSubordinates(),
         pageSize: 5,
-        currentPage: 1
+        currentPage: 1,
+        sortColumn: {path: 'employee_id', order: 'asc'}
     }
 
     handlePageChange=(page)=>{
-        console.log("handle page change called");
         this.setState({currentPage: page});
     }
-
     handleSort=(path)=>{
-        console.log(path);
-        this.setState({sortColumn: {path, order: 'asc'}}); // set the sortColumn object
+        const sortColumn= {...this.state.sortColumn};
+        if(sortColumn.path === path)
+            sortColumn.order= (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        else{
+            sortColumn.path= path;
+            sortColumn.order= 'asc';
+        }
+        this.setState({sortColumn});
     }
 
     viewEmployee=(employee)=>{
+        //to the employee details page
         console.log("viewing",employee);
     }
 
@@ -27,17 +34,18 @@ class AllEmployees extends Component {
         const { length: count } = this.state.employees;     //length property of the employees object is stored in count
         if(count === 0) return <p>Add new employees to manage them</p>;
 
-        const employeesInPage = paginate(this.state.employees, this.state.currentPage, this.state.pageSize);
-        console.log("page size",this.state.pageSize)
+        const sorted= _.orderBy(this.state.employees, [this.state.sortColumn.path], [this.state.sortColumn.order]);
+        const employeesInPage= paginate(sorted, this.state.currentPage, this.state.pageSize);
+        
         return (
             <React.Fragment>
                 <p>Total employees : {count}</p>
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th onClick={()=>this.handleSort("employee_id")}>Employee ID</th>
-                            <th onClick={()=>this.handleSort("employee_name")}>Name</th>
-                            <th onClick={()=>this.handleSort("job_title")}>Job Title</th>
+                            <th className='clickable' onClick={()=>this.handleSort("employee_id")}>Employee ID</th>
+                            <th className='clickable' onClick={()=>this.handleSort("employee_name")}>Name</th>
+                            <th className='clickable' onClick={()=>this.handleSort("job_title")}>Job Title</th>
                         </tr>
                     </thead>
                     <tbody>
