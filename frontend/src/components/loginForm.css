@@ -5,20 +5,24 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins',sans-serif;
+    z-index: 11;
 }
-.login-box{
+.login-box {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 440px;
-    height: 480px;
+    background-color: rgba(223, 223, 223, 0.5); /* Use rgba format with alpha value */
+    max-width: 480px;
+    width: 50vw;
+    min-width: 300px;
+    height: 680px;
     padding: 30px;
+    border-radius: 30px;
 }
+
 .login-header{
     text-align: center;
     margin: 20px 0 40px 0;
-}
-.login-header{
     color: #333;
     font-size: 30px;
     font-weight: 600;
@@ -36,6 +40,7 @@
 
 .input-submit{
     position: relative;
+
 }
 .submit-btn{
     width: 100%;
@@ -90,7 +95,7 @@ section{
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #555;
+    color: #222;
 }
 #remember{
     margin-right: 10px;
@@ -126,4 +131,14 @@ section{
 .alert-danger {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+.App-header {
+    text-align: center;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: auto;
 }

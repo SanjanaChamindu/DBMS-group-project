@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaBell } from 'react-icons/fa';
 import styled from 'styled-components';
 
@@ -54,20 +54,20 @@ const NotificationBell = ({ notificationList }) => {
         setBellIcon(!bellIcon);
     };
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            console.log('clicked outside');
-            if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-                setBellIcon(false);
-            }
-        };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         console.log('clicked outside');
+    //         if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+    //             setBellIcon(false);
+    //         }
+    //     };
 
-        document.addEventListener('click', handleClickOutside);
+    //     document.addEventListener('click', handleClickOutside);
 
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
-    }, []);
+    //     return () => {
+    //         document.removeEventListener('click', handleClickOutside);
+    //     };
+    // }, []);
 
     return (
         <Container>

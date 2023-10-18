@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import 'font-awesome/css/font-awesome.css';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

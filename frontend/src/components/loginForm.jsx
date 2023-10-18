@@ -21,17 +21,19 @@ class LoginForm extends Form {
 
     render() {
         return (
-            <div className='login-box'>
-                <div className='company-heading'>
-                    JUPITER APPARELS
-                </div>
+            <div className='app-header'>
+                <div className='login-box'>
+                    <div className='company-heading'>
+                        JUPITER APPARELS
+                    </div>
 
-                <form onSubmit={this.handleSubmit}>                     {/*raise an event when the form is submitted, button was clicked*/}
-                    {this.renderInput("username", "Username", "text")}
-                    {this.renderInput("password", "Password", "password")}
-                    {this.renderCheck("remember", "Remember me")}      {/*render the checkbox in base form component*/}
-                    {this.renderButton("Login")}                        {/*render the button in base form component*/}
-                </form>
+                    <form onSubmit={this.handleSubmit}>                     {/*raise an event when the form is submitted, button was clicked*/}
+                        {this.renderInput("username", "Username", "text")}
+                        {this.renderInput("password", "Password", "password")}
+                        {this.renderCheck("remember", "Remember me")}      {/*render the checkbox in base form component*/}
+                        {this.renderButton("Login")}                        {/*render the button in base form component*/}
+                    </form>
+                </div>
             </div>
         );
     }
