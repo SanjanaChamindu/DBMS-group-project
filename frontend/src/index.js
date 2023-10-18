@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import 'font-awesome/css/font-awesome.css';
 import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-//import Sidebar from './components/Sidebar';
-import App from './App';
+import Sidebar from './components/Sidebar';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
       <StrictMode>
-        <App/>
+        <Sidebar/>
       </StrictMode>
     </BrowserRouter>
 );

@@ -5,6 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins',sans-serif;
+    z-index: 11;
 }
 .login-box {
     display: flex;
@@ -130,4 +131,14 @@ section{
 .alert-danger {
     background-color: #f8d7da;
     color: #721c24;
+}
+
+.App-header {
+    text-align: center;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    height: auto;
 }

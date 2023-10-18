@@ -19,7 +19,7 @@ import { SidebarData } from './sidebarData';
 import SubMenu from './subMenu';
 
 const Nav = styled.div`
-    background: #15171c;
+    background: #333;
     height: 80px;
     display: flex;
     justify-content: flex-start;
@@ -41,7 +41,7 @@ const NavIcon = styled(Link)`
 `;
 
 const SidebarNav = styled.nav`
-    background: #15171c;
+    background: #333;
     width: 300px;
     height: 100%;
     display: flex;
@@ -51,6 +51,7 @@ const SidebarNav = styled.nav`
     left: ${({ $sidebar }) => ($sidebar ? '0' : '-100%')};
     transition: 350ms;
     z-index: 10;
+    border-right: 1px solid #ccc; /* Add border style here */
 `;
 
 const SidebarWrap = styled.div`
