@@ -1,21 +1,24 @@
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
-import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import React, { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
 //import LoginForm from './components/loginForm';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./context/authContext";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 //Histrory object is created by BrowserRouter
 root.render(
-    <BrowserRouter>
+  <BrowserRouter>
+    <AuthContextProvider>
       <StrictMode>
-        <Sidebar/>
+        <Sidebar />
       </StrictMode>
-    </BrowserRouter>
+    </AuthContextProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
