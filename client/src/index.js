@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.min.js";
+// import "bootstrap/dist/js/bootstrap.min.js";
 import "font-awesome/css/font-awesome.css";
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
@@ -8,16 +8,17 @@ import Sidebar from "./components/Sidebar";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { AuthContextProvider } from "./context/authContext";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //Histrory object is created by BrowserRouter
 root.render(
   <BrowserRouter>
-    <AuthContextProvider>
-      <StrictMode>
-        <Sidebar />
-      </StrictMode>
-    </AuthContextProvider>
+    <StrictMode>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </StrictMode>
   </BrowserRouter>
 );
 

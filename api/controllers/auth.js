@@ -18,7 +18,7 @@ export const login = (req, res) => {
     // return res.json("Login success!");
 
     // Creating tokens
-    const token = jwt.sign({ user_id: data[0].user_id }, "secretkey");
+    const token = jwt.sign({ user_name: data[0].user_name }, "secretkey");
     const { password, ...others } = data[0]; // Sending other attributes of the user except the password
 
     res
