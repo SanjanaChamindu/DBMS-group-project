@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaBell } from 'react-icons/fa';
 import styled from 'styled-components';
+import { getNotifications } from '../services/fakeNotificationsSerivice';
 
 const Container = styled.div`
     position: relative;
@@ -22,6 +23,7 @@ const NotificationsContainer = styled.div`
     max-width: 400px;
     overflow-y: auto;
     max-height: 300px;
+
     @media (min-width: 768px) {
         max-width: 400px;
     }
@@ -32,46 +34,58 @@ const NotificationsContainer = styled.div`
 
     @media (min-width: 1440px) {
         max-width: 800px;
-    &::-webkit-scrollbar {
-        width: 5px;
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
     }
-    &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #888;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-        background: #555;
+
+    p {
+        margin: 8px 0; /* Added margin to separate notifications */
     }
 `;
 
-const NotificationBell = ({ notificationList }) => {
+const BellIcon = styled(FaBell)`
+    position: relative;
+    z-index: 1;
+`;
+
+const NotificationBell = () => {
     const [bellIcon, setBellIcon] = useState(false);
     const notificationsRef = useRef(null);
 
-    const showBellIcon = () => {
+    const showBellIcon = (event) => {
+        event.stopPropagation();
         setBellIcon(!bellIcon);
     };
 
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         console.log('clicked outside');
-    //         if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
-    //             setBellIcon(false);
-    //         }
-    //     };
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (notificationsRef.current && !notificationsRef.current.contains(event.target)) {
+                setBellIcon(false);
+            }
+        };
 
-    //     document.addEventListener('click', handleClickOutside);
+        document.addEventListener('click', handleClickOutside);
 
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside);
-    //     };
-    // }, []);
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    const notificationList = getNotifications();
 
     return (
         <Container>
-            <FaBell onClick={showBellIcon} size={24} />
+            <BellIcon onClick={showBellIcon} size={24} />
             <NotificationsContainer $bellIcon={bellIcon} ref={notificationsRef}>
                 {notificationList.map((notification, index) => (
                     <p key={index}>{notification}</p>

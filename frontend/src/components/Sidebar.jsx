@@ -21,6 +21,7 @@ import SubMenu from './subMenu';
 const Nav = styled.div`
     background: #333;
     height: 80px;
+    width: 100vw;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -29,6 +30,7 @@ const Nav = styled.div`
 const Content = styled.div`
     transition: margin-left 350ms;
     margin-left: ${({ $sidebar }) => ($sidebar ? '300px' : '0')}; /* Adjust the value based on your sidebar width */
+    height: 100vh; /* Added height to fill the screen */
 `;
 
 const NavIcon = styled(Link)`
@@ -48,7 +50,7 @@ const SidebarNav = styled.nav`
     justify-content: center;
     position: fixed;
     top: 0;
-    left: ${({ $sidebar }) => ($sidebar ? '0' : '-100%')};
+    left: ${({ $sidebar }) => ($sidebar ? '0' : '-300px')}; /* Adjust the value based on your sidebar width */
     transition: 350ms;
     z-index: 10;
     border-right: 1px solid #ccc; /* Add border style here */
@@ -67,10 +69,10 @@ const Sidebar = () => {
             <IconContext.Provider value={{ color: '#fff' }}>
                 <Nav>
                     <NavIcon to='#'>
-                        <FaBars onClick={showSidebar} />
+                        {sidebar ? <AiOutlineClose onClick={showSidebar} /> : <FaBars onClick={showSidebar} />}
                     </NavIcon>
                     <div style={{marginLeft: 'auto', marginRight: '2rem'}}>
-                        <NotificationBell notificationList={["Notification 1", "Notification 2", "Notification shsuih siudsd sbsidbs sbush",'Notification 4',"Notification 5","Notification 6"]} /> {/* need to pass notifications by props */}
+                        <NotificationBell/> {/* need to pass notifications by props */}
                     </div>
                 </Nav>
 
@@ -86,7 +88,7 @@ const Sidebar = () => {
                 </SidebarNav>
             </IconContext.Provider>
 
-            <Content $sidebar={sidebar}>
+            <Content $sidebar={sidebar} onClick={()=>setSidebar(false)}>
                 <Routes>
                     {/* Routes of the Navigation Sidebar */}
 
