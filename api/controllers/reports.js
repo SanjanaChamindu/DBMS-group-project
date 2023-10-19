@@ -89,17 +89,30 @@ export const editEmp = (req, res) => {
     db.query(q1, [req.params.id], (err, data1) => {
       console.log("Hello");
       if (err) return res.status(500).json(err);
-
+      // console.log(data1);
       const q2 = "SELECT user_name FROM employee where employee_id = ?";
 
       db.query(q2, [data1[0].supervisor_id], (err, data2) => {
         if (err) return res.status(500).json(err);
         if (data2[0].user_name === userInfo.user_name) {
-          const q3 = "SELECT * FROM employee where Employee_id = ?";
-          // return res.json(data2);
-          db.query(q3, [req.params.id], (err, data3) => {
+          const q3 =
+            "UPDATE `Employee`  SET `NIC`=?,`Full_Name`=?,`Gender`=?,`user_name`=?,`supervisor_id`=?,`job_title_id`=?,`department_id`=?,`employment_status`=?,`birth_day`=?,`marital_status`=? where Employee_id=?";
+          const values = [
+            req.body.NIC,
+            req.body.Full_Name,
+            req.body.Gender,
+            req.body.user_name,
+            req.body.supervisor_id,
+            req.body.job_title_id,
+            req.body.department_id,
+            req.body.employment_status,
+            req.body.birth_day,
+            req.body.marital_status,
+            req.params.id,
+          ];
+          db.query(q3, [...values], (err, data3) => {
             if (err) return res.status(500).json(err);
-            return res.json(data3);
+            return res.json("Post has been updated!");
           });
         } else
           return res
