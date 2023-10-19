@@ -1,0 +1,38 @@
+/* newEmployee.css */
+
+.employeeDetails {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+    
+    .employeeDetails form {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .employeeDetails input,
+    .employeeDetails select {
+        margin-bottom: 10px;
+        padding: 8px;
+        font-size: 16px;
+    }
+    
+    .employeeDetails button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .employeeDetails button:hover {
+        background-color: #0056b3;
+    }
+    

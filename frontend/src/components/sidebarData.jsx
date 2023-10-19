@@ -22,7 +22,6 @@ export const SidebarData = [
 
     {
         title: 'Employee details',
-        path: '/employee-details',
         icon: <BsPeopleFill />,
         iconClosed: <RiArrowDownSFill />,
         iconOpened: <RiArrowUpSFill />,
@@ -56,7 +55,6 @@ export const SidebarData = [
 
     {
         title: 'Reports',
-        path: '/reports',
         icon: <IoIosPaper />,
         iconClosed: <RiArrowDownSFill />,
         iconOpened: <RiArrowUpSFill />,
