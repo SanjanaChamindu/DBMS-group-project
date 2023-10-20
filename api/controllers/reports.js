@@ -1,5 +1,4 @@
 import { db } from "../db.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const getReport = (req, res) => {
@@ -9,12 +8,28 @@ export const getReport = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
     if (err) return res.status(403).json("Token is not valid!");
 
-    const q = "SELECT * FROM employee where user_name = ?";
-    console.log(userInfo.user_name);
+    const q = "SELECT employee_id, nic, full_name, gender, user_name, supervisor_id, job_title_id, department_id, employment_status, birth_day, marital_status FROM employee where user_name = ?";
 
     db.query(q, [userInfo.user_name], (err, data) => {
       if (err) return res.status(500).json(err);
-      return res.json(data);
+      
+      const q1 = "SELECT attribute_name FROM custum_attributes"
+            db.query(q1, (err, data1) => {
+                if (err) return res.status(500).json(err);
+                
+                const attribute_names = data1.map((item) => item.attribute_name);
+                const q2 = "SELECT " + attribute_names.join(", ") + " FROM employee where user_name = ?";
+                db.query(q2, [userInfo.user_name], (err, data2) => {
+                    if (err) return res.status(500).json(err);
+
+                    const q3 = "SELECT * FROM contact_details where employee_id = ?"
+                    db.query(q3, [data[0].employee_id], (err, data3) => {
+                        if (err) return res.status(500).json(err);
+                        const reportData = {data, data2, data3}
+                        return res.json(reportData);
+                    });
+                });
+            });
     });
   });
 };

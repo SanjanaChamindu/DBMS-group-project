@@ -46,12 +46,6 @@ export const requestLeave = (req, res) => {
                         db.query(q5, [[req.body.employee_id, req.body.date, req.body.description, req.body.leave_type]], (err, data5) => {
                             if (err) return res.status(500).json(err);
                             return res.json("Leave requested successfully!");
-                            
-                            // const q6 = `UPDATE leave_record SET ${leave_taken_column} = ${data4[0][leave_taken_column] + 1} WHERE Employee_id = ?`;
-                            // db.query(q6, [req.body.employee_id], (err, data6) => {
-                            //     if (err) return res.status(500).json(err);
-                            //     return res.json("Leave requested successfully!");
-                            // });
                         });
                     });
                 });
