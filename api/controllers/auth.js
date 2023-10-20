@@ -16,15 +16,21 @@ export const login = (req, res) => {
     if (!isPasswordCorrect)
       return res.status(400).json("Wrong password or username");
     // return res.json("Login success!");
+    
+    const q2 = "SELECT employee_id FROM employee WHERE user_name = ?"
+    db.query(q2, [req.body.user_name], (err, data2) => {
+      if (err) return res.status(500).json(err);
+      
 
     // Creating tokens
-    const token = jwt.sign({ user_name: data[0].user_name }, "secretkey");
-    const { password, ...others } = data[0]; // Sending other attributes of the user except the password
+      const token = jwt.sign({ user_name: data[0].user_name, permission_level_id: data[0].permission_level_id, employee_id: data2[0].employee_id }, "secretkey");
+      const { password, ...others } = data[0]; // Sending other attributes of the user except the password
 
-    res
-      .cookie("access_token", token, { httpOnly: true }) // httpOnly is used to prevent client-side script from accessing the cookie
-      .status(200)
-      .json(data[0]);
+      res
+        .cookie("access_token", token, { httpOnly: true }) // httpOnly is used to prevent client-side script from accessing the cookie
+        .status(200)
+        .json(data[0]);
+    });
   });
 };
 
