@@ -18,7 +18,7 @@ const NotificationsContainer = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     border: 1px solid #ccc;
     padding: 10px;
-    z-index: 100;
+    z-index: 100000;
     display: ${({ $bellIcon }) => ($bellIcon ? 'block' : 'none')};
     max-width: 400px;
     overflow-y: auto;

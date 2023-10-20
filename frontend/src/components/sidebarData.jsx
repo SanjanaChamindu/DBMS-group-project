@@ -87,7 +87,7 @@ export const SidebarData = [
 
     {
         title: 'Log out',   //todo //handle logout
-        path: '/dashboard/login',
+        path: '/dashboard/logout',
         icon: <BiLogOut />
     }
 ];

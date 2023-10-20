@@ -1,45 +1,77 @@
-import Joi from "joi-browser";
-import React from "react";
-import Form from "./common/form";
-import "./loginForm.css";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
+import "./loginForm.css"; // Import your CSS file.
 
-class LoginForm extends Form {
-  state = {
-    // state object, stores data that the component needs
-    data: { username: "", password: "", remember: false },
-    errors: {},
+const Login = () => {
+  const [inputs, setInputs] = useState({
+    user_name: "", // Changed from "username"
+    password: "",
+    remember: false,
+  });
+  const [err, setError] = useState(null);
+
+  const navigate = useNavigate();
+
+  const { login } = useContext(AuthContext);
+
+  const handleChange = (e) => {
+    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  schema = {
-    // schema object, from joi-browser
-    username: Joi.string().required().label("Username"), // label is used to display the name of the field in the error message
-    password: Joi.string().required().label("Password").min(7), // min is used to set the minimum length of the password
-    remember: Joi.boolean().label("Remember Me"),
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await login(inputs);
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.response.data);
+    }
   };
-
-  doSubmit = () => {
-    // Call the server
-    console.log("Submitted");
-  };
-
-  render() {
-    return (
+  return (
+    <div className="App-header">
       <div className="login-box">
         <div className="company-heading">JUPITER APPARELS</div>
-
-        <form onSubmit={this.handleSubmit}>
-          {" "}
-          {/*raise an event when the form is submitted, button was clicked*/}
-          {this.renderInput("username", "Username", "text")}
-          {this.renderInput("password", "Password", "password")}
-          {this.renderCheck("remember", "Remember me")}{" "}
-          {/*render the checkbox in base form component*/}
-          {this.renderButton("Login")}{" "}
-          {/*render the button in base form component*/}
+        <h1 className="login-header">Login</h1>
+        <form>
+          <input
+            required
+            className="input-field"
+            type="text"
+            placeholder="User Name"
+            name="user_name"
+            onChange={handleChange}
+          />
+          <input
+            required
+            className="input-field"
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={handleChange}
+          />
+          <div className="input-submit">
+            <button className="submit-btn" onClick={handleSubmit}>
+              Login
+            </button>
+          </div>
+          {err && <p className="alert alert-danger">{err}</p>}
+          <div className="remember">
+            <section>
+              <input
+                type="checkbox"
+                id="remember"
+                name="remember"
+                onChange={handleChange}
+              />
+              <label htmlFor="remember">Remember me</label>
+            </section>
+            <Link to="/register">Don't you have an account? Register</Link>
+          </div>
         </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default LoginForm;
+export default Login;

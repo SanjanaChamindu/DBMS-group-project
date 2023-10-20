@@ -4,7 +4,7 @@ import "font-awesome/css/font-awesome.css";
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import App from "./App";
 import { AuthContextProvider } from "./context/authContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -15,7 +15,7 @@ root.render(
   <BrowserRouter>
     <AuthContextProvider>
       <StrictMode>
-        <Sidebar/>
+        <App/>
       </StrictMode>
     </AuthContextProvider>
   </BrowserRouter>
