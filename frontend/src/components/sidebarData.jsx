@@ -10,13 +10,13 @@ import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
 export const SidebarData = [
     {
         title: 'Profile',
-        path: '/profile',
+        path: '/dashboard/profile',
         icon: <CgProfile />
     },
 
     {
         title: 'Leaves',
-        path: '/leaves',
+        path: '/dashboard/leaves',
         icon: <FaEnvelopeOpenText />
     },
 
@@ -29,19 +29,19 @@ export const SidebarData = [
         subNav: [
             {
                 title: 'View all employees',
-                path: '/employee-details/view-all-employees',
+                path: '/dashboard/employee-details/view-all-employees',
                 icon: <MdPeopleAlt />,
                 cName: 'sub-nav'
             },
             {
                 title: 'View subordinates',
-                path: '/employee-details/view-subordinates',
+                path: '/dashboard/employee-details/view-subordinates',
                 icon: <MdPeople />,
                 cName: 'sub-nav'
             },
             {
                 title: 'Add new employee',
-                path: '/employee-details/add-new-employee',
+                path: '/dashboard/employee-details/add-new-employee',
                 icon: <MdPeopleOutline />
             }
         ]
@@ -49,7 +49,7 @@ export const SidebarData = [
 
     {
         title: 'Absence functions',
-        path: '/abs-func',
+        path: '/dashboard/abs-func',
         icon: <BsFiles />
     },
 
@@ -62,24 +62,24 @@ export const SidebarData = [
         subNav: [
             {
                 title: 'Employees by department',
-                path: '/reports/employees-by-dept',
+                path: '/dashboard/reports/employees-by-dept',
                 icon: <BiSolidReport />,
                 cName: 'sub-nav'
             },
             {
                 title: 'Leaves by department',
-                path: '/reports/leaves-by-dept',
+                path: '/dashboard/reports/leaves-by-dept',
                 icon: <BiSolidReport />,
                 cName: 'sub-nav'
             },
             {
                 title: 'Employee reports',
-                path: '/reports/emplyee-reports',
+                path: '/dashboard/reports/emplyee-reports',
                 icon: <BiSolidReport />
             },
             {
                 title: 'Custom report',
-                path: '/reports/custom-report',
+                path: '/dashboard/reports/custom-report',
                 icon: <BiSolidReport />
             }
         ]
@@ -87,7 +87,7 @@ export const SidebarData = [
 
     {
         title: 'Log out',   //todo //handle logout
-        path: '/login',
+        path: '/dashboard/login',
         icon: <BiLogOut />
     }
 ];

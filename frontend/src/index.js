@@ -5,9 +5,9 @@ import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
+import { AuthContextProvider } from "./context/authContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { AuthContextProvider } from "./context/authContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //Histrory object is created by BrowserRouter
@@ -15,7 +15,7 @@ root.render(
   <BrowserRouter>
     <AuthContextProvider>
       <StrictMode>
-        <Sidebar />
+        <Sidebar/>
       </StrictMode>
     </AuthContextProvider>
   </BrowserRouter>

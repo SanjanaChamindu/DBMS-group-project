@@ -18,7 +18,7 @@ class Pagination extends Component {
 
         return (
             <li key={page} className={paginationClass}>
-                <a className='page-link' onClick={() => this.props.pageChange(page)}>{page}</a>
+                <a href="#" className='page-link' onClick={() => this.props.pageChange(page)}>{page}</a>
             </li>
         );
     }

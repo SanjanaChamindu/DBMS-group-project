@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaBars } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
-import { Link, Navigate, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
@@ -92,25 +92,24 @@ const Sidebar = () => {
                 <Routes>
                     {/* Routes of the Navigation Sidebar */}
 
-                    <Route path='/profile' element={<Profile/>} />
+                    <Route path='/dashboard/profile' element={<Profile/>} />
 
-                    <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
-                    <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
-                    <Route path='/reports/empolyee-reports' element={<EmployeeReports/>} />
-                    <Route path='/reports/custom-report' element={<CustomReport/>} />
+                    <Route path="/dashboard" element={<h1>Login</h1>} />
+                    <Route path='/dashboard/reports/employees-by-dept' element={<EmployeeByDept/>} />
+                    <Route path='/dashboard/reports/leaves-by-dept' element={<LeavesByDept/>} />
+                    <Route path='/dashboard/reports/employee-reports' element={<EmployeeReports/>} />
+                    <Route path='/dashboard/reports/custom-report' element={<CustomReport/>} />
                     {/* <Route path='/reports' element={<Reports/>} /> */}
 
-                    <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
-                    <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
-                    <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
+                    <Route path='/dashboard/employee-details/view-subordinates' element={<Subordinates/>} />
+                    <Route path='/dashboard/employee-details/view-all-employees' element={<AllEmployees/>} />
+                    <Route path='/dashboard/employee-details/add-new-employee' element={<NewEmployee/>} />
                     {/* <Route path='/employee-details' element={<EmployeeDetails/>} /> */}
 
-                    <Route path='/abs-func' element={<AbsenceFunc/>} />
-                    <Route path='/leaves' element={<Leaves/>} />
+                    <Route path='/dashboard/abs-func' element={<AbsenceFunc/>} />
+                    <Route path='/dashboard/leaves' element={<Leaves/>} />
 
-                    <Route path="/not-found" element={<h1>Page Not Found</h1>}/>
-                    <Route path="/" element={<h1>Login</h1>} />
-                    <Route path="*" element={<Navigate to="/not-found" />} />
+                    <Route path="/dashboard/not-found" element={<h1>Page Not Found</h1>}/>
                 </Routes>
             </Content>
         </React.Fragment>

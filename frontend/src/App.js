@@ -13,7 +13,7 @@ function App() {
             <Route path="/dashboard" element={<Sidebar/>} /> {/*sidebar component*/}
             <Route path="/not-found" element={<h1>Page Not Found</h1>} />
             <Route path="/" element={<Navigate to="/login" />} />
-            <Route path="*" element={<Navigate to="/not-found" />} /> {/*navigate to not-found page if no path is specified*/}
+            {/* <Route path="*" element={<Navigate to="/not-found" />} /> navigate to not-found page if no path is specified */}
         </Routes>                                                     {/*do not need to use Switch component*/}
       </div>
     </div>
