@@ -13,9 +13,8 @@ const Login = () => {
   });
   const [err, setError] = useState(null);
 
-  const navigate = useNavigate();
-
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,7 +24,9 @@ const Login = () => {
     e.preventDefault();
     try {
       await login(inputs);
-      navigate("/");
+      console.log("I'm here in handleSubmit");
+      navigate("/dashboard");
+      console.log("I'm here after dashbaord");
     } catch (err) {
       setError(err.response.data);
     }
