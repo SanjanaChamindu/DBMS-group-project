@@ -100,12 +100,12 @@ export default function ProfilePage() {
   };
 
   return (
-    <section style={{ backgroundColor: '#f5f5f5', padding: '50px 0' }}>
+    <section style={{ backgroundColor: '#f5f5f5', padding: '50px 0', zIndex: 1 }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-4">
             <div className="card mb-4">
-              <div className="card-body text-center">
+              <div className="cards-body text-center" style={{zIndex:1}} >
                 <img
                   src={profilePicture}
                   alt="avatar"

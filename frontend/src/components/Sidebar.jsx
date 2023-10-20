@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaBars } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Link, Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthContext } from '../context/authContext';
 import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
 import CustomReport from '../pages/customReport';
@@ -109,8 +110,9 @@ const Sidebar = () => {
 
                     <Route path='/abs-func' element={<AbsenceFunc/>} />
                     <Route path='/leaves' element={<Leaves/>} />
+                    <Route path="/logout" element={<Logout />} />
 
-                    <Route path="/" element={<Navigate to="/dashboard/profile" />} />
+                    <Route path="/" element={<Navigate to="/dashboard/profile"/>} />
                     <Route path="*" element={<h1>Page Not Found</h1>}/>
                 </Routes>
             </Content>
@@ -119,3 +121,13 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+const Logout = () => {
+    const { logout: logoutFunc } = useContext(AuthContext);
+
+    useEffect(() => {
+        logoutFunc();
+    }, [logoutFunc]);
+
+    return <Navigate to="/login" />;
+}

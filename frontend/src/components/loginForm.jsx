@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import "./loginForm.css"; // Import your CSS file.
 
@@ -32,29 +32,64 @@ const Login = () => {
     <div className="App-header">
       <div className="login-box">
         <div className="company-heading">JUPITER APPARELS</div>
-        <h1 className="login-header">Login</h1>
         <form>
-          <input
-            required
-            className="input-field"
-            type="text"
-            placeholder="User Name"
-            name="user_name"
-            onChange={handleChange}
-          />
-          <input
-            required
-            className="input-field"
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-          />
+          {/* <div>
+            <input
+              required
+              className="input-field"
+              type="text"
+              placeholder="User Name"
+              name="user_name"
+              onChange={handleChange}
+            />
+          </div> */}
+
+          
+          <div className="input-box">
+            <input
+                  type="text"
+                  required
+                  name="user_name"
+                  id="user_name"
+                  placeholder="User Name"
+                  autoFocus       //can type in the input field without clicking on it
+                  autoComplete="off"
+                  className="input-field"
+                  onChange={handleChange}
+              />
+            </div>
+
+          {/* <div>
+            <input
+              required
+              className="input-field"
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+            />
+            
+          </div> */}
+
+          <div className="input-box">
+            <input
+                  type="password"
+                  required
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  autoFocus       //can type in the input field without clicking on it
+                  autoComplete="off"
+                  className="input-field"
+                  onChange={handleChange}
+              />
+            </div>
+
           <div className="input-submit">
-            <button className="submit-btn" onClick={handleSubmit}>
-              Login
-            </button>
+                <button className="submit-btn" id="submit" onClick={handleSubmit}/>
+                <label htmlFor="submit">Login</label>
           </div>
+
           {err && <p className="alert alert-danger">{err}</p>}
           <div className="remember">
             <section>
@@ -66,7 +101,6 @@ const Login = () => {
               />
               <label htmlFor="remember">Remember me</label>
             </section>
-            <Link to="/register">Don't you have an account? Register</Link>
           </div>
         </form>
       </div>

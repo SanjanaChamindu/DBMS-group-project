@@ -1,5 +1,5 @@
 import Joi from 'joi-browser';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import Input from './input';
 
 class Form extends Component {
@@ -28,6 +28,7 @@ class Form extends Component {
     };
 
     handleSubmit = e => {
+        console.log('Submitted');
         e.preventDefault();
     
         const errors = this.validate();
@@ -75,18 +76,20 @@ class Form extends Component {
         );
     };
 
-    renderButton(label) {                           // render the button in extended component
+    renderButton(label) {
         return (
             <div className="input-submit">
-                <button disabled={this.validate()} className="submit-btn" id="submit"/>
-                <label htmlFor="submit">{label}</label>
+                <button className="submit-btn" id="submit">{label}</button>
             </div>
         );
-    };
+    }
+    
 
     renderInput(name, label, type = "text") {       // render the input in field extended component
         const { data, errors } = this.state;
         return (
+            <div>
+            <label htmlFor={name}>{label}</label>
             <Input
                 type={type}
                 name={name}
@@ -95,8 +98,36 @@ class Form extends Component {
                 onChange={this.handleChange}        //raise an event when the value of the input field changes
                 error={errors[name]}
             />
+            </div>
         );
     }
+
+    renderDropdown(name, label, options) {
+        const { data, errors } = this.state;
+
+        return (
+            <div className="form-group">
+                <label htmlFor={name}>{label}</label>
+                <select
+                    id={name}
+                    name={name}
+                    value={data[name]}
+                    onChange={this.handleChange}
+                    className="form-control"
+                >
+                    {options.map(option => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+                {errors[name] && (
+                    <div className="alert alert-danger">{errors[name]}</div>
+                )}
+            </div>
+        );
+    }
+
 }
 
 export default Form;
