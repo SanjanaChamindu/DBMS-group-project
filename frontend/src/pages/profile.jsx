@@ -100,7 +100,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <section style={{ backgroundColor: '#f5f5f5', padding: '50px 0', zIndex: 1 }}>
+    <section style={{ backgroundColor: 'none', padding: '50px 0', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <div className="container">
         <div className="row">
           <div className="col-lg-4">

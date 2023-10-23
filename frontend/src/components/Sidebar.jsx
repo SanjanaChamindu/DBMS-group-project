@@ -36,6 +36,8 @@ const Content = styled.div`
     margin-top: 80px; /* Add this line to create space below the fixed nav bar */
     height: calc(100vh - 80px); /* Adjust the height to fill the remaining space */
     overflow-y: auto; /* Add this line to enable scrolling if content overflows */
+    align-items: center;
+    justify-content: center;
 `;
 
 

@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import Pagination from '../components/common/pagination';
 import { getSubordinates } from '../services/fakeSubordinateService';
 import { paginate } from '../utils/paginate';
@@ -34,6 +35,11 @@ class Subordinates extends Component {
         console.log("viewing",employee);
     }
 
+    handleEdit=(employee)=>{
+        //to the edit employee page
+        console.log("editing",employee);
+    }
+
     renderSortIcon=(column)=>{
         console.log("rendering sort icon"	)
         if(column !== this.state.sortColumn.path) return null;
@@ -59,6 +65,7 @@ class Subordinates extends Component {
                                 <th className='clickable' onClick={()=>this.handleSort("employee_id")}>Employee ID {this.renderSortIcon("employee_id")}</th>
                                 <th className='clickable' onClick={()=>this.handleSort("employee_name")}>Name {this.renderSortIcon("employee_name")}</th>
                                 <th className='clickable' onClick={()=>this.handleSort("job_title")}>Job Title {this.renderSortIcon("job_title")}</th>
+                                <th/>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +74,9 @@ class Subordinates extends Component {
                                 <td>{employee.employee_id}</td>
                                 <td>{employee.employee_name}</td>
                                 <td>{employee.job_title}</td>
+                                <td>
+                                    <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => this.handleEdit(employee)}>Edit</Button>{' '}
+                                </td>
                             </tr>
                             ))}
                         </tbody>
