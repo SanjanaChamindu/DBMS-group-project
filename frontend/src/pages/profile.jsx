@@ -156,7 +156,7 @@ export default function ProfilePage() {
                 {/* Basic Details Section */}
                 <div className="card mb-4">
                   <div className="card-body">
-                    <h3 className="card-title">Basic Details</h3>
+                    <h3 className="card-title" style={{ marginBottom: '10px' }}>Basic Details</h3>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
                         <p className="font-weight-bold">Full Name:</p>
@@ -367,7 +367,7 @@ export default function ProfilePage() {
                 {/* Contact Details Section */}
                 <div className="card mb-4">
                   <div className="card-body">
-                    <h3 className="card-title">Contact Details</h3>
+                    <h3 className="card-title" style={{ marginBottom: '10px' }}>Contact Details</h3>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
                         <p className="font-weight-bold">Personal Address:</p>
@@ -442,91 +442,112 @@ export default function ProfilePage() {
                 {/* Emergency Contacts Section */}
                 <div className="card">
                   <div className="card-body">
-                    <h3 className="card-title">Emergency Contacts</h3>
-                    <div className="row" style={{ marginBottom: '10px' }}>
-                      <div className="col-md-4">
-                        <p className="font-weight-bold">Emergency Contact 1:</p>
-                      </div>
-                      <div className="col-md-8">
-                        {isEditing ? (
-                          <>
-                            <input
-                              type="text"
-                              className="form-control mb-1"
-                              placeholder="Name"
-                              value={emergencyContact1.name}
-                              onChange={(e) => setEmergencyContact1({ ...emergencyContact1, name: e.target.value })}
-                            />
-                            <input
-                              type="text"
-                              className="form-control mb-1"
-                              placeholder="Phone Number"
-                              value={emergencyContact1.phoneNumber}
-                              onChange={(e) =>
-                                setEmergencyContact1({ ...emergencyContact1, phoneNumber: e.target.value })
-                              }
-                            />
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Relation"
-                              value={emergencyContact1.relation}
-                              onChange={(e) =>
-                                setEmergencyContact1({ ...emergencyContact1, relation: e.target.value })
-                              }
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <p>{emergencyContact1.name}</p>
-                            <p>{emergencyContact1.phoneNumber}</p>
-                            <p>{emergencyContact1.relation}</p>
-                          </>
-                        )}
-                      </div>
-                    </div>
+                    <h3 className="card-title" style={{ marginBottom: '10px' }}>Emergency Contacts</h3>
                     <div className="row">
-                      <div className="col-md-4">
-                        <p className="font-weight-bold">Emergency Contact 2:</p>
-                      </div>
-                      <div className="col-md-8">
-                        {isEditing ? (
-                          <>
-                            <input
-                              type="text"
-                              className="form-control mb-1"
-                              placeholder="Name"
-                              value={emergencyContact2.name}
-                              onChange={(e) => setEmergencyContact2({ ...emergencyContact2, name: e.target.value })}
-                            />
-                            <input
-                              type="text"
-                              className="form-control mb-1"
-                              placeholder="Phone Number"
-                              value={emergencyContact2.phoneNumber}
-                              onChange={(e) =>
-                                setEmergencyContact2({ ...emergencyContact2, phoneNumber: e.target.value })
-                              }
-                            />
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Relation"
-                              value={emergencyContact2.relation}
-                              onChange={(e) =>
-                                setEmergencyContact2({ ...emergencyContact2, relation: e.target.value })
-                              }
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <p>{emergencyContact2.name}</p>
-                            <p>{emergencyContact2.phoneNumber}</p>
-                            <p>{emergencyContact2.relation}</p>
-                          </>
-                        )}
-                      </div>
-                    </div>
+  <div className="col-md-6">
+    <p className="font-weight-bold">Emergency Contact 1:</p>
+    {isEditing ? (
+      <div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Name:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Name"
+            value={emergencyContact1.name}
+            onChange={(e) => setEmergencyContact1({ ...emergencyContact1, name: e.target.value })}
+          />
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Phone Number:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Phone Number"
+            value={emergencyContact1.phoneNumber}
+            onChange={(e) => setEmergencyContact1({ ...emergencyContact1, phoneNumber: e.target.value })}
+          />
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Relation:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Relation"
+            value={emergencyContact1.relation}
+            onChange={(e) => setEmergencyContact1({ ...emergencyContact1, relation: e.target.value })}
+          />
+        </div>
+      </div>
+    ) : (
+      <div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Name:</strong> {emergencyContact1.name}</label>
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Phone Number:</strong> {emergencyContact1.phoneNumber}</label>
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Relation:</strong> {emergencyContact1.relation}</label>
+        </div>
+      </div>
+    )}
+  </div>
+  <div className="col-md-6">
+    <p className="font-weight-bold">Emergency Contact 2:</p>
+    {isEditing ? (
+      <div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Name:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Name"
+            value={emergencyContact2.name}
+            onChange={(e) => setEmergencyContact2({ ...emergencyContact2, name: e.target.value })}
+          />
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Phone Number:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Phone Number"
+            value={emergencyContact2.phoneNumber}
+            onChange={(e) => setEmergencyContact2({ ...emergencyContact2, phoneNumber: e.target.value })}
+          />
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Relation:</strong></label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Relation"
+            value={emergencyContact2.relation}
+            onChange={(e) => setEmergencyContact2({ ...emergencyContact2, relation: e.target.value })}
+          />
+        </div>
+      </div>
+    ) : (
+      <div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Name:</strong> {emergencyContact2.name}</label>
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Phone Number:</strong> {emergencyContact2.phoneNumber}</label>
+        </div>
+        <div className="form-group" style={{ marginBottom: '10px' }}>
+          <label><strong>Relation:</strong> {emergencyContact2.relation}</label>
+        </div>
+      </div>
+    )}
+  </div>
+</div>
+
+
+
+
+
                   </div>
                 </div>
               </div>
