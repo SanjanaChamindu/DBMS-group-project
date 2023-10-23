@@ -6,7 +6,7 @@ class CustomReport extends Component {
         console.log('Reports/Custom Report');
         return (
             <div className='reports'>
-                <h1>Reports/Custom Report</h1>
+                <h1 className='paragraph'>Reports/Custom Report</h1>
             </div>
         );
     }

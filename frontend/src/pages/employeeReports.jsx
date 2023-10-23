@@ -6,7 +6,7 @@ class EmployeeReports extends Component {
         console.log('Reports/Employee Reports');
         return (
             <div className='reports'>
-                <h1>Reports/Employee reports</h1>
+                <h1 className='paragraph'>Reports/Employee reports</h1>
             </div>
         );
     }

@@ -74,7 +74,7 @@ export const SidebarData = [
             },
             {
                 title: 'Employee reports',
-                path: '/dashboard/reports/emplyee-reports',
+                path: '/dashboard/reports/employee-reports',
                 icon: <BiSolidReport />
             },
             {
