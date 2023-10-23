@@ -109,6 +109,7 @@ const Sidebar = () => {
                     <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
                     <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
                     <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
+                    <Route path="/viewEmployee/*" element={<viewEmployee />} />
 
                     <Route path='/abs-func' element={<AbsenceFunc/>} />
                     <Route path='/leaves' element={<Leaves/>} />

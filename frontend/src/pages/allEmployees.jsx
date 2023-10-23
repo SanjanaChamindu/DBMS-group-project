@@ -6,11 +6,10 @@ import Pagination from '../components/common/pagination';
 import { getEmployees } from '../services/fakeEmployeeService';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
-
 class AllEmployees extends Component {
     state = {
         employees: getEmployees(),
-        pageSize: 5,
+        pageSize: 14,
         currentPage: 1,
         sortColumn: {path: 'employee_id', order: 'asc'}
     }
@@ -45,7 +44,7 @@ class AllEmployees extends Component {
 
     handleEdit=(employee)=>{
         //to the edit employee page
-        console.log("editing",employee);
+        console.log("editinggggg",employee);
     }
 
     render() {
