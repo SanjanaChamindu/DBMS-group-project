@@ -30,6 +30,62 @@ export default function ProfilePage() {
     'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'
   );
 
+  // Custom Fields
+  const [customFields, setCustomFields] = useState([]);
+  const [newFieldLabel, setNewFieldLabel] = useState('');
+  const [newFieldValue, setNewFieldValue] = useState('');
+  const [addedCustomFields, setAddedCustomFields] = useState([]);
+
+  const handleAddCustomField = () => {
+    if (newFieldLabel && newFieldValue) {
+      const newField = { label: newFieldLabel, value: newFieldValue };
+      setAddedCustomFields([...addedCustomFields, newField]);
+      setNewFieldLabel('');
+      setNewFieldValue('');
+    }
+  };
+
+  const handleRemoveCustomField = (index) => {
+    const updatedFields = [...addedCustomFields];
+    updatedFields.splice(index, 1);
+    setAddedCustomFields(updatedFields);
+  };
+
+    // Iterate and render custom fields in the Basic Details section
+  const renderCustomFields = () => {
+    return addedCustomFields.map((field, index) => (
+      <div key={index} className="row" style={{ marginBottom: '10px' }}>
+        <div className="col-md-4">
+          <p className="font-weight-bold">{field.label}:</p>
+        </div>
+        <div className="col-md-8">
+          {isEditing ? (
+            <div className="d-flex">
+              <input
+                type="text"
+                className="form-control"
+                value={field.value}
+                onChange={(e) => {
+                  const updatedFields = [...addedCustomFields];
+                  updatedFields[index].value = e.target.value;
+                  setAddedCustomFields(updatedFields);
+                }}
+              />
+              <button
+                className="btn btn-danger ml-2"
+                onClick={() => handleRemoveCustomField(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <p>{field.value}</p>
+          )}
+        </div>
+      </div>
+    ));
+  };
+
   useEffect(() => {
     // Simulate an asynchronous API call with setTimeout
     setTimeout(() => {
@@ -52,11 +108,7 @@ export default function ProfilePage() {
         emailAddress: 'jsmith@example.com',
         emergencyContact1: { name: 'Emergency Contact 1', phoneNumber: '111-111-1111', relation: 'Spouse' },
         emergencyContact2: { name: 'Emergency Contact 2', phoneNumber: '222-222-2222', relation: 'Sibling' },
-        customFields: [
-          { label: 'Custom Field 1', value: 'Value 1' },
-          { label: 'Custom Field 2', value: 'Value 2' },
-          // Add more custom fields as needed
-        ],
+
         // profilePicture: 'URL_TO_YOUR_PROFILE_PICTURE',
       };
 
@@ -89,7 +141,9 @@ export default function ProfilePage() {
 
   const handleSaveClick = () => {
     setIsEditing(false);
-    // Implement code to save the updated details to your backend or state.
+
+    // Combine existing customFields and addedCustomFields and set it as the updated customFields state
+    setCustomFields([...addedCustomFields]);
   };
 
   const handleProfilePictureChange = (e) => {
@@ -361,8 +415,46 @@ export default function ProfilePage() {
                         )}
                       </div>
                     </div>
+
+                {/* Custom Fields Section */}
+                {renderCustomFields()}
+                {isEditing && (
+                  <div>
+                    <div className="form-group" style={{ marginBottom: '10px' }}>
+                      <label>
+                        <strong>New Field Label:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Label"
+                        value={newFieldLabel}
+                        onChange={(e) => setNewFieldLabel(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group" style={{ marginBottom: '10px' }}>
+                      <label>
+                        <strong>New Field Value:</strong>
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Value"
+                        value={newFieldValue}
+                        onChange={(e) => setNewFieldValue(e.target.value)}
+                      />
+                    </div>
+                    <button
+                      className="btn btn-primary"
+                      onClick={handleAddCustomField}
+                    >
+                      Add Custom Field
+                    </button>
                   </div>
-                </div>
+                )}
+              </div>
+            </div>
+
 
                 {/* Contact Details Section */}
                 <div className="card mb-4">
