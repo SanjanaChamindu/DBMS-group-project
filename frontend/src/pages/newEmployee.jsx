@@ -25,11 +25,6 @@
     // Custom Fields
     const [customFields, setCustomFields] = useState([]);
 
-    // Define profilePicture and handleProfilePictureChange
-    const [profilePicture, setProfilePicture] = useState(
-        'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'
-    );
-
     useEffect(() => {
         // Simulate an asynchronous API call with setTimeout
         setTimeout(() => {
@@ -79,19 +74,8 @@
         // Implement code to save the updated details to your backend or state.
     };
 
-    const handleProfilePictureChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            setProfilePicture(event.target.result);
-        };
-        reader.readAsDataURL(file);
-        }
-    };
-
     // Define the Profile component within the ProfilePage component
-    const Profile = () => {
+    const NewEmployee = () => {
         console.log('Profile');
         return (
         <div className='profile'>
@@ -368,7 +352,7 @@
             </div>
 
         {/* Render the Profile component within the ProfilePage component */}
-        <Profile />
+        <NewEmployee />
 
         </section>
     );

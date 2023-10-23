@@ -5,14 +5,15 @@ import { IconContext } from 'react-icons/lib';
 import { Link, Navigate, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import { AuthContext } from '../context/authContext';
+import Employee from '../pages/Employee';
 import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
 import CustomReport from '../pages/customReport';
 import EmployeeByDept from '../pages/employeeByDept';
 import EmployeeReports from '../pages/employeeReports';
-import Leaves from '../pages/leaves';
+import Leave from '../pages/leave';
 import LeavesByDept from '../pages/leavesByDept';
-import NewEmployee from '../pages/newEmpoyee';
+import NewEmployee from '../pages/newEmployee';
 import Profile from '../pages/profile';
 import Subordinates from '../pages/subordinates';
 import NotificationBell from './notifications';
@@ -109,10 +110,10 @@ const Sidebar = () => {
                     <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
                     <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
                     <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
-                    <Route path="/viewEmployee/*" element={<viewEmployee />} />
+                    <Route path="/Employee" element={<Employee/>} />
 
                     <Route path='/abs-func' element={<AbsenceFunc/>} />
-                    <Route path='/leaves' element={<Leaves/>} />
+                    <Route path='/leave' element={<Leave/>} />
                     <Route path="/logout" element={<Logout />} />
 
                     <Route path="/" element={<Navigate to="/dashboard/profile"/>} />

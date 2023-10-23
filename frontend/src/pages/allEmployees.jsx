@@ -1,95 +1,88 @@
-
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import Pagination from '../components/common/pagination';
 import { getEmployees } from '../services/fakeEmployeeService';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
-class AllEmployees extends Component {
-    state = {
+
+const AllEmployees = () => {
+    const navigate = useNavigate(); // Initialize navigate function
+
+    const [state, setState] = useState({
         employees: getEmployees(),
         pageSize: 14,
         currentPage: 1,
-        sortColumn: {path: 'employee_id', order: 'asc'}
+        sortColumn: { path: 'employee_id', order: 'asc' }
+    });
+
+    const handlePageChange = (page) => {
+        setState({ ...state, currentPage: page });
     }
 
-    handlePageChange=(page)=>{
-        this.setState({currentPage: page});
-    }
-
-    handleSort=(path)=>{
-        const sortColumn= {...this.state.sortColumn};
-        if(sortColumn.path === path)
-            sortColumn.order= (sortColumn.order === 'asc') ? 'desc' : 'asc';
-        else{
-            sortColumn.path= path;
-            sortColumn.order= 'asc';
+    const handleSort = (path) => {
+        const sortColumn = { ...state.sortColumn };
+        if (sortColumn.path === path)
+            sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        else {
+            sortColumn.path = path;
+            sortColumn.order = 'asc';
         }
-        this.setState({sortColumn});
+        setState({ ...state, sortColumn });
     }
 
-    viewEmployee=(employee)=>{
-        //to the employee details page
-        console.log("viewing",employee);
-    }
+    const viewEmployee = (employee, edit) => {
+        navigate(`/dashboard/Employee`, { state: { employee, edit } });
+    };
 
-    renderSortIcon=(column)=>{
-        console.log("rendering sort icon"	)
-        if(column !== this.state.sortColumn.path) return null;
-        console.log("rendering sort icon started"	)
-        if(this.state.sortColumn.order === 'asc') return <i className='fa fa-sort-asc'></i>;
+    const renderSortIcon = (column) => {
+        if (column !== state.sortColumn.path) return null;
+        if (state.sortColumn.order === 'asc') return <i className='fa fa-sort-asc'></i>;
         return <i className='fa fa-sort-desc'></i>;
     }
 
-    handleEdit=(employee)=>{
-        //to the edit employee page
-        console.log("editinggggg",employee);
-    }
+    const { length: count } = state.employees;
+    if (count === 0) return <p className='paragraph'>Add new employees to manage them</p>;
 
-    render() {
-        const { length: count } = this.state.employees;     //length property of the employees object is stored in count
-        if(count === 0) return <p>Add new employees to manage them</p>;
+    const sorted = _.orderBy(state.employees, [state.sortColumn.path], [state.sortColumn.order]);
+    const employeesInPage = paginate(sorted, state.currentPage, state.pageSize);
 
-        const sorted= _.orderBy(this.state.employees, [this.state.sortColumn.path], [this.state.sortColumn.order]);
-        const employeesInPage= paginate(sorted, this.state.currentPage, this.state.pageSize);
-
-        return (
-            <React.Fragment>
-                <p>Total employees : {count}</p>
-                <div className='table-container'>
-                    <table className='table'>
-                        <thead>
-                            <tr>
-                                <th className='clickable' onClick={()=>this.handleSort("employee_id")}>Employee ID {this.renderSortIcon("employee_id")}</th>
-                                <th className='clickable' onClick={()=>this.handleSort("employee_name")}>Name {this.renderSortIcon("employee_name")}</th>
-                                <th className='clickable' onClick={()=>this.handleSort("job_title")}>Job Title {this.renderSortIcon("job_title")}</th>
-                                <th/>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {employeesInPage.map(employee => (
-                            <tr onClick={() => this.viewEmployee(employee)} key={employee.employee_id}>
-                                <td>{employee.employee_id}</td>
-                                <td>{employee.employee_name}</td>
-                                <td>{employee.job_title}</td>
+    return (
+        <React.Fragment>
+            <p className='paragraph'>Total employees : {count}</p>
+            <div className='table-container'>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th className='clickable' onClick={() => handleSort("employee_id")}>Employee ID {renderSortIcon("employee_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("employee_name")}>Name {renderSortIcon("employee_name")}</th>
+                            <th className='clickable' onClick={() => handleSort("job_title")}>Job Title {renderSortIcon("job_title")}</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {employeesInPage.map(employee => (
+                            <tr key={employee.employee_id}>
+                                <td onClick={() => viewEmployee(employee,false)}>{employee.employee_id}</td>
+                                <td onClick={() => viewEmployee(employee,false)}>{employee.employee_name}</td>
+                                <td onClick={() => viewEmployee(employee,false)}>{employee.job_title}</td>
                                 <td>
-                                    <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => this.handleEdit(employee)}>Edit</Button>{' '}
+                                    <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => viewEmployee(employee,true)}>Edit</Button>{' '}
                                 </td>
                             </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                <Pagination className='pagination'
-                    itemsCount={count}
-                    pageChange={this.handlePageChange}
-                    pageSize={this.state.pageSize}
-                    currentPage={this.state.currentPage}
-                />
-            </React.Fragment>
-        );
-    }
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <Pagination className='pagination'
+                itemsCount={count}
+                pageChange={handlePageChange}
+                pageSize={state.pageSize}
+                currentPage={state.currentPage}
+            />
+        </React.Fragment>
+    );
 }
 
 export default AllEmployees;

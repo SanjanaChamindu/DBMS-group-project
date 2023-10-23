@@ -1,104 +1,90 @@
+import _ from 'lodash';
 import React, { useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { useTable } from 'react-table';
-
-const generateData = (start, length = 20) =>
-  Array.from({ length }).map((_, i) => ({
-    id: start + i,
-    typeOfLeaves: `Type ${i}`,
-    leavesTaken: i * 2,
-    leavesRemaining: 20 - i * 2,
-  }));
+import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Pagination from '../components/common/pagination';
+import { getLeaves } from '../services/fakeLeaveService';
+import { paginate } from '../utils/paginate';
+import './css/allEmployees.css';
 
 const AbsenceFunc = () => {
-  const [items, setItems] = useState(generateData(0));
+    const navigate = useNavigate(); // Initialize navigate function
 
-  const fetchMoreData = () => {
-    setTimeout(() => {
-      setItems((prevItems) => [
-        ...prevItems,
-        ...generateData(prevItems.length),
-      ]);
-    }, 1500);
-  };
+    const [state, setState] = useState({
+        leaves: getLeaves(),
+        pageSize: 14,
+        currentPage: 1,
+        sortColumn: { path: 'leave_id', order: 'asc' }
+    });
 
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'ID',
-        accessor: 'id',
-      },
-      {
-        Header: 'Type of Leaves',
-        accessor: 'typeOfLeaves',
-      },
-      {
-        Header: 'Leaves Taken',
-        accessor: 'leavesTaken',
-      },
-      {
-        Header: 'Leaves Remaining',
-        accessor: 'leavesRemaining',
-      },
-    ],
-    []
-  );
+    const handlePageChange = (page) => {
+        setState({ ...state, currentPage: page });
+    }
 
-  const tableInstance = useTable({ columns, data: items });
+    const handleSort = (path) => {
+        const sortColumn = { ...state.sortColumn };
+        if (sortColumn.path === path)
+            sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        else {
+            sortColumn.path = path;
+            sortColumn.order = 'asc';
+        }
+        setState({ ...state, sortColumn });
+    }
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    tableInstance;
+    const editLeave = (leave) => {
+        navigate(`/dashboard/leave`, { state: { leave} });
+    };
 
-  return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      ></div>
-      <div id='scrollableDiv' style={{ height: '80vh', overflow: 'auto' }}>
-        <InfiniteScroll
-          dataLength={items.length}
-          next={fetchMoreData}
-          hasMore={true}
-          scrollableTarget='scrollableDiv'
-        >
-          <table {...getTableProps()} className='table table-striped'>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
-                      {column.render('Header')}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row, i) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>
-                          {cell.render('Cell')}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </InfiniteScroll>
-      </div>
-    </div>
-  );
-};
+    const renderSortIcon = (column) => {
+        if (column !== state.sortColumn.path) return null;
+        if (state.sortColumn.order === 'asc') return <i className='fa fa-sort-asc'></i>;
+        return <i className='fa fa-sort-desc'></i>;
+    }
+
+    const { length: count } = state.leaves;
+    if (count === 0) return <p className='paragraph'>Add new leaves to manage them</p>;
+
+    const sorted = _.orderBy(state.leaves, [state.sortColumn.path], [state.sortColumn.order]);
+    const leavesInPage = paginate(sorted, state.currentPage, state.pageSize);
+
+    return (
+        <React.Fragment>
+            <p className='paragraph'>Total leaves : {count}</p>
+            <div className='table-container'>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th className='clickable' onClick={() => handleSort("leave_id")}>leave ID {renderSortIcon("leave_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type {renderSortIcon("leave_type")}</th>
+                            <th className='clickable' onClick={() => handleSort("taken")}>Leaves Taken {renderSortIcon("taken")}</th>
+                            <th className='clickable' onClick={() => handleSort("remaining")}>Leaves Taken {renderSortIcon("remaining")}</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {leavesInPage.map(leave => (
+                            <tr key={leave.leave_id}>
+                                <td >{leave.leave_id}</td>
+                                <td >{leave.leave_type}</td>
+                                <td >{leave.taken}</td>
+                                <td >{leave.remaining}</td>
+                                <td>
+                                    <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => editLeave(leave,true)}>Edit</Button>{' '}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <Pagination className='pagination'
+                itemsCount={count}
+                pageChange={handlePageChange}
+                pageSize={state.pageSize}
+                currentPage={state.currentPage}
+            />
+        </React.Fragment>
+    );
+}
 
 export default AbsenceFunc;

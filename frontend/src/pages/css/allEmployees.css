@@ -61,3 +61,13 @@
     margin-top: 30px;
     position: relative;
 }
+
+.paragraph{
+    color: #f2f2f2;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
