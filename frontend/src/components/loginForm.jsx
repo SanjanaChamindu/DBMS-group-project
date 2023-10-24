@@ -33,18 +33,6 @@ const Login = () => {
       <div className="login-box">
         <div className="company-heading">JUPITER APPARELS</div>
         <form>
-          {/* <div>
-            <input
-              required
-              className="input-field"
-              type="text"
-              placeholder="User Name"
-              name="user_name"
-              onChange={handleChange}
-            />
-          </div> */}
-
-          
           <div className="input-box">
             <input
                   type="text"
@@ -58,18 +46,6 @@ const Login = () => {
                   onChange={handleChange}
               />
             </div>
-
-          {/* <div>
-            <input
-              required
-              className="input-field"
-              type="password"
-              placeholder="Password"
-              name="password"
-              onChange={handleChange}
-            />
-            
-          </div> */}
 
           <div className="input-box">
             <input
