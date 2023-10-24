@@ -10,7 +10,7 @@ const EmployeeByDept = () => {
 
     return (
         <div className='reports'>
-            <h1 className='paragraph'>Reports/Employee by department</h1>
+            <h1 className='paragraph'>List Employee By Department</h1>
             <div className='dropdown'>
                 <DropdownMenu items={depts} path={`/dashboard/deptEmployees`} onSelect={setSelectedDept} />
             </div>
