@@ -1,10 +1,7 @@
 -- Creating database
 DROP DATABASE IF EXISTS hrms;
-
 CREATE DATABASE hrms;
-
 USE hrms;
-
 -- Creating tables
 CREATE TABLE `Organization` (
   `registration_id` char(10),
@@ -12,7 +9,6 @@ CREATE TABLE `Organization` (
   `address` varchar(50),
   PRIMARY KEY (`registration_id`)
 );
-
 CREATE TABLE `Department` (
   `department_id` char(10),
   `organization_id` char(10),
@@ -21,7 +17,6 @@ CREATE TABLE `Department` (
   `budget` float(2),
   PRIMARY KEY (`department_id`)
 );
-
 CREATE TABLE `Employee` (
   `Employee_id` char(10),
   `NIC` char(12),
@@ -37,7 +32,6 @@ CREATE TABLE `Employee` (
   `Nationality` varchar(15),
   PRIMARY KEY (`Employee_id`)
 );
-
 CREATE TABLE `Contact_details` (
   `Employee_id` char(10),
   `Primary_phone_number` varchar(20),
@@ -51,21 +45,18 @@ CREATE TABLE `Contact_details` (
   `Health_conditions` varchar(50),
   PRIMARY KEY (`Employee_id`)
 );
-
 CREATE TABLE `Job_title` (
   `job_title_id` char(10),
   `job_title_name` varchar(40),
   `paygrade_id` char(10),
   PRIMARY KEY (`job_title_id`)
 );
-
 CREATE TABLE `User` (
   `user_name` varchar(20),
   `password` varchar(255),
   `permission_level_id` char(10),
   PRIMARY KEY (`user_name`)
 );
-
 CREATE TABLE `Pay_grades` (
   `paygrade_id` char(10),
   `basic_salary` float(2),
@@ -76,7 +67,6 @@ CREATE TABLE `Pay_grades` (
   `number_of_no_pay_leaves` int,
   PRIMARY KEY (`paygrade_id`)
 );
-
 CREATE TABLE `Permission_level` (
   `permission_level_id` char(10),
   `view_information_access` boolean,
@@ -86,14 +76,12 @@ CREATE TABLE `Permission_level` (
   `add_atributes_access` boolean,
   PRIMARY KEY (`permission_level_id`)
 );
-
 CREATE TABLE `Leave_types` (
   `leave_type_id` char(10),
   `type_name` char(20),
   `description` char(100),
   PRIMARY KEY (`leave_type_id`)
 );
-
 CREATE TABLE `Leave_record` (
   `record_id` char(10),
   `employee_id` char(10),
@@ -101,7 +89,6 @@ CREATE TABLE `Leave_record` (
   `leaves_taken` int,
   PRIMARY KEY (`record_id`)
 );
-
 CREATE TABLE `Leave_request` (
   `leave_request_id` char(10),
   `record_id` char(10),
@@ -110,12 +97,9 @@ CREATE TABLE `Leave_request` (
   `supervisor_approval` boolean,
   PRIMARY KEY (`leave_request_id`)
 );
-
 -- Inserting data into the tables
-INSERT INTO
-  `Organization` (`registration_id`, `name`, `address`)
-VALUES
-  (
+INSERT INTO `Organization` (`registration_id`, `name`, `address`)
+VALUES (
     '3333300001',
     'Jupyter-Colombo Main',
     'No:72, 35th street, Colombo 0, Sri Lanka'
@@ -135,17 +119,14 @@ VALUES
     'Jupyter-Dhaka',
     'No:3, DPI Road, Dhaka, Bangladesh'
   );
-
-INSERT INTO
-  `Department` (
+INSERT INTO `Department` (
     `department_id`,
     `organization_id`,
     `hod_id`,
     `department_name`,
     `budget`
   )
-VALUES
-  (
+VALUES (
     '2505000001',
     '3333300001',
     '1820249322',
@@ -180,9 +161,7 @@ VALUES
     'Marketing',
     75000000.00
   );
-
-INSERT INTO
-  `Employee` (
+INSERT INTO `Employee` (
     `Employee_id`,
     `NIC`,
     `Full_Name`,
@@ -196,8 +175,7 @@ INSERT INTO
     `marital_status`,
     `Nationality`
   )
-VALUES
-  (
+VALUES (
     '1820232623',
     '195122656419',
     'Romonda Ferrara',
@@ -477,9 +455,7 @@ VALUES
     'Married',
     'SriLankan'
   );
-
-INSERT INTO
-  `Contact_details` (
+INSERT INTO `Contact_details` (
     `Employee_id`,
     `Primary_phone_number`,
     `Secondary_phone_number`,
@@ -491,8 +467,7 @@ INSERT INTO
     `Fathers_name`,
     `Health_conditions`
   )
-VALUES
-  (
+VALUES (
     '1820244756',
     '+55 876 524 1661',
     '+62 756 127 0619',
@@ -732,11 +707,8 @@ VALUES
     'Sherwynd',
     'Heart Condition'
   );
-
-INSERT INTO
-  `Job_title` (`job_title_id`, `job_title_name`, `paygrade_id`)
-VALUES
-  ('5535500001', 'HR Manager', '6743100000'),
+INSERT INTO `Job_title` (`job_title_id`, `job_title_name`, `paygrade_id`)
+VALUES ('5535500001', 'HR Manager', '6743100000'),
   (
     '5535500101',
     'Senior Software Engineer',
@@ -754,11 +726,8 @@ VALUES
   ('5535500301', 'Accountant', '6743100002'),
   ('5535500302', 'Junior Accountant', '6743100003'),
   ('5535500303', 'Intern Accountant', '6743100004');
-
-INSERT INTO
-  `User` (`user_name`, `password`, `permission_level_id`)
-VALUES -- Default password is "password"
-  (
+INSERT INTO `User` (`user_name`, `password`, `permission_level_id`)
+VALUES (
     'rferrarag',
     '$2a$10$RB.sBqP41fWQJwXVgFLtZ.0ogU4/VHkmxPl7uq67zhFovrjSbdZ1S',
     '8193600004'
@@ -858,9 +827,7 @@ VALUES -- Default password is "password"
     '$2a$10$RB.sBqP41fWQJwXVgFLtZ.0ogU4/VHkmxPl7uq67zhFovrjSbdZ1S',
     '8193600001'
   );
-
-INSERT INTO
-  `Pay_grades` (
+INSERT INTO `Pay_grades` (
     `paygrade_id`,
     `basic_salary`,
     `ot_benifits`,
@@ -869,15 +836,52 @@ INSERT INTO
     `number_of_maternity_leaves`,
     `number_of_no_pay_leaves`
   )
-VALUES
-  ('6743100000', '9000000', '5000000', 43, 34, 35, 40),
-  ('6743100001', '8000000', '4500000', 43, 33, 35, 40),
-  ('6743100002', '7000000', '4000000', 41, 33, 35, 45),
-  ('6743100003', '5000000', '3000000', 41, 33, 30, 45),
-  ('6743100004', '4000000', '2000000', 38, 30, 30, 45);
-
-INSERT INTO
-  `Permission_level` (
+VALUES (
+    '6743100000',
+    '9000000',
+    '5000000',
+    43,
+    34,
+    35,
+    40
+  ),
+  (
+    '6743100001',
+    '8000000',
+    '4500000',
+    43,
+    33,
+    35,
+    40
+  ),
+  (
+    '6743100002',
+    '7000000',
+    '4000000',
+    41,
+    33,
+    35,
+    45
+  ),
+  (
+    '6743100003',
+    '5000000',
+    '3000000',
+    41,
+    33,
+    30,
+    45
+  ),
+  (
+    '6743100004',
+    '4000000',
+    '2000000',
+    38,
+    30,
+    30,
+    45
+  );
+INSERT INTO `Permission_level` (
     `permission_level_id`,
     `view_information_access`,
     `edit_information_access`,
@@ -885,16 +889,12 @@ INSERT INTO
     `adding_employee_access`,
     `add_atributes_access`
   )
-VALUES
-  ('8193600001', false, false, false, false, false),
-  ('8193600002', TRUE, TRUE, false, false, false),
-  ('8193600003', TRUE, TRUE, TRUE, TRUE, false),
-  ('8193600004', TRUE, TRUE, TRUE, TRUE, TRUE);
-
-INSERT INTO
-  `Leave_types` (`leave_type_id`, `type_name`, `description`)
-VALUES
-  (
+VALUES ('8193600001', false, false, false, false, false),
+  ('8193600002', true, true, false, false, false),
+  ('8193600003', true, true, true, true, false),
+  ('8193600004', true, true, true, true, true);
+INSERT INTO `Leave_types` (`leave_type_id`, `type_name`, `description`)
+VALUES (
     '4234300001',
     'Annual',
     'Leave valid for 365 days from the date of approval'
@@ -914,16 +914,13 @@ VALUES
     'No-pay',
     'Indefinite leave without pay'
   );
-
-INSERT INTO
-  `Leave_record` (
+INSERT INTO `Leave_record` (
     `record_id`,
     `employee_id`,
     `leave_type_id`,
     `leaves_taken`
   )
-VALUES
-  ('6425300101', '1820244756', '4234300001', 0),
+VALUES ('6425300101', '1820244756', '4234300001', 0),
   ('6425300102', '1820244756', '4234300002', 0),
   ('6425300103', '1820244756', '4234300003', 0),
   ('6425300104', '1820244756', '4234300004', 0),
@@ -992,7 +989,7 @@ VALUES
   ('6425301703', '1820232623', '4234300003', 0),
   ('6425301704', '1820232623', '4234300004', 0),
   ('6425301801', '1820282383', '4234300001', 0),
-  ('6425301802', '1820282383', '4234300002', 1),
+  ('6425301802', '1820282383', '4234300002', 0),
   ('6425301803', '1820282383', '4234300003', 0),
   ('6425301804', '1820282383', '4234300004', 0),
   ('6425301901', '1820238098', '4234300001', 0),
@@ -1003,22 +1000,19 @@ VALUES
   ('6425302002', '1820280114', '4234300002', 0),
   ('6425302003', '1820280114', '4234300003', 0),
   ('6425302004', '1820280114', '4234300004', 0);
-
-INSERT INTO
-  `Leave_request` (
+INSERT INTO `Leave_request` (
     `leave_request_id`,
     `record_id`,
     `date`,
     `description`,
     `supervisor_approval`
   )
-VALUES
-  (
+VALUES (
     '6425301802',
     '6743100001',
     '2023-12-01',
     'Request for an annual leave, for a personal tax issue',
-    TRUE
+    true
   ),
   (
     '6425301701',
