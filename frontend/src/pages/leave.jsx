@@ -23,7 +23,7 @@ const Leave = () => {
     return (
         <React.Fragment>
             <div style={{ color: "#fff" }}>
-                <h1>Editing {storedLeave.leave_type}</h1>
+                <h1>Editing {storedLeave.paygrade_id}</h1>
             </div>
             <Link to="/dashboard/abs-func">
                 <Button>Back</Button>

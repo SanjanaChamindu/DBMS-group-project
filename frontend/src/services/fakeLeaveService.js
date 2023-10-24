@@ -1,93 +1,138 @@
 const leaves = [
     {
-            leave_id: 1,
-            leave_type: 'type1',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 2,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 2,
-            leave_type: 'type2',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 3,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 3,
-            leave_type: 'type3',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 13,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 4,
-            leave_type: 'type4',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 1,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 5,
-            leave_type: 'type5',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 4,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 6,
-            leave_type: 'type6',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 5,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 7,
-            leave_type: 'type7',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 6,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 8,
-            leave_type: 'type8',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 7,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 9,
-            leave_type: 'type9',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 8,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 10,
-            leave_type: 'type10',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 9,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 11,
-            leave_type: 'type11',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 10,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 12,
-            leave_type: 'type12',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 11,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 13,
-            leave_type: 'type13',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 12,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 14,
-            leave_type: 'type14',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 14,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         },
         {
-            leave_id: 15,
-            leave_type: 'type15',
-            taken: '9',
-            remaining: '10'
+            paygrade_id: 15,
+            basic_salary: 230000,
+            ot_benificts: 12,
+            number_of_annual_leaves: 14,
+            number_of_casual_leaves: 7,
+            number_of_maternity_leaves: 84,
+            number_of_no_pay_leaves: 10
         }
     ];
 

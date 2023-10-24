@@ -55,20 +55,26 @@ const AbsenceFunc = () => {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th className='clickable' onClick={() => handleSort("leave_id")}>leave ID {renderSortIcon("leave_id")}</th>
-                            <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type {renderSortIcon("leave_type")}</th>
-                            <th className='clickable' onClick={() => handleSort("taken")}>Leaves Taken {renderSortIcon("taken")}</th>
-                            <th className='clickable' onClick={() => handleSort("remaining")}>Leaves Taken {renderSortIcon("remaining")}</th>
+                            <th className='clickable' onClick={() => handleSort("paygrade_id")}>Pay Grade ID {renderSortIcon("paygrade_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("basic_salary")}>Basic Salary {renderSortIcon("basic_salary")}</th>
+                            <th className='clickable' onClick={() => handleSort("ot_benificts")}>OT Benificts {renderSortIcon("ot_benificts")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_annual_leaves")}>Annual Leaves {renderSortIcon("number_of_annual_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_casual_leaves")}>Casual Leaves {renderSortIcon("number_of_casual_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_maternity_leaves")}>Maternity Leaves {renderSortIcon("number_of_maternity_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_no_pay_leaves")}>No Pay Leaves {renderSortIcon("number_of_no_pay_leaves")}</th>
                             <th />
                         </tr>
                     </thead>
                     <tbody>
                         {leavesInPage.map(leave => (
-                            <tr key={leave.leave_id}>
-                                <td >{leave.leave_id}</td>
-                                <td >{leave.leave_type}</td>
-                                <td >{leave.taken}</td>
-                                <td >{leave.remaining}</td>
+                            <tr key={leave.paygrade_id}>
+                                <td >{leave.paygrade_id}</td>
+                                <td >{leave.basic_salary}</td>
+                                <td >{leave.ot_benificts}</td>
+                                <td >{leave.number_of_annual_leaves}</td>
+                                <td >{leave.number_of_casual_leaves}</td>
+                                <td >{leave.number_of_maternity_leaves}</td>
+                                <td >{leave.number_of_no_pay_leaves}</td>
                                 <td>
                                     <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => editLeave(leave,true)}>Edit</Button>{' '}
                                 </td>
