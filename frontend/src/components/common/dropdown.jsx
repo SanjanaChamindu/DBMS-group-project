@@ -4,7 +4,7 @@ import './dropdown.css';
 
 const DropdownMenu = (props) => {
     const navigate = useNavigate(); // Initialize navigate function
-    const { items } = props;
+    const { items,path } = props;
     const [selectedDept, setSelectedDept] = useState(null);
 
     const handleItemClick = (item) => {
@@ -14,7 +14,7 @@ const DropdownMenu = (props) => {
     const navigateTo = (item) => {
         if (!item) return;
         console.log("navigate called",item);
-        navigate(`/dashboard/deptEmployees`, { state: { item } });
+        navigate(path, { state: { item } });
     }
     
     return (
