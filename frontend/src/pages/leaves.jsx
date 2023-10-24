@@ -1,108 +1,89 @@
-import React, { Component } from "react";
+import _ from 'lodash';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import 'sweetalert2/dist/sweetalert2.js';
+import Pagination from '../components/common/pagination.jsx';
+import { getEmpLeaves } from '../services/leavesOfEmployee.js';
+import { paginate } from '../utils/paginate.js';
+import './css/allEmployees.css';
 
-import "./css/leaves.css";
+const Leaves = () => {
+    const navigate = useNavigate(); // Initialize navigate function
 
-/**
- * @typedef Leave
- * @prop {string} leave_id
- * @prop {Array<string>} dates
- * @prop {string} status
- */
+    const [state, setState] = useState({
+        leaves: getEmpLeaves(),
+        pageSize: 4,
+        currentPage: 1,
+        sortColumn: { path: 'leave_type_id', order: 'asc' }
+    });
 
-class Leaves extends Component {
-	state = {
-		/**
-		 * @type {Leave[]}
-		 */
-		leaves: [
-			{
-				leave_id: "leave_1",
-				dates: ["2023-10-01", "2023-10-02", "2023-10-03"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_2",
-				dates: ["2023-10-04", "2023-10-05", "2023-10-06"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_3",
-				dates: ["2023-10-07", "2023-10-08"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_4",
-				dates: ["2023-10-09", "2023-10-10", "2023-10-11"],
-				status: "Pending",
-			},
-			{
-				leave_id: "leave_5",
-				dates: ["2023-10-12", "2023-10-13"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_6",
-				dates: ["2023-10-14", "2023-10-15"],
-				status: "Pending",
-			},
-			{
-				leave_id: "leave_7",
-				dates: ["2023-10-16", "2023-10-17"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_8",
-				dates: ["2023-10-18", "2023-10-19", "2023-10-20"],
-				status: "Pending",
-			},
-			{
-				leave_id: "leave_9",
-				dates: ["2023-10-21"],
-				status: "Approved",
-			},
-			{
-				leave_id: "leave_10",
-				dates: ["2023-10-22", "2023-10-23", "2023-10-24"],
-				status: "Pending",
-			},
-		],
-	};
-	render() {
-		console.log("Leaves");
+    const handlePageChange = (page) => {
+        setState({ ...state, currentPage: page });
+    }
 
-		return (
-			<section className="leaves">
-				<h1>Leaves</h1>
-				<table
-					cellSpacing={10}
-					style={{
-						width: "100%",
-						border: "1px solid black",
-					}}
-				>
-					<thead>
-						<tr>
-							<th>Leave ID</th>
-							<th>Dates</th>
-							<th>Status</th>
-						</tr>
-					</thead>
-					{this.state.leaves.map((leaveObj) => {
-						return (
-							<tr>
-								<td>{leaveObj.leave_id}</td>
-								<td>{leaveObj.dates.join(", ")}</td>
-								<td>{leaveObj.status}</td>
-							</tr>
-						);
-					})}
-				</table>
-				<a href="/dashboard/leaves/new">
-					<button>Request new leave</button>
-				</a>
-			</section>
-		);
-	}
+    const handleSort = (path) => {
+        const sortColumn = { ...state.sortColumn };
+        if (sortColumn.path === path)
+            sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        else {
+            sortColumn.path = path;
+            sortColumn.order = 'asc';
+        }
+        setState({ ...state, sortColumn });
+    }
+
+    const renderSortIcon = (column) => {
+        if (column !== state.sortColumn.path) return null;
+        if (state.sortColumn.order === 'asc') return <i className='fa fa-sort-asc'></i>;
+        return <i className='fa fa-sort-desc'></i>;
+    }
+
+    const { length: count } = state.leaves;
+    if (count === 0) return <p className='paragraph'>You have got 0 leaves</p>;
+
+    const sorted = _.orderBy(state.leaves, [state.sortColumn.path], [state.sortColumn.order]);
+    const leavesInPage = paginate(sorted, state.currentPage, state.pageSize);
+
+    return (
+        <React.Fragment>
+            <p className='paragraph'>Past Leaves : {count}</p>
+
+            <div className='table-container'>
+                <div className='pagination'>
+                    <Link to="/dashboard/leave/new">
+                        <Button>Request a new leave</Button>
+                    </Link>
+                </div>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th className='clickable' onClick={() => handleSort("leave_type_id")}>Leave ID {renderSortIcon("leave_type_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type{renderSortIcon("leave_type")}</th>
+                            <th className='clickable' onClick={() => handleSort("dates")}>Dates{renderSortIcon("dates")}</th>
+                            <th className='clickable' onClick={() => handleSort("status")}>Status {renderSortIcon("status")}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {leavesInPage.map(leave => (
+                            <tr key={leave.leave_type_id}>
+                                <td >{leave.leave_type_id}</td>
+                                <td >{leave.leave_type}</td>
+                                <td >{leave.dates}</td>
+                                <td >{leave.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <Pagination className='pagination'
+                itemsCount={count}
+                pageChange={handlePageChange}
+                pageSize={state.pageSize}
+                currentPage={state.currentPage}
+            />
+        </React.Fragment>
+    );
 }
 
-export default Leaves;
+export default Leaves

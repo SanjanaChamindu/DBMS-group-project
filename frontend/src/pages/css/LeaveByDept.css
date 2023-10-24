@@ -54,6 +54,7 @@
 .btn-secondary {
     border-radius: 10px; /* Adding border radius to the button */
     padding: 20px 40px; /* Increase padding for larger button */
+    margin-top: 20px; /* Add some margin at the top of the button */
 }
 
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { BiLogOut, BiSolidReport } from 'react-icons/bi';
 import { BsFiles, BsPeopleFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
-import { FaEnvelopeOpenText } from 'react-icons/fa';
+import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import { MdPeople, MdPeopleAlt, MdPeopleOutline } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
@@ -12,6 +12,12 @@ export const SidebarData = [
         title: 'Profile',
         path: '/dashboard/profile',
         icon: <CgProfile />
+    },
+
+    {
+        title: 'Leave Requests',
+        path: '/dashboard/leave-requests',
+        icon: <FaRegHandPointRight/>
     },
 
     {

@@ -11,9 +11,7 @@ import { getLeaves } from '../services/fakeLeaveService';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
 
-//todo: all
-
-const AbsenceFunc = () => {
+const LeaveRequests = () => {
     const navigate = useNavigate(); // Initialize navigate function
 
     const [state, setState] = useState({
@@ -122,4 +120,4 @@ const AbsenceFunc = () => {
     );
 }
 
-export default AbsenceFunc;
+export default LeaveRequests;

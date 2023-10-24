@@ -4,28 +4,28 @@ import { Link, useLocation } from "react-router-dom";
 
 const DeptLeaves = () => {
     const location = useLocation();
-    let item;
+    let passingData;
     
     if (location.state) {
-        ({item} = location.state);
+        ({passingData} = location.state);
     }
 
     // Define a state to store the item
-    const [storedItem, setStoredItem] = useState(item);
+    const [storedItem, setStoredItem] = useState(passingData);
 
     useEffect(() => {
-        if (item) {
-            // If item is passed in location state, update setStoredItem
-            setStoredItem(item);
+        if (passingData) {
+            // If passingData is passed in location state, update setStoredItem
+            setStoredItem(passingData);
         }
-    }, [item]);
+    }, [passingData]);
 
     console.log("inside",storedItem);
 
     return (
         <React.Fragment>
             <div style={{ color: "#fff" }}>
-                <h1>Viewing Leaves of {storedItem.dept_name}</h1>
+                <h1>Viewing Leaves of {storedItem.selectedDept.dept_name} from {storedItem.selectedStart} to {storedItem.selectedEnd}</h1>
             </div>
             <Link to="/dashboard/reports/leaves-by-dept">
                 <Button>Back</Button>

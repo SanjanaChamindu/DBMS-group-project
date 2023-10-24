@@ -1,19 +1,67 @@
 import React, { useState } from 'react';
-import DropdownMenu from '../components/common/dropdown';
+import { useNavigate } from 'react-router-dom';
 import { getDepts } from '../services/fakeDeptService';
 import './css/LeaveByDept.css';
 
 const LeavesByDept = () => {
-    const [selectedDept, setSelectedDept] = useState(null); // Assuming you want to track the selected department
+    const navigate = useNavigate()
+    const [selectedDept, setSelectedDept] = useState(null);
+    const [selectedStart, setSelectedStart] = useState('');
+    const [selectedEnd, setSelectedEnd] = useState('');
 
-    const depts = getDepts(); // Assuming getDepts returns an array of department items
-    console.log(selectedDept);
+    const depts = getDepts();
+
+    const handleItemClick = (item) => {
+        setSelectedDept(item);
+    }
+
+    const handleStartDateChange = (event) => {
+        setSelectedStart(event.target.value);
+    }
+
+    const handleEndDateChange = (event) => {
+        setSelectedEnd(event.target.value);
+    }
+
+    const navigateTo = () => {
+        if (!selectedDept || !selectedStart || !selectedEnd) return;
+        let passingData={selectedDept, selectedStart, selectedEnd};
+        console.log("navigate called", selectedDept, selectedStart, selectedEnd);
+        navigate(`/dashboard/deptLeaves`, { state: { passingData } });
+    }
 
     return (
         <div className='reports'>
             <h1 className='paragraph'>View Leaves By Department</h1>
             <div className='dropdown'>
-                <DropdownMenu items={depts} path={`/dashboard/deptLeaves`}  onSelect={setSelectedDept} />
+                <div className="date-input">
+                    <label className="label" htmlFor="start-date">Start Date:</label>
+                    <input type="date" id="start-date" value={selectedStart} onChange={handleStartDateChange} required/>
+                </div>
+                <div className="date-input">
+                    <label className="label" htmlFor="end-date">End Date:</label>
+                    <input type="date" id="end-date" value={selectedEnd} onChange={handleEndDateChange} required/>
+                </div>
+                
+                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                    {selectedDept ? selectedDept.dept_name : 'Select Department'}
+                </button>
+                <ul className="dropdown-menu">
+                    {depts.map(item => (
+                        <li key={item.dept_id}>
+                            <a
+                                className="dropdown-item"
+                                href="#"
+                                onClick={() => handleItemClick(item)}
+                            >
+                                {item.dept_name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+                <div>
+                    <button className="btn btn-primary" type="button" onClick={navigateTo}>Generate</button>
+                </div>
             </div>
         </div>
     );
