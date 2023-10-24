@@ -9,6 +9,8 @@ import Employee from '../pages/Employee';
 import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
 import CustomReport from '../pages/customReport';
+import DeptEmployees from '../pages/deptEmployees';
+import DeptLeaves from '../pages/deptLeaves';
 import EmployeeByDept from '../pages/employeeByDept';
 import EmployeeReports from '../pages/employeeReports';
 import Leave from '../pages/leave';
@@ -111,6 +113,8 @@ const Sidebar = () => {
                     <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
                     <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
                     <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
+                    <Route path='/deptEmployees' element={<DeptEmployees/>} />
+                    <Route path='/deptLeaves' element={<DeptLeaves/>} />
                     <Route path="/Employee" element={<Employee/>} />
 
                     <Route path='/abs-func' element={<AbsenceFunc/>} />
