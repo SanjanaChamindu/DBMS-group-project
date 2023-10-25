@@ -148,9 +148,9 @@ export default function ProfilePage() {
   };
 
   return (
-    <section style={{ backgroundColor: 'none', padding: '50px 0' }}>
-        <div className="row" style={{ marginLeft: '10px', marginRight: '10px' }}>
-          <div className="col-lg-6">
+    
+        <div className="row" style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px' }}>
+          <div className="col-lg-4">
             <div className="card mb-4">
               <div className="card-body text-center">
                 <img
@@ -607,6 +607,6 @@ export default function ProfilePage() {
 </div>
 </div>
 </div>
-    </section>
+
   );
 }
