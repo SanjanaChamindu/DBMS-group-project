@@ -18,15 +18,15 @@ export default EmployeeReports;
 
 const groupBy=[
     {
-        ietm_id:1,
+        item_id:1,
         item_name:'Department'
     },
     {
-        ietm_id:2,
+        item_id:2,
         item_name:'Job Title'
     },
     {
-        ietm_id:3,
+        item_id:3,
         item_name:'Pay Grade'
     },
     {

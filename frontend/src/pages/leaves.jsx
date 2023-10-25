@@ -11,11 +11,16 @@ import './css/allEmployees.css';
 const Leaves = () => {
     const navigate = useNavigate(); // Initialize navigate function
 
+    const navigateTo = (leave) => {
+        console.log(leave);
+        navigate(`/dashboard/viewRequest`, { state: {leave} });
+    };
+
     const [state, setState] = useState({
         leaves: getEmpLeaves(),
         pageSize: 4,
         currentPage: 1,
-        sortColumn: { path: 'leave_type_id', order: 'asc' }
+        sortColumn: { path: 'leave_id', order: 'asc' }
     });
 
     const handlePageChange = (page) => {
@@ -58,7 +63,7 @@ const Leaves = () => {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th className='clickable' onClick={() => handleSort("leave_type_id")}>Leave ID {renderSortIcon("leave_type_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_id")}>Leave ID {renderSortIcon("leave_id")}</th>
                             <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type{renderSortIcon("leave_type")}</th>
                             <th className='clickable' onClick={() => handleSort("dates")}>Dates{renderSortIcon("dates")}</th>
                             <th className='clickable' onClick={() => handleSort("status")}>Status {renderSortIcon("status")}</th>
@@ -66,11 +71,11 @@ const Leaves = () => {
                     </thead>
                     <tbody>
                         {leavesInPage.map(leave => (
-                            <tr key={leave.leave_type_id}>
-                                <td >{leave.leave_type_id}</td>
-                                <td >{leave.leave_type}</td>
-                                <td >{leave.dates}</td>
-                                <td >{leave.status}</td>
+                            <tr key={leave.leave_id}>
+                                <td onClick={() => navigateTo(leave)}>{leave.leave_id}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.dates}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.status}</td>
                             </tr>
                         ))}
                     </tbody>

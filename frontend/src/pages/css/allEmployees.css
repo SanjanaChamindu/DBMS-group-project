@@ -10,6 +10,7 @@
     border-collapse: collapse;
     background-color: #fff; /* Set background color */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for a professional look */
+    border: "1px solid black"
 }
 
 .table th, .table td {

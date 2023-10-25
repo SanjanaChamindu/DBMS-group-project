@@ -24,6 +24,7 @@ import RequestNewLeave from '../pages/requestNewLeave';
 import Subordinates from '../pages/subordinates';
 import CusRepEmp from '../pages/viewCustomReports';
 import RepEmployees from '../pages/viewEmpReports';
+import ViewRequest from '../pages/viewRequest';
 import { SidebarData } from './sidebarData';
 import SubMenu from './subMenu';
 
@@ -125,6 +126,7 @@ const Sidebar = () => {
                     <Route path='/deptEmployees' element={<DeptEmployees/>} />
                     <Route path='/viewEmpReports' element={<RepEmployees/>} />
                     <Route path='/viewCustomReports' element={<CusRepEmp/>} />
+                    <Route path='/viewRequest' element={<ViewRequest/>} />
                     <Route path='/deptLeaves' element={<DeptLeaves/>} />
                     <Route path="/Employee" element={<Employee/>} />
 

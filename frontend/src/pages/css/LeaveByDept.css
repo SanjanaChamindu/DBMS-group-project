@@ -10,9 +10,38 @@
     text-align: center; /* Centering text */
 }
 
+.reports-max {
+    margin: 20px auto; /* Centering the element */
+    margin-top: 10vw;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Adding border radius */
+    text-align: center; /* Centering text */
+}
+
+.reports-min {
+    margin: 20px auto; /* Centering the element */
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Adding border radius */
+    text-align: center; /* Centering text */
+}
+
 .paragraph {
     font-size: 1.5em;
     margin-bottom: 20px;
+}
+
+.paragraph-min {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #f4f4f4;
 }
 
 .dropdown {

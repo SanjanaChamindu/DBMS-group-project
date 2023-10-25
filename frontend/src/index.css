@@ -75,3 +75,18 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the scrollbar thumb on hover */
 }
+
+.reason-input {
+  width: 400px;
+  height: 150px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.reason-input:focus {
+  border-color: #007bff;
+}

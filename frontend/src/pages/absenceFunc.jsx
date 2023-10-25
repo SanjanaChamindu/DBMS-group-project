@@ -20,7 +20,7 @@ const AbsenceFunc = () => {
         leaves: getLeaves(),
         pageSize: 14,
         currentPage: 1,
-        sortColumn: { path: 'leave_id', order: 'asc' }
+        sortColumn: { path: 'paygrade_id', order: 'asc' }
     });
 
     const handlePageChange = (page) => {
