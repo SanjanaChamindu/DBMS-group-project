@@ -31,60 +31,38 @@ export default function ProfilePage() {
   );
 
   // Custom Fields
-  const [customFields, setCustomFields] = useState([]);
-  const [newFieldLabel, setNewFieldLabel] = useState('');
-  const [newFieldValue, setNewFieldValue] = useState('');
   const [addedCustomFields, setAddedCustomFields] = useState([]);
 
-  const handleAddCustomField = () => {
-    if (newFieldLabel && newFieldValue) {
-      const newField = { label: newFieldLabel, value: newFieldValue };
-      setAddedCustomFields([...addedCustomFields, newField]);
-      setNewFieldLabel('');
-      setNewFieldValue('');
-    }
-  };
 
-  const handleRemoveCustomField = (index) => {
-    const updatedFields = [...addedCustomFields];
-    updatedFields.splice(index, 1);
-    setAddedCustomFields(updatedFields);
-  };
 
-    // Iterate and render custom fields in the Basic Details section
-  const renderCustomFields = () => {
-    return addedCustomFields.map((field, index) => (
-      <div key={index} className="row" style={{ marginBottom: '10px' }}>
-        <div className="col-md-4">
-          <p className="font-weight-bold">{field.label}:</p>
+  // Iterate and render custom fields in the Basic Details section
+    const renderCustomFields = () => {
+      return addedCustomFields.map((field, index) => (
+        <div key={index} className="row" style={{ marginBottom: '10px' }}>
+          <div className="col-md-4">
+            <p className="font-weight-bold">{field.label}:</p>
+          </div>
+          <div className="col-md-8">
+            {isEditing ? (
+              <div className="d-flex">
+                <input
+                  type="text"
+                  className="form-control"
+                  value={field.value}
+                  onChange={(e) => {
+                    const updatedFields = [...addedCustomFields];
+                    updatedFields[index].value = e.target.value;
+                    setAddedCustomFields(updatedFields);
+                  }}
+                />
+              </div>
+            ) : (
+              <p>{field.value}</p>
+            )}
+          </div>
         </div>
-        <div className="col-md-8">
-          {isEditing ? (
-            <div className="d-flex">
-              <input
-                type="text"
-                className="form-control"
-                value={field.value}
-                onChange={(e) => {
-                  const updatedFields = [...addedCustomFields];
-                  updatedFields[index].value = e.target.value;
-                  setAddedCustomFields(updatedFields);
-                }}
-              />
-              <button
-                className="btn btn-danger ml-2"
-                onClick={() => handleRemoveCustomField(index)}
-              >
-                Remove
-              </button>
-            </div>
-          ) : (
-            <p>{field.value}</p>
-          )}
-        </div>
-      </div>
-    ));
-  };
+      ));
+    };
 
   useEffect(() => {
     // Simulate an asynchronous API call with setTimeout
@@ -108,7 +86,11 @@ export default function ProfilePage() {
         emailAddress: 'jsmith@example.com',
         emergencyContact1: { name: 'Emergency Contact 1', phoneNumber: '111-111-1111', relation: 'Spouse' },
         emergencyContact2: { name: 'Emergency Contact 2', phoneNumber: '222-222-2222', relation: 'Sibling' },
-
+        addedCustomFields: [
+          { label: 'Custom Field 1', value: 'Custom Value 1' },
+          { label: 'Custom Field 2', value: 'Custom Value 2' },
+          // Add more custom fields as needed
+        ],
         // profilePicture: 'URL_TO_YOUR_PROFILE_PICTURE',
       };
 
@@ -130,6 +112,7 @@ export default function ProfilePage() {
       setEmailAddress(dataFromBackend.emailAddress);
       setEmergencyContact1(dataFromBackend.emergencyContact1);
       setEmergencyContact2(dataFromBackend.emergencyContact2);
+      setAddedCustomFields(dataFromBackend.addedCustomFields);
       // You can also set the profilePicture URL here
       // setProfilePicture(dataFromBackend.profilePicture);
     }, 1000); // Simulate a 1-second delay for the API call
@@ -142,8 +125,6 @@ export default function ProfilePage() {
   const handleSaveClick = () => {
     setIsEditing(false);
 
-    // Combine existing customFields and addedCustomFields and set it as the updated customFields state
-    setCustomFields([...addedCustomFields]);
   };
 
   const handleProfilePictureChange = (e) => {
@@ -167,9 +148,9 @@ export default function ProfilePage() {
   };
 
   return (
-    <section style={{ backgroundColor: 'none', padding: '50px 0' }}>
-        <div className="row" style={{ marginLeft: '10px', marginRight: '10px' }}>
-          <div className="col-lg-6">
+    
+        <div className="row" style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px' }}>
+          <div className="col-lg-4">
             <div className="card mb-4">
               <div className="card-body text-center">
                 <img
@@ -201,7 +182,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-8">
             <div className="card mb-4">
               <div className="card-body">
                 <h2 className="mb-4">User Profile</h2>
@@ -417,40 +398,7 @@ export default function ProfilePage() {
 
                 {/* Custom Fields Section */}
                 {renderCustomFields()}
-                {isEditing && (
-                  <div>
-                    <div className="form-group" style={{ marginBottom: '10px' }}>
-                      <label>
-                        <strong>New Field Label:</strong>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Label"
-                        value={newFieldLabel}
-                        onChange={(e) => setNewFieldLabel(e.target.value)}
-                      />
-                    </div>
-                    <div className="form-group" style={{ marginBottom: '10px' }}>
-                      <label>
-                        <strong>New Field Value:</strong>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Value"
-                        value={newFieldValue}
-                        onChange={(e) => setNewFieldValue(e.target.value)}
-                      />
-                    </div>
-                    <button
-                      className="btn btn-primary"
-                      onClick={handleAddCustomField}
-                    >
-                      Add Custom Field
-                    </button>
-                  </div>
-                )}
+                
               </div>
             </div>
 
@@ -659,6 +607,6 @@ export default function ProfilePage() {
 </div>
 </div>
 </div>
-    </section>
+
   );
 }
