@@ -3,7 +3,7 @@ import DropdownMenu from '../components/common/dropdownGroupBy';
 import { getCustomFields } from '../services/fakeCustomFields';
 
 const CustomReports = () => {
-    const [selectedDept, setSelectedDept] = useState(null); // Assuming you want to track the selected department
+    const [selectedDept, setSelectedDept] = useState(null);
 
     const custom = getCustomFields();
 

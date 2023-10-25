@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -12,8 +12,18 @@ const RequestNewLeave = () => {
     const [Reason, setReason] = useState("");
     const [date, setDate] = useState("");
 
+    const [currentDate, setCurrentDate] = useState(new Date());
+
+    useEffect(() => {             //keeping track of date
+        const interval = setInterval(() => {
+            setCurrentDate(new Date());
+        }, 1000);
+    
+        return () => clearInterval(interval);
+    }, []);
+
     const navigateTo = () => {
-        console.log("navigate called", selectedType, selectedDates, Reason);
+        console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
         if (!selectedType || !selectedDates || !Reason) return;
         Swal.fire({
             title: 'Are you sure?',
@@ -26,7 +36,7 @@ const RequestNewLeave = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 // Call backend to request a leave with given details
-                console.log("navigate called", selectedType, selectedDates, Reason);
+                console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
                 Swal.fire('Requested!', 'The request has been sent.', 'success');
             }
         });
@@ -105,7 +115,7 @@ const RequestNewLeave = () => {
 
                 </div>
                 <div>
-                    <button className="btn btn-success" type="button" onClick={navigateTo}>Request</button>
+                    <button className="btn btn-success btn-lg rounded-pill mt-3" type="button" onClick={navigateTo}>Request</button>
                 </div>
             </div>
             <Link to="/dashboard/leaves">

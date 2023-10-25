@@ -45,7 +45,7 @@ const AbsenceFunc = () => {
     const deleteLeave = (leave) => {
         Swal.fire({
             title: 'Are you sure?',
-            text: `Do you want to delete ${leave.leave_type}?`,
+            text: `Do you want to delete ${leave.leave_type_name}?`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -81,6 +81,7 @@ const AbsenceFunc = () => {
                     <thead>
                         <tr>
                             <th className='clickable' onClick={() => handleSort("paygrade_id")}>Pay Grade ID {renderSortIcon("paygrade_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_type_name")}>Leave Type {renderSortIcon("leave_type_name")}</th>
                             <th className='clickable' onClick={() => handleSort("basic_salary")}>Basic Salary {renderSortIcon("basic_salary")}</th>
                             <th className='clickable' onClick={() => handleSort("ot_benificts")}>OT Benefits {renderSortIcon("ot_benificts")}</th>
                             <th className='clickable' onClick={() => handleSort("number_of_annual_leaves")}>Annual Leaves {renderSortIcon("number_of_annual_leaves")}</th>
@@ -95,6 +96,7 @@ const AbsenceFunc = () => {
                         {leavesInPage.map(leave => (
                             <tr key={leave.paygrade_id}>
                                 <td >{leave.paygrade_id}</td>
+                                <td >{leave.leave_type_name}</td>
                                 <td >{leave.basic_salary}</td>
                                 <td >{leave.ot_benificts}</td>
                                 <td >{leave.number_of_annual_leaves}</td>

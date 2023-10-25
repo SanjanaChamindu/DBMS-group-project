@@ -1,6 +1,7 @@
 const leaves = [
     {
             paygrade_id: 2,
+            leave_type_name: "Annual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -10,6 +11,7 @@ const leaves = [
         },
         {
             paygrade_id: 3,
+            leave_type_name: "Casual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -19,6 +21,7 @@ const leaves = [
         },
         {
             paygrade_id: 13,
+            leave_type_name: "Maternity",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -28,6 +31,7 @@ const leaves = [
         },
         {
             paygrade_id: 1,
+            leave_type_name: "No Pay",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -37,6 +41,7 @@ const leaves = [
         },
         {
             paygrade_id: 4,
+            leave_type_name: "Annual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -46,6 +51,7 @@ const leaves = [
         },
         {
             paygrade_id: 5,
+            leave_type_name: "Casual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -55,6 +61,7 @@ const leaves = [
         },
         {
             paygrade_id: 6,
+            leave_type_name: "Maternity",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -64,6 +71,7 @@ const leaves = [
         },
         {
             paygrade_id: 7,
+            leave_type_name: "No Pay",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -73,6 +81,7 @@ const leaves = [
         },
         {
             paygrade_id: 8,
+            leave_type_name: "Annual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -82,6 +91,7 @@ const leaves = [
         },
         {
             paygrade_id: 9,
+            leave_type_name: "Casual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -91,6 +101,7 @@ const leaves = [
         },
         {
             paygrade_id: 10,
+            leave_type_name: "Maternity",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -100,6 +111,7 @@ const leaves = [
         },
         {
             paygrade_id: 11,
+            leave_type_name: "No Pay",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -109,6 +121,7 @@ const leaves = [
         },
         {
             paygrade_id: 12,
+            leave_type_name: "Annual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -118,6 +131,7 @@ const leaves = [
         },
         {
             paygrade_id: 14,
+            leave_type_name: "Casual",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,
@@ -127,6 +141,7 @@ const leaves = [
         },
         {
             paygrade_id: 15,
+            leave_type_name: "Maternity",
             basic_salary: 230000,
             ot_benificts: 12,
             number_of_annual_leaves: 14,

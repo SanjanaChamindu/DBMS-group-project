@@ -86,14 +86,14 @@ const LeaveRequests = () => {
     }
 
     const { length: count } = state.leaves;
-    if (count === 0) return <p className='paragraph'>Add new leaves to manage them</p>;
+    if (count === 0) return <p className='paragraph'>No pending leaves</p>;
 
     const sorted = _.orderBy(state.leaves, [state.sortColumn.path], [state.sortColumn.order]);
     const leavesInPage = paginate(sorted, state.currentPage, state.pageSize);
 
     return (
         <React.Fragment>
-            <p className='paragraph'>Total leaves : {count}</p>
+            <p className='paragraph'>Total pending leaves : {count}</p>
             <div className='table-container'>
                 <table className='table'>
                     <thead>
