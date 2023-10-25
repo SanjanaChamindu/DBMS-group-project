@@ -53,6 +53,7 @@ const LeaveRequests = () => {
             if (result.isConfirmed) {
                 //call backend to approve leave
                 Swal.fire('Approved!', 'The leave has been approved.', 'success');
+                setState({ ...state, leaves: state.leaves.filter(l => l.request_id !== leave.request_id) });
             }
         }
         );
@@ -72,6 +73,7 @@ const LeaveRequests = () => {
             if (result.isConfirmed) {
                 //call backend to decline leave
                 Swal.fire('Declined!', 'The leave has been declined.', 'success');
+                setState({ ...state, leaves: state.leaves.filter(l => l.request_id !== leave.request_id) });
             }
         }
         );
@@ -97,9 +99,9 @@ const LeaveRequests = () => {
                     <thead>
                         <tr>
                             <th className='clickable' onClick={() => handleSort("request_id")}>Request ID {renderSortIcon("request_id")}</th>
-                            <th className='clickable' onClick={() => handleSort("basic_salary")}>Requester {renderSortIcon("basic_salary")}</th>
-                            <th className='clickable' onClick={() => handleSort("ot_benificts")}>OT Benefits {renderSortIcon("ot_benificts")}</th>
-                            <th className='clickable' onClick={() => handleSort("number_of_annual_leaves")}>Annual Leaves {renderSortIcon("number_of_annual_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("employee_id")}>Requester ID {renderSortIcon("employee_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("requester_name")}>Requester {renderSortIcon("requester_name")}</th>
+                            <th className='clickable' onClick={() => handleSort("description")}>Reason {renderSortIcon("description")}</th>
                             <th />
                             <th/>
                         </tr>
@@ -108,9 +110,9 @@ const LeaveRequests = () => {
                         {leavesInPage.map(leave => (
                             <tr key={leave.request_id}>
                                 <td onClick={() => viewRequest(leave)}>{leave.request_id}</td>
-                                <td onClick={() => viewRequest(leave)}>{leave.basic_salary}</td>
-                                <td onClick={() => viewRequest(leave)}>{leave.ot_benificts}</td>
-                                <td onClick={() => viewRequest(leave)}>{leave.number_of_annual_leaves}</td>
+                                <td onClick={() => viewRequest(leave)}>{leave.employee_id}</td>
+                                <td onClick={() => viewRequest(leave)}>{leave.requester_name}</td>
+                                <td onClick={() => viewRequest(leave)}>{leave.description}</td>
                                 <td>
                                 <Button
                                     variant="success" 

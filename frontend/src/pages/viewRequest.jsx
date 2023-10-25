@@ -23,9 +23,9 @@ const ViewRequest = () => {
     return (
         <React.Fragment>
             <div style={{ color: "#fff" }}>
-                <h1>Viewing {storedLeave.leave_id}</h1>
+                <h1>Viewing {storedLeave.request_id} </h1>
             </div>
-            <Link to="/dashboard/leaves">
+            <Link to="/dashboard/leave-requests">
                 <Button>Back</Button>
             </Link>
         </React.Fragment>
