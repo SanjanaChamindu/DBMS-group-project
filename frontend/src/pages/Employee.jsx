@@ -25,12 +25,13 @@ const Employee = () => {
 
     return (
         <React.Fragment>
+            <Link to="/dashboard/employee-details/view-all-employees">
+                <Button style={{ marginLeft: '20px', marginRight: '10px', marginTop: '10px' }}>Back</Button>
+            </Link>
             <div style={{ color: "#fff" }}>
                 <Profileview isEditing={editEmployee} />
             </div>
-            <Link to="/dashboard/employee-details/view-all-employees">
-                <Button>Back</Button>
-            </Link>
+
         </React.Fragment>
     );
 }

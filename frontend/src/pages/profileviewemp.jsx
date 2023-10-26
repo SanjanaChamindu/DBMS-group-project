@@ -127,16 +127,6 @@ export default function Profileview(props) {
 
   };
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setProfilePicture(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
 
   return (
@@ -154,22 +144,6 @@ export default function Profileview(props) {
                 <h5 className="mb-1">{fullName}</h5>
                 <p className="mb-1">{jobTitle}</p>
                 <p className="mb-1">Employee ID: {employeeID}</p>
-                <div className="d-flex justify-content-center mb-2">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="profile-picture-input"
-                    style={{ display: 'none' }}
-                    onChange={handleProfilePictureChange}
-                  />
-                  <label
-                    htmlFor="profile-picture-input"
-                    className="btn btn-primary"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    Change Profile Picture
-                  </label>
-                </div>
               </div>
             </div>
           </div>
