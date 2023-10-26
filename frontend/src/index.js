@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap/dist/js/bootstrap.min.js";
+// import "bootstrap/dist/js/bootstrap.min.js";
 import "font-awesome/css/font-awesome.css";
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
@@ -8,6 +8,8 @@ import App from "./App";
 import { AuthContextProvider } from "./context/authContext";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { AuthContextProvider } from "./context/authContext";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 //Histrory object is created by BrowserRouter
