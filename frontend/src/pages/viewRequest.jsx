@@ -12,6 +12,7 @@ const ViewRequest = () => {
 
     // Define a state to store the leave
     const [storedLeave, setStoredLeave] = useState(leave);
+    console.log("data",storedLeave);
 
     useEffect(() => {
         if (leave) {
@@ -23,9 +24,9 @@ const ViewRequest = () => {
     const path = leaves_page ? "/dashboard/leaves" : "/dashboard/leave-requests";
     return (
         <React.Fragment>
- <div className="col-lg-6">
- <div className="card mb-4" style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px', backgroundColor: 'rgba(0, 0, 0, 0.3)', border: '2px solid white'  }}>
- <div className="card-body" style={{ color: 'white', fontWeight: 'bold' }}>
+  <div className="col-lg-6">
+    <div className="card mb-4" style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px', backgroundColor: 'rgba(0, 0, 0, 0.3)', border: '2px solid white' }}>
+      <div className="card-body" style={{ color: 'white', fontWeight: 'bold' }}>
         <h3 className="card-title" style={{ marginBottom: '30px' }}>Request Details</h3>
         <div className="row" style={{ marginBottom: '10px' }}>
           <div className="col-md-4">
@@ -52,7 +53,7 @@ const ViewRequest = () => {
           </div>
         </div>
         <div className="row" style={{ marginBottom: '10px' }}>
-        <div className="col-md-4">
+          <div className="col-md-4">
             <p className="font-weight-bold">Request Date:</p>
           </div>
           <div className="col-md-8">
@@ -60,41 +61,58 @@ const ViewRequest = () => {
           </div>
         </div>
         <div className="row" style={{ marginBottom: '10px' }}>
-  <div className="col-md-4">
-    <p className="font-weight-bold">Leave Date(s):</p>
-  </div>
-  <div className="col-md-8">
-    <ul>
-      {storedLeave.dates.map((date, index) => (
-        <li key={index}>{date}</li>
-      ))}
-    </ul>
-  </div>
-</div>
-<div className="row" style={{ marginBottom: '10px' }}>
-        <div className="col-md-4">
+          <div className="col-md-4">
+            <p className="font-weight-bold">Leave Date(s):</p>
+          </div>
+          <div className="col-md-8">
+            <ul>
+              {storedLeave.dates.map((date, index) => (
+                <li key={index}>{date}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="row" style={{ marginBottom: '10px' }}>
+          <div className="col-md-4">
             <p className="font-weight-bold">Reason:</p>
           </div>
           <div className="col-md-8">
             <p>{storedLeave.reason}</p>
           </div>
         </div>
-        
         <div className="row" style={{ marginBottom: '10px' }}>
-        <div className="col-md-4">
+          <div className="col-md-4">
             <p className="font-weight-bold">Status:</p>
           </div>
           <div className="col-md-8">
             <p>{storedLeave.status}</p>
           </div>
         </div>
-        </div> 
-    </div>
+
+        {/* Conditionally render "Approve" and "Decline" buttons */}
+        {!leaves_page && (
+          <div className="row" style={{ marginBottom: '10px' }}>
+            <div className="col-md-4">
+              <p className="font-weight-bold">Actions:</p>
+            </div>
+            <div className="col-md-8">
+              <Button variant="success" style={{ marginRight: '10px' }}>
+                Approve
+              </Button>
+              <Button variant="danger">
+                Decline
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
     <Link to={path}>
-                <Button style={{ marginLeft: '10px'}}>Back</Button>
-            </Link>
-        </React.Fragment>
+      <Button style={{ marginLeft: '10px' }}>Back</Button>
+    </Link>
+  </div>
+</React.Fragment>
+
     )
 }
 
