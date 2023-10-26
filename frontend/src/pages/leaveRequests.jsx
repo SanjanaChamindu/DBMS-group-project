@@ -36,7 +36,7 @@ const LeaveRequests = () => {
     }
 
     const viewRequest = (leave) => {
-        navigate(`/dashboard/viewRequest`, { state: { leave} });
+        navigate(`/dashboard/viewRequest`, { state: { leave,leaves_page:false} });
     };
 
     const approve = (leave) => {

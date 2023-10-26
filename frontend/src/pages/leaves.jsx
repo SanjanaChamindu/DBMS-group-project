@@ -13,7 +13,7 @@ const Leaves = () => {
 
     const navigateTo = (leave) => {
         console.log(leave);
-        navigate(`/dashboard/viewRequest`, { state: {leave} });
+        navigate(`/dashboard/viewRequest`, { state: {leave,leaves_page:true} });
     };
 
     const [state, setState] = useState({
@@ -52,7 +52,7 @@ const Leaves = () => {
 
     return (
         <React.Fragment>
-            <p className='paragraph'>Past Leaves : {count}</p>
+            <p className='paragraph'>Past Requests : {count}</p>
 
             <div className='table-container'>
                 <div className='pagination'>
@@ -63,7 +63,7 @@ const Leaves = () => {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th className='clickable' onClick={() => handleSort("leave_id")}>Leave ID {renderSortIcon("leave_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("request_id")}>Leave ID {renderSortIcon("request_id")}</th>
                             <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type{renderSortIcon("leave_type")}</th>
                             <th className='clickable' onClick={() => handleSort("requested_date")}>Requested Date{renderSortIcon("requested_date")}</th>
                             <th className='clickable' onClick={() => handleSort("status")}>Status{renderSortIcon("status")}</th>
@@ -72,7 +72,7 @@ const Leaves = () => {
                     <tbody>
                         {leavesInPage.map(leave => (
                             <tr key={leave.leave_id}>
-                                <td onClick={() => navigateTo(leave)}>{leave.leave_id}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.request_id}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.requested_date}<span> </span></td>
                                 <td onClick={() => navigateTo(leave)}>{leave.status}</td>
