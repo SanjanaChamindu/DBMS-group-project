@@ -122,3 +122,44 @@ export const editEmp = (req, res) => {
     });
   });
 };
+
+export const editLeaves = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("Not authenticated!");
+
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+    if (err) return res.status(403).json("Token is not valid!");
+
+    const q = "SELECT permission_level_id FROM user WHERE user_name = ?";
+    console.log(userInfo.user_name);
+
+    db.query(q, [userInfo.user_name], (err, data) => {
+      console.log(data);
+      if (err) return res.status(500).json(err);
+      const q1 =
+        "SELECT absence_related_access  FROM permission_level WHERE permission_level_id = ?";
+      db.query(q1, [data[0].permission_level_id], (err, data) => {
+        if (err) return res.status(500).json(err);
+        if (data[0].absence_related_access === 1) {
+          // return res.json([req.body]);
+          const q2 =
+            "UPDATE `pay_grades` SET `number_of_annual_leaves` = ?, `number_of_casual_leaves` = ?, `number_of_maternity_leaves` = ?, `number_of_no_pay_leaves` = ? WHERE (`paygrade_id` = ?);";
+          db.query(
+            q2,
+            [
+              req.body.number_of_annual_leaves,
+              req.body.number_of_casual_leaves,
+              req.body.number_of_maternity_leaves,
+              req.body.number_of_no_pay_leaves,
+              req.body.paygrade_id,
+            ],
+            (err, data2) => {
+              if (err) return res.status(500).json(err);
+              return res.json("Leaves have been updated!");
+            }
+          );
+        }
+      });
+    });
+  });
+};
