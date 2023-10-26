@@ -71,7 +71,7 @@ const Leaves = () => {
                     </thead>
                     <tbody>
                         {leavesInPage.map(leave => (
-                            <tr key={leave.leave_id}>
+                            <tr key={leave.request_id}>
                                 <td onClick={() => navigateTo(leave)}>{leave.request_id}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.requested_date}<span> </span></td>

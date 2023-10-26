@@ -25,7 +25,7 @@ const DeptEmployees = () => {
     return (
         <React.Fragment>
             <div style={{ color: "#fff" }}>
-                <h1>Viewing employees of {storedItem.dept_name}</h1>
+                <h1 className="paragraph" >Viewing employees of {storedItem.dept_name}</h1>
             </div>
             <Link to="/dashboard/reports/employees-by-dept">
                 <Button>Back</Button>
