@@ -4,7 +4,7 @@ import { BsFiles, BsPeopleFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
 import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
-import { MdPeople, MdPeopleAlt, MdPeopleOutline } from 'react-icons/md';
+import { MdOutlineDashboardCustomize, MdPeople, MdPeopleAlt, MdPeopleOutline } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
 
 export const SidebarData = [
@@ -57,6 +57,12 @@ export const SidebarData = [
         title: 'Absence functions',
         path: '/dashboard/abs-func',
         icon: <BsFiles />
+    },
+
+    {
+        title:'Custom attributes',
+        path: '/dashboard/custom-attributes',
+        icon: <MdOutlineDashboardCustomize />
     },
 
     {

@@ -9,6 +9,7 @@ import { AuthContext } from '../context/authContext';
 import Employee from '../pages/Employee';
 import AbsenceFunc from '../pages/absenceFunc';
 import AllEmployees from '../pages/allEmployees';
+import CustomAttributes from '../pages/customAttributes';
 import CustomReport from '../pages/customReport';
 import DeptEmployees from '../pages/deptEmployees';
 import DeptLeaves from '../pages/deptLeaves';
@@ -118,6 +119,7 @@ const Sidebar = () => {
                     <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
                     <Route path='/reports/employee-reports' element={<EmployeeReports/>} />
                     <Route path='/reports/custom-report' element={<CustomReport/>} />
+                    <Route path='/custom-attributes' element={<CustomAttributes/>} />
                     <Route path='/leave-requests' element={<LeaveRequests/>} />
 
                     <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
