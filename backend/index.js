@@ -5,7 +5,6 @@ import reportRoutes from "./routes/reports.js";
 import leaveRoutes from "./routes/leaves.js";
 import customs from "./routes/custom.js"
 import users from "./routes/users.js"
-import cookieParser from "cookie-parser";
 
 const app = express();
 
