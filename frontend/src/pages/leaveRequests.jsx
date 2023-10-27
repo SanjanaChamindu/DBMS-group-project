@@ -36,6 +36,7 @@ const LeaveRequests = () => {
     }
 
     const viewRequest = (leave) => {
+        console.log('dsd',leave)
         navigate(`/dashboard/viewRequest`, { state: { leave,leaves_page:false} });
     };
 
