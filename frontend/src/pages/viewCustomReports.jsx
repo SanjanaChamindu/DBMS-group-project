@@ -80,7 +80,7 @@ const CusRepEmp = () => {
         }
     
         const { length: count } = state.employees;
-        if (count === 0) return <p className='paragraph'>Add new employees to manage them</p>;
+        if (count === 0) return <p className='paragraph'>No such Reports</p>;
     
         const sorted = _.orderBy(state.employees, [state.sortColumn.path], [state.sortColumn.order]);
         const employeesInPage = paginate(sorted, state.currentPage, state.pageSize);
@@ -88,15 +88,12 @@ const CusRepEmp = () => {
 
     return (
         <React.Fragment>
-            <div style={{ color: "#fff" }}>
-                <h1>Viewing Reports of custom field {storedItem[0]}</h1>
-            </div>
             <Link to="/dashboard/reports/custom-report">
                 <Button>Back</Button>
             </Link>
 
             {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-            <p className='paragraph'>Total employees : {count}</p>
+            <p className='paragraph'>Total Reports : {count}</p>
             <div className='table-container'>
                 <table className='table'>
                     <thead>

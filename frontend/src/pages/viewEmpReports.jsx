@@ -27,11 +27,25 @@ const RepEmployees = () => {
     }, [passingData]);
 
     console.log("inside",storedItem);
-    //calling backend
-    const {dept_id,dept_name} = storedItem.selectedDept;
-    const {job_title_id,job_title_name} = storedItem.selectedJob;
-    const {item_id,item_name} = storedItem.selectedGender;
-    //calling backend
+    //calling backend/////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (storedItem.selectedDept !== null) {
+        const { dept_id, dept_name } = storedItem.selectedDept;
+    } else {
+        const dept_id=-1; //indicates it is not selected
+    }
+
+    if (storedItem.selectedJob !== null) {
+        const { job_title_id, job_title_name } = storedItem.selectedJob;
+    } else {
+        const job_title_id=-1; //indicates it is not selected
+    }
+
+    if (storedItem.selectedGender !== null) {
+        const { item_id, item_name } = storedItem.selectedGender;
+    } else {
+        const item_id=-1; //indicates it is not selected
+    }
+    //calling backend/////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
     const navigate = useNavigate(); // Initialize navigate function
@@ -71,29 +85,25 @@ const RepEmployees = () => {
     }
 
     const { length: count } = state.employees;
-    if (count === 0) return <p className='paragraph'>Add new employees to manage them</p>;
+    if (count === 0) return <p className='paragraph'>No such reports</p>;
 
     const sorted = _.orderBy(state.employees, [state.sortColumn.path], [state.sortColumn.order]);
     const employeesInPage = paginate(sorted, state.currentPage, state.pageSize);
 
     return (
         <React.Fragment>
-            <div style={{ color: "#fff" }}>
-                <h1>Viewing employee Reports of {dept_name},{job_title_name} and {item_name}</h1>
-            </div>
             <Link to="/dashboard/reports/employee-reports">
                 <Button>Back</Button>
             </Link>
 
             {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-            <p className='paragraph'>Total employees : {count}</p>
+            <p className='paragraph'>Total Reports : {count}</p>
             <div className='table-container'>
                 <table className='table'>
                     <thead>
                         <tr>
                             <th className='clickable' onClick={() => handleSort("employee_id")}>Employee ID {renderSortIcon("employee_id")}</th>
                             <th className='clickable' onClick={() => handleSort("employee_name")}>Name {renderSortIcon("employee_name")}</th>
-                            <th className='clickable' onClick={() => handleSort("job_title")}>Job Title {renderSortIcon("job_title")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,7 +111,6 @@ const RepEmployees = () => {
                             <tr key={employee.employee_id}>
                                 <td onClick={() => viewEmployee(employee,false)}>{employee.employee_id}</td>
                                 <td onClick={() => viewEmployee(employee,false)}>{employee.employee_name}</td>
-                                <td onClick={() => viewEmployee(employee,false)}>{employee.job_title}</td>
                             </tr>
                         ))}
                     </tbody>

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import { getDepts } from '../services/fakeDeptService';
 import { getJobTitles } from '../services/jobTitles';
 
@@ -17,13 +19,24 @@ const EmployeeReports = () => {
     }
 
     const navigateTo = () => {
-        if (!selectedDept && !selectedJob && !selectedGender) return;
+        if (!selectedDept && !selectedJob && !selectedGender) {
+            Swal.fire({
+                title: 'No options selected',
+                text: `Select at least one option to generate the report`,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Close'
+            })
+            console.log("No elements in selectedOptions");
+            return;
+        }
+
         let passingData={selectedDept, selectedJob, selectedGender};
         console.log("navigate called", selectedDept, selectedJob, selectedGender);
         navigate(`/dashboard/viewEmpReports`, { state: { passingData } });
     }
-
-    
 
     return (
         <div className='reports'>
