@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AuthContextProvider } from "./context/authContext";
 import "./index.css";
+import './pages/css/allEmployees.css';
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
