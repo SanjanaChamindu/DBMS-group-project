@@ -84,7 +84,8 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);     // This is the function that will be called when the sidebar is clicked
-
+    let user_level = JSON.parse(localStorage.user).permission_level_id;
+    console.log(user_level);
     return (
         <React.Fragment>
             <IconContext.Provider value={{ color: '#fff' }}>
@@ -113,7 +114,7 @@ const Sidebar = () => {
             <Content $sidebar={sidebar} onClick={()=>setSidebar(false)}>
                 <Routes>
                     {/* Routes of the Navigation Sidebar */}
-
+                    // {user_level === 8193600004 && <Route path='/profile' element={<Profile/>} />}
                     <Route path='/profile' element={<Profile/>} />
                     <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
                     <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />

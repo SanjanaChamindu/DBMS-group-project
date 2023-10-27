@@ -37,3 +37,27 @@ export const register = (req, res) => {
       }
 });
 }
+
+export const allEmp = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("Not authenticated!");
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+      if (err) return res.status(403).json("Token is not valid!");
+      const permission_level_id = userInfo.permission_level_id;
+      if (permission_level_id === '8193600004'){
+        let job_titles;
+        db.query("SELECT * FROM job_title", (err, data) => {
+          if (err) return res.status(500).json(err);
+          job_titles = data;
+        })
+        const q = "SELECT * FROM employee";
+        db.query(q, (err, data) => {
+          if (err) return res.status(500).json(err);
+          data.forEach((item) => {
+            item.job_title_name= job_titles.find((j) => j.job_title_id === item.job_title_id).job_title_name;
+          })
+          return res.json(data);
+        });
+      }
+});
+}

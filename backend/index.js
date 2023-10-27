@@ -14,7 +14,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/custom", customs);
-app.use("/api/addEmployee", users);
+app.use("/api/users", users);
 
 
 app.listen(8800, () => {
