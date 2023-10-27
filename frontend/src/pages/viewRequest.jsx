@@ -1,13 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 
 const ViewRequest = () => {
+    const navigate = useNavigate()
     const location = useLocation();
     let leave,leaves_page = false;
+    let storedItem;
+    let reports = false;
     
     if (location.state) {
-        ({ leave,leaves_page} = location.state);
+        ({ leave,leaves_page,reports,storedItem} = location.state);
+    }
+    const passingData=storedItem;
+    console.log("insferfreide",passingData);
+
+    const navigateTo = () => {
+      navigate(`/dashboard/deptLeaves`, { state: { passingData } });
+    }
+
+    const goBack = () => {
+      navigate(`/dashboard/leave-requests`);
     }
 
     // Define a state to store the leave
@@ -21,7 +36,51 @@ const ViewRequest = () => {
         }
     }, [leave]);
 
-    const path = leaves_page ? "/dashboard/leaves" : "/dashboard/leave-requests";
+    let path = leaves_page ? "/dashboard/leaves" : "/dashboard/leave-requests";
+    path = reports ? "/dashboard/viewEmpReports" : path;
+
+    const approve = (leave) => {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: `Do you want to approve this leave?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText:'No',
+          confirmButtonText: 'Yes, approve it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              //call backend to approve leave
+              Swal.fire('Approved!', 'The leave has been approved.', 'success');
+              storedLeave.status = "Approved";
+              goBack();
+          }
+      }
+      );
+  };
+
+  const decline = (leave) => {
+      Swal.fire({
+          title: 'Are you sure?',
+          text: `Do you want to decline this leave?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          cancelButtonText:'No',
+          confirmButtonText: 'Yes, decline it!'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              //call backend to decline leave
+              Swal.fire('Declined!', 'The leave has been declined.', 'success');
+              storedLeave.status = "Declined";
+              goBack();
+          }
+      }
+      );
+  };
+
     return (
         <React.Fragment>
   <div className="col-lg-6">
@@ -80,6 +139,9 @@ const ViewRequest = () => {
             <p>{storedLeave.reason}</p>
           </div>
         </div>
+
+        {/* Conditionally render "Reports" button */}
+        {!reports && (
         <div className="row" style={{ marginBottom: '10px' }}>
           <div className="col-md-4">
             <p className="font-weight-bold">Status:</p>
@@ -88,6 +150,7 @@ const ViewRequest = () => {
             <p>{storedLeave.status}</p>
           </div>
         </div>
+        )}
 
         {/* Conditionally render "Approve" and "Decline" buttons */}
         {!leaves_page && (
@@ -96,10 +159,10 @@ const ViewRequest = () => {
               <p className="font-weight-bold">Actions:</p>
             </div>
             <div className="col-md-8">
-              <Button variant="success" style={{ marginRight: '10px' }}>
+              <Button onClick={() => approve(leave)} variant="success" style={{ marginRight: '10px' }}>
                 Approve
               </Button>
-              <Button variant="danger">
+              <Button onClick={() => decline(leave)} variant="danger">
                 Decline
               </Button>
             </div>
@@ -107,9 +170,14 @@ const ViewRequest = () => {
         )}
       </div>
     </div>
+    {reports && (
+    <Button onClick={navigateTo} style={{ marginLeft: '10px' }}>Back</Button>
+    )}
+    {!reports && (
     <Link to={path}>
       <Button style={{ marginLeft: '10px' }}>Back</Button>
     </Link>
+    )}
   </div>
 </React.Fragment>
 

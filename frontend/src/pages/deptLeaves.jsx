@@ -30,10 +30,12 @@ const DeptLeaves = () => {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const navigate = useNavigate(); // Initialize navigate function
 
-    // const navigateTo = (leave) => {
-    //     console.log(leave);
-    //     navigate(`/dashboard/viewRequest`, { state: {leave,leaves_page:true} });
-    // };
+    const reports=true;
+    const navigateTo = (leave) => {
+        console.log(leave);
+        
+        navigate(`/dashboard/viewRequest`, { state: {leave,leaves_page:true,reports,storedItem} });
+    };
 
     const [state, setState] = useState({
         leaves: getEmpLeaves(),
@@ -81,19 +83,19 @@ const DeptLeaves = () => {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th className='clickable' onClick={() => handleSort("request_id")}>Leave ID {renderSortIcon("request_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_id")}>Leave ID {renderSortIcon("leave_id")}</th>
                             <th className='clickable' onClick={() => handleSort("employee_id")}>Employee ID {renderSortIcon("employee_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("employee_name")}>Employee Name{renderSortIcon("employee_name")}</th>
                             <th className='clickable' onClick={() => handleSort("leave_type")}>Leave Type{renderSortIcon("leave_type")}</th>
-                            <th style={{ width: '50vw' }} className='clickable' onClick={() => handleSort("dates")}>Dates{renderSortIcon("dates")}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {leavesInPage.map(leave => (
-                            <tr key={leave.request_id}>
-                                <td style={{ width: '10%' }}>{leave.request_id}</td>
-                                <td style={{ width: '10%' }}>{leave.employee_id}</td>
-                                <td style={{ width: '10%' }}>{leave.leave_type}<span> </span></td>
-                                <td style={{ width: '50%' }}>{leave.dates}</td>
+                            <tr key={leave.leave_id}>
+                                <td onClick={() => navigateTo(leave)}>{leave.leave_id}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.employee_id}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.employee_name}</td>
+                                <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
                             </tr>
                         ))}
                     </tbody>
