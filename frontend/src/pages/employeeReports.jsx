@@ -89,7 +89,7 @@ const EmployeeReports = () => {
                 </li>
             </ul>
 
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
                     <button className="btn btn-primary" type="button" onClick={navigateTo}>Generate</button>
             </div>
         </div>

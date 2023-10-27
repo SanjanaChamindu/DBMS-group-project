@@ -35,9 +35,9 @@ const AllEmployees = () => {
         }
         setState({ ...state, sortColumn });
     }
-
+    const page=1;
     const viewEmployee = (employee, edit) => {
-        navigate(`/dashboard/Employee`, { state: { employee, edit } });
+        navigate(`/dashboard/Employee`, { state: { employee, edit, page } });
     };
 
     const deleteEmployee = (employee) => {

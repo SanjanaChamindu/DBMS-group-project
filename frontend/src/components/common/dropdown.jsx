@@ -13,6 +13,8 @@ const DropdownMenu = (props) => {
     
     const navigateTo = (item) => {
         if (!item) return;
+        ////////////////////calling backend api////////////////////////
+        //call the backend api
         console.log("navigate called",item);
         navigate(path, { state: { item } });
     }
