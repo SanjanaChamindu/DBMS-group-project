@@ -23,7 +23,7 @@ const RequestNewLeave = () => {
     }, []);
 
     const navigateTo = () => {
-        console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
+        console.log([selectedType, selectedDates, Reason, currentDate]);
         if (!selectedType || !selectedDates || !Reason) return;
         Swal.fire({
             title: 'Are you sure?',
@@ -131,19 +131,19 @@ export default RequestNewLeave;
 
 const groupBy=[
     {
-        item_id:1,
-        item_name:'Type1'
+        item_id:"Annual",
+        item_name:'Annual Leave'
     },
     {
-        item_id:2,
-        item_name:'Type2'
+        item_id:"Casual",
+        item_name:'Casual Leave'
     },
     {
-        item_id:3,
-        item_name:'Type3'
+        item_id:"Maternity",
+        item_name:'Maternity Leave'
     },
     {
-        item_id:4,
-        item_name:'Type4'
+        item_id:"No_Pay",
+        item_name:'No-Pay Leave'
     }
 ]

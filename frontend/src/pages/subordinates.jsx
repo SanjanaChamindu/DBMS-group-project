@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { BiSolidEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
@@ -10,6 +10,7 @@ import Pagination from '../components/common/pagination';
 import { getSubordinates } from '../services/fakeSubordinateService';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
+import axios from 'axios';
 
 const Subordinates = () => {
     const navigate = useNavigate(); // Initialize navigate function
@@ -17,11 +18,29 @@ const Subordinates = () => {
     
 
     const [state, setState] = useState({
-        employees: getSubordinates(),
+        employees: [],
         pageSize: 14,
         currentPage: 1,
         sortColumn: { path: 'employee_id', order: 'asc' }
     });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/reports/subordinates");
+                console.log(res.data)
+                const employees = res.data.map((element) => ({
+                    employee_id: element.employee_id,
+                    employee_name: element.Full_name,
+                    job_title: element.job_title_id,
+                }));
+                setState({ ...state, employees,});
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, [])
 
     const handlePageChange = (page) => {
         setState({ ...state, currentPage: page });

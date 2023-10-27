@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import 'sweetalert2/dist/sweetalert2.js';
@@ -7,16 +7,52 @@ import Pagination from '../components/common/pagination.jsx';
 import { getEmpLeaves } from '../services/leavesOfEmployee.js';
 import { paginate } from '../utils/paginate.js';
 import './css/allEmployees.css';
+import axios from 'axios';
 
 const Leaves = () => {
     const navigate = useNavigate(); // Initialize navigate function
     
-        const [state, setState] = useState({
-            leaves: getEmpLeaves(),
-            pageSize: 4,
-            currentPage: 1,
-            sortColumn: { path: 'leave_id', order: 'asc' }
-        });
+    const [state, setState] = useState({
+        // leaves: getEmpLeaves(),
+        leaves : [],
+        pageSize: 4,
+        currentPage: 1,
+        sortColumn: { path: 'leave_id', order: 'asc' }
+    }); 
+
+    const curr_status = { null: "Pending", 0: "Approved", 1: "Rejected" };
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const res = await axios.get("/leaves/requests/subordinates");
+            const leaveData = res.data.map((element) => ({
+              request_id: element.leave_request_id,
+              employee_id: element.employee_id,
+              requested_date: element.date.slice(0,10),
+              reason: element.description,
+              leave_type : element.leave_type,
+              status: curr_status[element.supervisor_approval]
+
+            //   "leave_request_id": 2,
+            //   "employee_id": "1820267651",
+            //   "date": "2023-11-30T18:30:00.000Z",
+            //   "description": "Personal Health Checkup",
+            //   "supervisor_approval": null,
+            //   "leave_type": "Annual"
+            }));
+            console.log(leaveData);
+            
+            setState({
+              ...state,
+              leaves: leaveData,
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        fetchData();
+      }, []);
 
     const navigateTo = (leave) => {
         console.log(leave);
