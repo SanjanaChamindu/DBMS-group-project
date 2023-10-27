@@ -36,7 +36,7 @@ const Employee = () => {
             navigate(`/dashboard/viewEmpReports`, { state: { passingData} });}
         else if (page===4) {
             let passingData=storedItem;
-            navigate(`/dashboard/viewEmpReports`, { state: { passingData} });}
+            navigate(`/dashboard/viewCustomReports`, { state: { passingData} });}
         else return;
         }
 

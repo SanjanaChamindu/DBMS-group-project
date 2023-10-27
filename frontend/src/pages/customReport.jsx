@@ -7,6 +7,7 @@ import { getDropdownData } from '../services/customFields.js';
 const CustomReports = () => {
     const navigate = useNavigate()
     const [selectedOptions, setSelectedOptions] = useState({});
+    console.log("kkk",selectedOptions);
 
     const dropdownData = getDropdownData();
 
@@ -35,7 +36,9 @@ const CustomReports = () => {
         }
 
         let passingData={selectedOptions};
-        navigate(`/dashboard/viewEmpReports`, { state: { passingData } });
+        navigate(`/dashboard/viewCustomReports`, { state: { passingData } });
+
+        //call the backend api to get the data
     }
 
     return (
@@ -44,18 +47,18 @@ const CustomReports = () => {
                 {dropdownData.map((dropdown, index) => (
                 <div key={index}>
                     <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                        {selectedOptions[dropdown.label] ? selectedOptions[dropdown.label].name : `Select ${dropdown.label}`}
+                        {selectedOptions[dropdown.label] ? selectedOptions[dropdown.label] : `Select ${dropdown.label}`}
                     </button>
                 
                     <ul className="dropdown-menu">
                         {dropdown.options.map(item => (
-                            <li key={item.id}>
+                            <li key={item}>
                                 <a
                                     className="dropdown-item"
                                     href="#"
                                     onClick={() => handleOptionSelect(dropdown.label, item)}
                                 >
-                                    {item.name}
+                                    {item}
                                 </a>
                             </li>
                         ))}
