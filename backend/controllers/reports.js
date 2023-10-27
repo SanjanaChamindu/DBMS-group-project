@@ -25,8 +25,20 @@ export const getReport = (req, res) => {
                     const q3 = "SELECT * FROM contact_details where employee_id = ?"
                     db.query(q3, [data[0].employee_id], (err, data3) => {
                         if (err) return res.status(500).json(err);
-                        const reportData = {data, data2, data3}
-                        return res.json(reportData);
+
+                        const q4 = "SELECT job_title_name FROM job_title where job_title_id = ?"
+                        db.query(q4, [data[0].job_title_id], (err, data4) => {
+                            if (err) return res.status(500).json(err);
+                            data[0].job_title_id = data4[0].job_title_name;
+
+                            const q5 = "SELECT department_name FROM department where department_id = ?"
+                            db.query(q5, [data[0].department_id], (err, data5) => {
+                                if (err) return res.status(500).json(err);
+                                data[0].department_id = data5[0].department_name;
+                                const reportData = {data, data2, data3}
+                                return res.json(reportData);
+                            });
+                        });
                     });
                 });
             });
@@ -111,7 +123,7 @@ export const editEmp = (req, res) => {
         if (err) return res.status(500).json(err);
         if (data2[0].user_name === userInfo.user_name) {
           const q3 =
-            "UPDATE `Employee`  SET `NIC`=?,`Full_Name`=?,`Gender`=?,`user_name`=?,`supervisor_id`=?,`job_title_id`=?,`department_id`=?,`employment_status`=?,`birth_day`=?,`marital_status`=? where Employee_id=?";
+            "UPDATE Employee  SET NIC=?,Full_Name=?,Gender=?,user_name=?,supervisor_id=?,job_title_id=?,department_id=?,employment_status=?,birth_day=?,marital_status=? where Employee_id=?";
           const values = [
             req.body.NIC,
             req.body.Full_Name,

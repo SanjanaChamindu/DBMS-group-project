@@ -106,6 +106,24 @@ const leaves = [
         }
     ];
 
-    export function getRequests() {
-        return leaves;
+    export function getRequests(leave_list) {
+        console.log("testing",leave_list)
+        let output_list = [];
+        // leave_list.forEach((element) => {
+        //     let templist = {};
+        //     templist['request_id'] = element.leave_request_id;
+        //     templist['employee_id'] = element.employee_id;
+        //     templist['requester_name'] = element.leave_request_id;
+        //     templist['description'] = element.description;
+        //     templist['dates'] = element.date;
+        //     output_list.push(templist);
+        // })
+        return output_list;
     }
+
+    // date : "2023-11-30T18:30:00.000Z"
+    // description : "Personal Health Checkup"
+    // employee_id : "1820267651"
+    // leave_request_id : 2
+    // leave_type : "Annual"
+    // supervisor_approval : 0

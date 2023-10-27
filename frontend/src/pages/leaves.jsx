@@ -10,18 +10,18 @@ import './css/allEmployees.css';
 
 const Leaves = () => {
     const navigate = useNavigate(); // Initialize navigate function
+    
+        const [state, setState] = useState({
+            leaves: getEmpLeaves(),
+            pageSize: 4,
+            currentPage: 1,
+            sortColumn: { path: 'leave_id', order: 'asc' }
+        });
 
     const navigateTo = (leave) => {
         console.log(leave);
         navigate(`/dashboard/viewRequest`, { state: {leave,leaves_page:true} });
     };
-
-    const [state, setState] = useState({
-        leaves: getEmpLeaves(),
-        pageSize: 4,
-        currentPage: 1,
-        sortColumn: { path: 'leave_id', order: 'asc' }
-    });
 
     const handlePageChange = (page) => {
         setState({ ...state, currentPage: page });

@@ -16,6 +16,7 @@ import './css/allEmployees.css';
 const AbsenceFunc = () => {
     const navigate = useNavigate(); // Initialize navigate function
 
+
     const [state, setState] = useState({
         leaves: getLeaves(),
         pageSize: 14,

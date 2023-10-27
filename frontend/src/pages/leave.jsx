@@ -7,7 +7,7 @@ const Leave = () => {
     let leave;
     
     if (location.state) {
-        ({ leave} = location.state);
+        ({leave} = location.state);
     }
 
     // Define a state to store the leave

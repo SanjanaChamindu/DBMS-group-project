@@ -25,7 +25,6 @@ export const login = (req, res) => {
     // Creating tokens
       const token = jwt.sign({ user_name: data[0].user_name, permission_level_id: data[0].permission_level_id, employee_id: data2[0].employee_id }, "secretkey");
       const { password, ...others } = data[0]; // Sending other attributes of the user except the password
-
       res
         .cookie("access_token", token, { httpOnly: true }) // httpOnly is used to prevent client-side script from accessing the cookie
         .status(200)

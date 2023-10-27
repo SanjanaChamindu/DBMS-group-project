@@ -13,6 +13,8 @@ import './css/allEmployees.css';
 
 const Subordinates = () => {
     const navigate = useNavigate(); // Initialize navigate function
+    
+    
 
     const [state, setState] = useState({
         employees: getSubordinates(),
