@@ -58,6 +58,8 @@
     padding: 0;
     border-radius: 10px; /* Adding border radius */
     border: 1px solid #ccc; /* Adding border */
+    position: absolute; /* Position the dropdown absolutely */
+    z-index: 1000; /* Set a high z-index to make sure it overlays other elements */
 }
 
 .dropdown-menu li {
@@ -85,7 +87,6 @@
     padding: 20px 40px; /* Increase padding for larger button */
     margin-top: 20px; /* Add some margin at the top of the button */
 }
-
 
 .btn-primary {
     margin-top: 20px; /* Add some margin at the top of the button */

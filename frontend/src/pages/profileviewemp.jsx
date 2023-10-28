@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ProfilePage() {
-  const [isEditing, setIsEditing] = useState(false);
+export default function Profileview(props) {
+  const [isEditing, setIsEditing] = useState(props.isEditing);
 
   // Basic Details
   const [fullName, setFullName] = useState('');
@@ -123,30 +123,11 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = () => {
-    // Make API call to save changes to the database
     setIsEditing(false);
 
   };
 
-  const handleProfilePictureChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setProfilePicture(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
-  // Define the Profile component within the ProfilePage component
-  const Profile = () => {
-    console.log('Profile');
-    return (
-      <div className='profile'>
-      </div>
-    );
-  };
 
   return (
     
@@ -163,22 +144,6 @@ export default function ProfilePage() {
                 <h5 className="mb-1">{fullName}</h5>
                 <p className="mb-1">{jobTitle}</p>
                 <p className="mb-1">Employee ID: {employeeID}</p>
-                <div className="d-flex justify-content-center mb-2">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    id="profile-picture-input"
-                    style={{ display: 'none' }}
-                    onChange={handleProfilePictureChange}
-                  />
-                  <label
-                    htmlFor="profile-picture-input"
-                    className="btn btn-primary"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    Change Profile Picture
-                  </label>
-                </div>
               </div>
             </div>
           </div>
@@ -198,6 +163,7 @@ export default function ProfilePage() {
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
+                            
                           <input
                             type="text"
                             className="form-control"
@@ -207,6 +173,7 @@ export default function ProfilePage() {
                         ) : (
                           <p>{fullName}</p>
                         )}
+
                       </div>
                     </div>
                     <div className="row" style={{ marginBottom: '10px' }}>

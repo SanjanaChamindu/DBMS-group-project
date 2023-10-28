@@ -36,6 +36,7 @@ const LeaveRequests = () => {
     }
 
     const viewRequest = (leave) => {
+        console.log('dsd',leave)
         navigate(`/dashboard/viewRequest`, { state: { leave,leaves_page:false} });
     };
 
@@ -96,11 +97,21 @@ const LeaveRequests = () => {
             <p className='paragraph'>Total pending leaves : {count}</p>
             <div className='table-container'>
                 <table className='table'>
+                    <colgroup>
+                        <col style={{width: '10%'}} /> {/* Define the width for the first column */}
+                        <col style={{width: '10%'}} /> {/* Define the width for the second column */}
+                        <col style={{width: '15%'}} /> {/* Define the width for the third column */}
+                        <col style={{width: '15%'}} /> {/* Define the width for the fourth column */}
+                        <col style={{width: '40%'}} /> {/* Define the width for the fourth column */}
+                        <col style={{width: '5%'}} /> {/* Define the width for the fourth column */}
+                        <col style={{width: '5%'}} /> {/* Define the width for the fourth column */}
+                    </colgroup>
                     <thead>
                         <tr>
                             <th className='clickable' onClick={() => handleSort("request_id")}>Request ID {renderSortIcon("request_id")}</th>
-                            <th className='clickable' onClick={() => handleSort("employee_id")}>Requester ID {renderSortIcon("employee_id")}</th>
-                            <th className='clickable' onClick={() => handleSort("requester_name")}>Requester {renderSortIcon("requester_name")}</th>
+                            <th className='clickable' onClick={() => handleSort("employee_id")}>Requester's ID {renderSortIcon("employee_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("requester_name")}>Name {renderSortIcon("requester_name")}</th>
+                            <th className='clickable' onClick={() => handleSort("request_date")}>Date {renderSortIcon("request_date")}</th>
                             <th className='clickable' onClick={() => handleSort("description")}>Reason {renderSortIcon("description")}</th>
                             <th />
                             <th/>
@@ -112,6 +123,7 @@ const LeaveRequests = () => {
                                 <td onClick={() => viewRequest(leave)}>{leave.request_id}</td>
                                 <td onClick={() => viewRequest(leave)}>{leave.employee_id}</td>
                                 <td onClick={() => viewRequest(leave)}>{leave.requester_name}</td>
+                                <td onClick={() => viewRequest(leave)}>{leave.request_date}</td>
                                 <td onClick={() => viewRequest(leave)}>{leave.description}</td>
                                 <td>
                                 <Button

@@ -44,8 +44,23 @@ const Leaves = () => {
         return <i className='fa fa-sort-desc'></i>;
     }
 
+    const renderNewLeaveButton = () => {
+        return (
+            <div className='pagination'>
+            <Link to="/dashboard/leave/new">
+                <Button>Request a new leave</Button>
+            </Link>
+            </div>
+        );
+    }
+
     const { length: count } = state.leaves;
-    if (count === 0) return <p className='paragraph'>You have no past leaves</p>;
+    if (count === 0) return (
+        <div>
+            <p className='paragraph'>You have no past leaves</p>
+            {renderNewLeaveButton()}
+        </div>
+    );
 
     const sorted = _.orderBy(state.leaves, [state.sortColumn.path], [state.sortColumn.order]);
     const leavesInPage = paginate(sorted, state.currentPage, state.pageSize);
@@ -71,7 +86,7 @@ const Leaves = () => {
                     </thead>
                     <tbody>
                         {leavesInPage.map(leave => (
-                            <tr key={leave.leave_id}>
+                            <tr key={leave.request_id}>
                                 <td onClick={() => navigateTo(leave)}>{leave.request_id}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.requested_date}<span> </span></td>

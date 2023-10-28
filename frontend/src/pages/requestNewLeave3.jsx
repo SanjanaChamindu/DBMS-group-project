@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './css/Leaves.css';
+import './css/allEmployees.css';
 
 /**
  * @typedef Leave

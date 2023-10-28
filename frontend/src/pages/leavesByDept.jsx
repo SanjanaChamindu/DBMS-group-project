@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import { getDepts } from '../services/fakeDeptService';
 import './css/LeaveByDept.css';
 
@@ -24,7 +26,20 @@ const LeavesByDept = () => {
     }
 
     const navigateTo = () => {
-        if (!selectedDept || !selectedStart || !selectedEnd) return;
+        if (!selectedDept || !selectedStart || !selectedEnd) {
+            Swal.fire({
+                title: 'Select required options',
+                text: `All options are required to generate the report`,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Close'
+            })
+            console.log("No elements in selectedOptions");
+            return;
+        }
+            
         let passingData={selectedDept, selectedStart, selectedEnd};
         console.log("navigate called", selectedDept, selectedStart, selectedEnd);
         navigate(`/dashboard/deptLeaves`, { state: { passingData } });

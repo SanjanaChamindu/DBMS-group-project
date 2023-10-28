@@ -36,24 +36,25 @@
 }
 
 .table tbody tr:hover {
+    font-weight: bold;
     background-color: #f2f2f2; /* Adjusted hover color */
 }
 
 /* Adjust column widths */
-.table th:nth-child(1),
+/* .table th:nth-child(1),
 .table td:nth-child(1) {
-    width: 20%; /* Adjust as needed */
+    width: 20%;
 }
 
 .table th:nth-child(2),
 .table td:nth-child(2) {
-    width: 30%; /* Adjust as needed */
+    width: 30%;
 }
 
 .table th:nth-child(3),
 .table td:nth-child(3) {
-    width: 50%; /* Adjust as needed */
-}
+    width: 50%;
+} */
 
 .pagination{
     display: flex;
