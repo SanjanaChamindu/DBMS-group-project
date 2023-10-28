@@ -128,25 +128,25 @@ const Sidebar = () => {
             <Content $sidebar={sidebar} onClick={()=>setSidebar(false)}>
                 
                     {/* Routes of the Navigation Sidebar */}
-
-                    {permission_level >= 4 && (<Routes>
+                    <Routes>
+                    {permission_level >= 4 && (<>
                         <Route path='/custom-attributes' element={<CustomAttributes/>} />
-                        </Routes>
+                        </>
                     )}
                     {permission_level >= 3 && (
-                        <Routes>
+                        <>
                         <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
                         <Route path='/abs-func' element={<AbsenceFunc permission_level={permission_level}/>} />
-                        </Routes>
+                        </>
                     )}
                     {permission_level >= 2 && (
-                        <Routes>
+                        <>
                         <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
                         <Route path='/leave-requests' element={<LeaveRequests/>} />
-                        </Routes>
+                        </>
                     )}
                     {permission_level >= 1 && (
-                        <Routes>
+                        <>
                             <Route path='/employee-details/view-all-employees' element={<AllEmployees permission_level={permission_level}/>} />
                             <Route path='/profile' element={<Profile/>} />
                             <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
@@ -163,9 +163,10 @@ const Sidebar = () => {
                             <Route path='/leaves' element={<Leaves/>} />
                             <Route path="/logout" element={<Logout />} />
                             <Route path="/" element={<Navigate to="/dashboard/profile"/>} />
-                        <Route path="*" element={<h1 className='paragraph'>Page Not Found</h1>}/>
-                        </Routes>
+                        </>
                     )}
+                        <Route path="*" element={<h1 className='paragraph' style={{fontSize:40}}>Page Not Found</h1>}/>
+                    </Routes>
             </Content>
         </React.Fragment>
     );
