@@ -83,8 +83,8 @@ const ViewRequest = () => {
 
     return (
         <React.Fragment>
-  <div className="col-lg-6">
-    <div className="card mb-4" style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px', backgroundColor: 'rgba(0, 0, 0, 0.3)', border: '2px solid white' }}>
+  <div className="col-lg-12">
+    <div className="card mb-4" style={{ marginLeft: '30%', marginRight: '30%', marginTop: '30px', backgroundColor: 'rgba(0, 0, 0, 0.3)', border: '2px solid white' }}>
       <div className="card-body" style={{ color: 'white', fontWeight: 'bold' }}>
         <h3 className="card-title" style={{ marginBottom: '30px' }}>Request Details</h3>
         <div className="row" style={{ marginBottom: '10px' }}>
