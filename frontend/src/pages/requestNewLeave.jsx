@@ -64,7 +64,7 @@ const RequestNewLeave = () => {
         if (selectedDates.length > 0){
             Swal.fire({
                 text: 'You have already selected a date!',
-                title: `Do you want change the date?`,
+                title: `Do you want to change the date?`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
