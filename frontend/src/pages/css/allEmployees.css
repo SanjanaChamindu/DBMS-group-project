@@ -36,6 +36,7 @@
 }
 
 .table tbody tr:hover {
+    font-weight: bold;
     background-color: #f2f2f2; /* Adjusted hover color */
 }
 
