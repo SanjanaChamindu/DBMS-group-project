@@ -201,7 +201,7 @@ const handleDoneClick = () => {
   return (
 <div>
     {pageNumber === 1 && (
-          <div className="col-md-8 d-flex justify-content-end" style={{ marginTop: '10px' }}>
+          <div className="col-lg-12 d-flex justify-content-center" style={{ marginBlock: '20px' }}>
             <div className="card mb-4">
               <div className="card-body" style={{ width: '800px' }}>
 
@@ -442,7 +442,7 @@ const handleDoneClick = () => {
   )}
 {pageNumber === 2 && (
 
-        <div className="col-md-8 d-flex justify-content-end" style={{ marginTop: '10px' }}>
+        <div className="col-lg-12 d-flex justify-content-center" style={{ marginBlock: '20px' }}>
         <div className="card mb-4">
           <div className="card-body" style={{width: '800px' }}>
 
