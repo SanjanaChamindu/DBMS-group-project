@@ -1,17 +1,25 @@
 import React from 'react';
 import { BiLogOut, BiSolidReport } from 'react-icons/bi';
+import { BsFiles, BsPeopleFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
-import { FaEnvelopeOpenText } from 'react-icons/fa';
+import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
-import { MdPeopleAlt } from 'react-icons/md';
+import { MdOutlineDashboardCustomize, MdPeople, MdPeopleAlt, MdPeopleOutline } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
 
-export const SidebarData = [
+export const SidebarData4 = [
     {
         lvl: 1,
         title: 'Profile',
         path: '/dashboard/profile',
         icon: <CgProfile />
+    },
+
+    {
+        lvl: 2,
+        title: 'Leave Requests',
+        path: '/dashboard/leave-requests',
+        icon: <FaRegHandPointRight/>
     },
 
     {
@@ -23,9 +31,47 @@ export const SidebarData = [
 
     {
         lvl: 1,
-        title: 'All employees',
-        path: '/dashboard/employee-details/view-all-employees',
-        icon: <MdPeopleAlt />
+        title: 'Employee details',
+        icon: <BsPeopleFill />,
+        iconClosed: <RiArrowDownSFill />,
+        iconOpened: <RiArrowUpSFill />,
+
+        subNav: [
+            {
+                lvl: 1,
+                title: 'View all employees',
+                path: '/dashboard/employee-details/view-all-employees',
+                icon: <MdPeopleAlt />,
+                cName: 'sub-nav'
+            },
+            {
+                lvl: 2,
+                title: 'View subordinates',
+                path: '/dashboard/employee-details/view-subordinates',
+                icon: <MdPeople />,
+                cName: 'sub-nav'
+            },
+            {
+                lvl :3,
+                title: 'Add new employee',
+                path: '/dashboard/employee-details/add-new-employee',
+                icon: <MdPeopleOutline />
+            }
+        ]
+    },
+
+    {
+        lvl:3,
+        title: 'Absence functions',
+        path: '/dashboard/abs-func',
+        icon: <BsFiles />
+    },
+
+    {
+        lvl: 4,
+        title:'Custom attributes',
+        path: '/dashboard/custom-attributes',
+        icon: <MdOutlineDashboardCustomize />
     },
 
     {

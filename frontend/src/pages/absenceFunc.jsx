@@ -13,8 +13,9 @@ import './css/allEmployees.css';
 
 //todo: all
 
-const AbsenceFunc = () => {
+const AbsenceFunc = (props) => {
     const navigate = useNavigate(); // Initialize navigate function
+    const permission_level =props.permission_level;
 
     const [state, setState] = useState({
         leaves: getLeaves(),
@@ -88,8 +89,8 @@ const AbsenceFunc = () => {
                             <th className='clickable' onClick={() => handleSort("number_of_casual_leaves")}>Casual Leaves {renderSortIcon("number_of_casual_leaves")}</th>
                             <th className='clickable' onClick={() => handleSort("number_of_maternity_leaves")}>Maternity Leaves {renderSortIcon("number_of_maternity_leaves")}</th>
                             <th className='clickable' onClick={() => handleSort("number_of_no_pay_leaves")}>No Pay Leaves {renderSortIcon("number_of_no_pay_leaves")}</th>
-                            <th />
-                            <th/>
+                            {permission_level==4 && <th />}
+                            {permission_level==4 && <th />}
                         </tr>
                     </thead>
                     <tbody>
@@ -103,12 +104,12 @@ const AbsenceFunc = () => {
                                 <td >{leave.number_of_casual_leaves}</td>
                                 <td >{leave.number_of_maternity_leaves}</td>
                                 <td >{leave.number_of_no_pay_leaves}</td>
-                                <td>
+                                {permission_level==4 && <td>
                                     <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => editLeave(leave)}><BiSolidEdit/></Button>{' '}
-                                </td>
-                                <td>
+                                </td>}
+                                {permission_level==4 && <td>
                                     <Button variant="outline-danger" style={{ width: '70px' }} onClick={() => deleteLeave(leave)}><RiDeleteBin6Line/></Button>{' '}
-                                </td>
+                                </td>}
                             </tr>
                         ))}
                     </tbody>
