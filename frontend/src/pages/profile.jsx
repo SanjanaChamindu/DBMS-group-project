@@ -27,7 +27,7 @@ export default function ProfilePage() {
 
   // Define profilePicture and handleProfilePictureChange
   const [profilePicture, setProfilePicture] = useState(
-    'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp'
+    'https://bodhicounseling.com/wp-content/uploads/2018/05/blank-profile-picture-973460_960_720-300x300.png'
   );
 
   // Custom Fields
