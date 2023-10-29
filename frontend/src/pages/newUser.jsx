@@ -174,23 +174,23 @@ const handleDoneClick = () => {
             </div>
 
         {/* Edit Details Button */}
-        <div className="row">
-  <div className="col-lg-6">
-    <div className="d-flex justify-content-left mb-2" style={{ marginLeft: '15px' }}>
-      {isEditing ? (
-        <button className="btn btn-primary" style={{ width: '150px', height: '40px' }} onClick={handleSaveClick}>
-          Save
-        </button>
-      ) : (
-        <button className="btn btn-primary" style={{ width: '150px', height: '40px' }} onClick={handleEditClick}>
-          Edit Details
-        </button>
-      )}
-    </div>
+        <div className="row" style={{ marginLeft: '15px', marginRight: '15px', marginBottom: '15px' }}>
+  <div className="col-6 d-flex justify-content-start">
+    {isEditing ? (
+      <button className="btn btn-primary" style={{ width: '150px', height: '40px' }} onClick={handleSaveClick}>
+        Save
+      </button>
+    ) : (
+      <button className="btn btn-primary" style={{ width: '150px', height: '40px' }} onClick={handleEditClick}>
+        Edit Details
+      </button>
+    )}
   </div>
-  <div className="col-lg-6 d-flex justify-content-end">
-<button className="btn btn-primary" style={{ width: '150px', height: '40px', marginRight: '15px' }} onClick={handleDoneClick}>Done</button>
-</div>
+  <div className="col-6 d-flex justify-content-end">
+    <button className="btn btn-primary" style={{ width: '150px', height: '40px' }} onClick={handleDoneClick}>
+      Done
+    </button>
+  </div>
 </div>
 
 
