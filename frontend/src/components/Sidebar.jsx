@@ -13,6 +13,7 @@ import CustomAttributes from '../pages/customAttributes';
 import CustomReport from '../pages/customReport';
 import DeptEmployees from '../pages/deptEmployees';
 import DeptLeaves from '../pages/deptLeaves';
+import EditAbsFunc from '../pages/editAbsFunct';
 import EmployeeByDept from '../pages/employeeByDept';
 import EmployeeReports from '../pages/employeeReports';
 import LeaveRequests from '../pages/leaveRequests';
@@ -86,7 +87,7 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);     // This is the function that will be called when the sidebar is clicked
-    const permission_level = 2; //data from backend
+    const permission_level = 4; //data from backend
     return (
         <React.Fragment>
             <IconContext.Provider value={{ color: '#fff' }}>
@@ -132,6 +133,7 @@ const Sidebar = () => {
                         
                     {permission_level >= 4 && (<>
                         <Route path='/custom-attributes' element={<CustomAttributes/>} />
+                        <Route path='/editAbsFunct' element={<EditAbsFunc/>} />
                         </>
                     )}
                     {permission_level >= 3 && (

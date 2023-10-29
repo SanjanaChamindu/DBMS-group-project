@@ -40,7 +40,7 @@ const AbsenceFunc = (props) => {
     }
 
     const editLeave = (leave) => {
-        navigate(`/dashboard/leave`, { state: { leave} });
+        navigate(`/dashboard/editAbsFunct`, { state: { leave} });
     };
 
     const deleteLeave = (leave) => {
