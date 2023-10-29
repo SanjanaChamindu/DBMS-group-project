@@ -24,7 +24,6 @@ export default function ProfilePage() {
         dataFromBackend["department"] = res.data.data[0].department_id;
         dataFromBackend["employmentStatus"] =
           res.data.data[0].employment_status;
-        // dataFromBackend ["nationality"] = res.data.data2[0].Nationality;
         dataFromBackend["personalAddress"] = res.data.data3[0].address;
         dataFromBackend["primaryPhoneNumber"] =
           res.data.data3[0].primary_phone_number;
@@ -60,7 +59,6 @@ export default function ProfilePage() {
         setSupervisorID(dataFromBackend.supervisorID);
         setDepartment(dataFromBackend.department);
         setEmploymentStatus(dataFromBackend.employmentStatus);
-        // setNationality(dataFromBackend.nationality);
         setPersonalAddress(dataFromBackend.personalAddress);
         setPrimaryPhoneNumber(dataFromBackend.primaryPhoneNumber);
         setSecondaryPhoneNumber(dataFromBackend.secondaryPhoneNumber);
@@ -88,7 +86,6 @@ export default function ProfilePage() {
   const [supervisorID, setSupervisorID] = useState("");
   const [department, setDepartment] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
-  const [nationality, setNationality] = useState("");
 
   // Work Details
   const [personalAddress, setPersonalAddress] = useState("");
@@ -96,14 +93,14 @@ export default function ProfilePage() {
   const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
   const [emergencyContact1, setEmergencyContact1] = useState({
-    name: "",
+    //name: "",
     phoneNumber: "",
-    relation: "",
+    //relation: "",
   });
   const [emergencyContact2, setEmergencyContact2] = useState({
-    name: "",
+    //name: "",
     phoneNumber: "",
-    relation: "",
+    //relation: "",
   });
 
   // Custom Fields
@@ -111,7 +108,7 @@ export default function ProfilePage() {
 
   // Define profilePicture and handleProfilePictureChange
   const [profilePicture, setProfilePicture] = useState(
-    "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+    "https://bodhicounseling.com/wp-content/uploads/2018/05/blank-profile-picture-973460_960_720-300x300.png"
   );
 
   // Iterate and render custom fields in the Basic Details section
@@ -434,23 +431,6 @@ export default function ProfilePage() {
                     )}
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Nationality:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={nationality}
-                        onChange={(e) => setNationality(e.target.value)}
-                      />
-                    ) : (
-                      <p>{nationality}</p>
-                    )}
-                  </div>
-                </div>
 
                 {/* Custom Fields Section */}
                 {renderCustomFields()}
@@ -547,7 +527,7 @@ export default function ProfilePage() {
                     <p className="font-weight-bold">Emergency Contact 1:</p>
                     {isEditing ? (
                       <div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -566,7 +546,7 @@ export default function ProfilePage() {
                               })
                             }
                           />
-                        </div>
+                        </div> */}
                         <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
@@ -587,7 +567,7 @@ export default function ProfilePage() {
                             }
                           />
                         </div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -606,18 +586,18 @@ export default function ProfilePage() {
                               })
                             }
                           />
-                        </div>
+                        </div> */}
                       </div>
                     ) : (
                       <div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
                           <label>
                             <strong>Name:</strong> {emergencyContact1.name}
                           </label>
-                        </div>
+                        </div> */}
                         <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
@@ -627,7 +607,7 @@ export default function ProfilePage() {
                             {emergencyContact1.phoneNumber}
                           </label>
                         </div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -635,7 +615,7 @@ export default function ProfilePage() {
                             <strong>Relation:</strong>{" "}
                             {emergencyContact1.relation}
                           </label>
-                        </div>
+                        </div> */}
                       </div>
                     )}
                   </div>
@@ -643,7 +623,7 @@ export default function ProfilePage() {
                     <p className="font-weight-bold">Emergency Contact 2:</p>
                     {isEditing ? (
                       <div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -662,7 +642,7 @@ export default function ProfilePage() {
                               })
                             }
                           />
-                        </div>
+                        </div> */}
                         <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
@@ -683,7 +663,7 @@ export default function ProfilePage() {
                             }
                           />
                         </div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -702,18 +682,18 @@ export default function ProfilePage() {
                               })
                             }
                           />
-                        </div>
+                        </div> */}
                       </div>
                     ) : (
                       <div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
                           <label>
                             <strong>Name:</strong> {emergencyContact2.name}
                           </label>
-                        </div>
+                        </div> */}
                         <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
@@ -723,7 +703,7 @@ export default function ProfilePage() {
                             {emergencyContact2.phoneNumber}
                           </label>
                         </div>
-                        <div
+                        {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -731,7 +711,7 @@ export default function ProfilePage() {
                             <strong>Relation:</strong>{" "}
                             {emergencyContact2.relation}
                           </label>
-                        </div>
+                        </div> */}
                       </div>
                     )}
                   </div>
