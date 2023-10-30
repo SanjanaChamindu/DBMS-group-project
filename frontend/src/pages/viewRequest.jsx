@@ -124,11 +124,10 @@ const ViewRequest = () => {
             <p className="font-weight-bold">Leave Date(s):</p>
           </div>
           <div className="col-md-8">
-            <ul>
-              {storedLeave.dates.map((date, index) => (
-                <li key={index}>{date}</li>
-              ))}
-            </ul>
+              {console.log("dsd",storedLeave.dates)}
+              {
+                <>{storedLeave.dates}</>
+              }
           </div>
         </div>
         <div className="row" style={{ marginBottom: '10px' }}>

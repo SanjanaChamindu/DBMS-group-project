@@ -154,6 +154,7 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = () => {
+    // Make API call to save changes to the database
     setIsEditing(false);
     const updatedData = {
       fullName,
