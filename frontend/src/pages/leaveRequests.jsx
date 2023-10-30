@@ -81,7 +81,7 @@ const LeaveRequests = () => {
       if (result.isConfirmed) {
         try {
           const res = axios.put(
-            `/leaves/requests/subordinates/${leave.request_id}`
+            `/leaves/requests/subordinates/approve/${leave.request_id}`
           );
           Swal.fire("Approved!", "The leave has been approved.", "success");
           setState({
@@ -110,7 +110,7 @@ const LeaveRequests = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         const res = axios.put(
-          `/leaves/requests/subordinates/${leave.request_id}`
+          `/leaves/requests/subordinates/decline/${leave.request_id}`
         );
         Swal.fire("Declined!", "The leave has been declined.", "success");
         setState({

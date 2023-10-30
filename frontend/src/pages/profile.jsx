@@ -169,14 +169,15 @@ export default function ProfilePage(props) {
       supervisorID,
       department,
       employmentStatus,
+      addedCustomFields,
       personalAddress,
       primaryPhoneNumber,
       secondaryPhoneNumber,
       emailAddress,
       emergencyContact1,
       emergencyContact2,
-      addedCustomFields
     };
+    const res = axios.put("/updateProfile", updatedData);
     console.log(updatedData);
     setDataFromBackend(updatedData);
     saveDataChanges(updatedData);

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import './css/LeaveByDept.css';
+import axios from 'axios';
 
 const RequestNewLeave = () => {
     const navigate = useNavigate()
@@ -24,35 +25,60 @@ const RequestNewLeave = () => {
 
     const navigateTo = () => {
         console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
+      
         if (!selectedType || !selectedDates || !Reason) {
-            Swal.fire({
-                title: 'All fields are required!',
-                text: `Please fill the required fields.`,
-                icon: 'warning',
-                showCancelButton: false,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Select'
-            });
-            return;
-        }
-        
-        Swal.fire({
-            title: 'Are you sure?',
-            text: `Do you want to request a leave with given details?`,
+          Swal.fire({
+            title: 'All fields are required!',
+            text: `Please fill the required fields.`,
             icon: 'warning',
-            showCancelButton: true,
+            showCancelButton: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, request!'
+            confirmButtonText: 'Select'
+          });
+          return;
+        }
+      
+        Swal.fire({
+          title: 'Are you sure?',
+          text: `Do you want to request a leave with given details?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, request!'
         }).then((result) => {
-            if (result.isConfirmed) {
-                // Call backend to request a leave with given details
-                console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
-                Swal.fire('Requested!', 'The request has been sent.', 'success');
+          if (result.isConfirmed) {
+            // Call backend to request a leave with given details
+            try {
+                console.log("Inputs" , selectedDates[0], selectedType.item_id, Reason);
+        
+              const res = axios.post("/leaves/request", {
+                employee_id : "1820244756",
+                leave_type: selectedType.item_id,
+                date: selectedDates[0],
+                description: Reason, 
+                // {
+                //     "employee_id": "1820267651",
+                //     "leave_type": "Casual",
+                //     "date": "2024-10-14",
+                //     "description": "None of your business"
+                //   }
+                  
+              });
+              if (res.status === 200) {
+                // Success
+                console.log("Leave request updated successfully!");
+              } else {
+                // Error
+                console.log(res.statusText);
+              }
+            } catch (err) {
+              console.log(err);
             }
+          }
         });
-    }
+      };
 
     const handleDate = (event) => {
         setDate(event.target.value);
