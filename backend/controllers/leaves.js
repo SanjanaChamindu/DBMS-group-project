@@ -10,7 +10,8 @@ export const requestLeave = (req, res) => {
         const q1 = "SELECT employee_id, job_title_id FROM employee where user_name = ?";
         db.query(q1, [userInfo.user_name], (err, data1) => {
             if (err) return res.status(500).json(err);
-            if (data1[0].employee_id != req.body.employee_id) res.status(403).json("You are not authorized to request leave for this employee!");
+            const employee_id = userInfo.employee_id;
+            if (data1[0].employee_id != employee_id) res.status(403).json("You are not authorized to request leave for this employee!");
 
             const q2 = "SELECT paygrade_id FROM job_title WHERE job_title_id = ?";
             db.query(q2, [data1[0].job_title_id], (err, data2) => {
@@ -37,13 +38,13 @@ export const requestLeave = (req, res) => {
                     if (err) return res.status(500).json(err);
                     
                     const q4 = `SELECT ${leave_taken_column} FROM leave_record WHERE employee_id = ?`;
-                    db.query(q4, [req.body.employee_id], (err, data4) => {
+                    db.query(q4, [employee_id], (err, data4) => {
                         if (err) return res.status(500).json(err);
 
                         if (data4[0][leave_taken_column] >= data3[0][column_name]) return res.status(400).json("Not enough leaves available!");
 
                         const q5 = "INSERT INTO leave_request (`employee_id`, `date`, `description`, `leave_type`) VALUES (?)";
-                        db.query(q5, [[req.body.employee_id, req.body.date, req.body.description, req.body.leave_type]], (err, data5) => {
+                        db.query(q5, [[employee_id, req.body.date, req.body.description, req.body.leave_type]], (err, data5) => {
                             if (err) return res.status(500).json(err);
                             return res.json("Leave requested successfully!");
                         });
@@ -87,7 +88,7 @@ export const viewSubRequests = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600001'){
-            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?)";
+            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?) AND supervisor_approval = 0";  
             db.query(q1, [employee_id], (err, data1) => {
                 if (err) return res.status(500).json(err);
                 return res.json(data1);

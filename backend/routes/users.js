@@ -1,10 +1,13 @@
 import express from "express";
 import {
-  register
+  registerEmployee,
+  registerUser
 } from "../controllers/users.js";
 
 const router = express.Router();
 
-router.get("/", register);
+router.post("/", registerEmployee);
+router.post("/employee/:id", registerUser);
+
 
 export default router;
