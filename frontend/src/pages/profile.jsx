@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function ProfilePage() {
+export default function ProfilePage(props) {
+  const permission_level=props.permission_level;
   const [isEditing, setIsEditing] = useState(false);
   const [dataFromBackend, setDataFromBackend] = useState({});
   // const [posts, setPosts] = useState([]);
@@ -726,7 +727,7 @@ export default function ProfilePage() {
             className="d-flex justify-content-left mb-2"
             style={{ marginLeft: "15px" }}
           >
-            {isEditing ? (
+            {permission_level===4 && (isEditing ? (
               <button
                 className="btn btn-primary"
                 style={{ width: "150px", height: "40px" }}
@@ -742,7 +743,7 @@ export default function ProfilePage() {
               >
                 Edit Details
               </button>
-            )}
+            ))}
           </div>
         </div>
       </div>

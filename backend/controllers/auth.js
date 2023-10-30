@@ -5,6 +5,8 @@ import { db } from "../db.js";
 export const login = (req, res) => {
   const q = "SELECT * FROM user WHERE user_name = ?";
   db.query(q, [req.body.user_name], (err, data) => {
+    // console.log("wa;fheia;fie", data)x
+
     if (err) return res.status(500).json(err);
     if (data.length === 0) return res.status(404).json("User not found!");
 

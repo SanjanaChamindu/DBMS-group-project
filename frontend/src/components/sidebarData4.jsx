@@ -6,6 +6,7 @@ import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import { MdOutlineDashboardCustomize, MdPeople, MdPeopleAlt, MdPeopleOutline } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { BsFillKeyFill } from 'react-icons/bs';
 
 export const SidebarData4 = [
     {
@@ -109,6 +110,13 @@ export const SidebarData4 = [
                 icon: <BiSolidReport />
             }
         ]
+    },
+
+    {
+        lvl: 1,
+        title: 'Credentials',   //todo //handle logout
+        path: '/dashboard/credentials',
+        icon: <BsFillKeyFill />
     },
 
     {

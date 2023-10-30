@@ -6,6 +6,7 @@ import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import { MdPeople, MdPeopleAlt } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { BsFillKeyFill } from 'react-icons/bs';
 
 export const SidebarData2 = [
     {
@@ -30,65 +31,18 @@ export const SidebarData2 = [
     },
 
     {
-        lvl: 1,
-        title: 'Employee details',
-        icon: <BsPeopleFill />,
-        iconClosed: <RiArrowDownSFill />,
-        iconOpened: <RiArrowUpSFill />,
-
-        subNav: [
-            {
-                lvl: 1,
-                title: 'View all employees',
-                path: '/dashboard/employee-details/view-all-employees',
-                icon: <MdPeopleAlt />,
-                cName: 'sub-nav'
-            },
-            {
-                lvl: 2,
-                title: 'View subordinates',
-                path: '/dashboard/employee-details/view-subordinates',
-                icon: <MdPeople />,
-                cName: 'sub-nav'
-            }
-        ]
+        lvl: 2,
+        title: 'View subordinates',
+        path: '/dashboard/employee-details/view-subordinates',
+        icon: <MdPeople />,
+        cName: 'sub-nav'
     },
-
+    
     {
-        lvl:1,
-        title: 'Reports',
-        icon: <IoIosPaper />,
-        iconClosed: <RiArrowDownSFill />,
-        iconOpened: <RiArrowUpSFill />,
-
-        subNav: [
-            {
-                lvl:1,
-                title: 'Employees by department',
-                path: '/dashboard/reports/employees-by-dept',
-                icon: <BiSolidReport />,
-                cName: 'sub-nav'
-            },
-            {
-                lvl:1,
-                title: 'Leaves by department',
-                path: '/dashboard/reports/leaves-by-dept',
-                icon: <BiSolidReport />,
-                cName: 'sub-nav'
-            },
-            {
-                lvl: 1,
-                title: 'Employee reports',
-                path: '/dashboard/reports/employee-reports',
-                icon: <BiSolidReport />
-            },
-            {
-                lvl: 1,
-                title: 'Custom report',
-                path: '/dashboard/reports/custom-report',
-                icon: <BiSolidReport />
-            }
-        ]
+        lvl: 1,
+        title: 'Credentials',   //todo //handle logout
+        path: '/dashboard/credentials',
+        icon: <BsFillKeyFill />
     },
 
     {

@@ -12,9 +12,9 @@ import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
 import axios from 'axios';
 
-const Subordinates = () => {
+const Subordinates = (props) => {
     const navigate = useNavigate(); // Initialize navigate function
-    
+    const permission_level=props.permission_level;    
     
 
     const [state, setState] = useState({
@@ -59,7 +59,7 @@ const Subordinates = () => {
 
     const page=2;
     const viewEmployee = (employee, edit) => {
-        navigate(`/dashboard/Employee`, { state: { employee, edit, page } });
+        navigate(`/dashboard/Employee`, { state: { employee, edit, page, permission_level:4 } });
     };
 
     const deleteEmployee = (employee) => {
@@ -104,7 +104,7 @@ const Subordinates = () => {
                             <th className='clickable' onClick={() => handleSort("employee_name")}>Name {renderSortIcon("employee_name")}</th>
                             <th className='clickable' onClick={() => handleSort("job_title")}>Job Title {renderSortIcon("job_title")}</th>
                             <th />
-                            <th/>
+                            {permission_level >= 4 && <th/>}
                         </tr>
                     </thead>
                     <tbody>
@@ -116,9 +116,9 @@ const Subordinates = () => {
                                 <td>
                                     <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => viewEmployee(employee,true)}><BiSolidEdit/></Button>{' '}
                                 </td>
-                                <td>
+                                {permission_level >= 4 && <td>
                                     <Button variant="outline-danger" style={{ width: '70px' }} onClick={() => deleteEmployee(employee)}><RiDeleteBin6Line/></Button>{' '}
-                                </td>
+                                </td>}
                             </tr>
                         ))}
                     </tbody>

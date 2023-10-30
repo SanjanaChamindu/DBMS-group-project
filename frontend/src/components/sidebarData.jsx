@@ -5,6 +5,7 @@ import { FaEnvelopeOpenText } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
 import { MdPeopleAlt } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { BsFillKeyFill } from 'react-icons/bs';
 
 export const SidebarData = [
     {
@@ -23,48 +24,10 @@ export const SidebarData = [
 
     {
         lvl: 1,
-        title: 'All employees',
-        path: '/dashboard/employee-details/view-all-employees',
-        icon: <MdPeopleAlt />
+        title: 'Credentials',   //todo //handle logout
+        path: '/dashboard/credentials',
+        icon: <BsFillKeyFill />
     },
-
-    {
-        lvl:1,
-        title: 'Reports',
-        icon: <IoIosPaper />,
-        iconClosed: <RiArrowDownSFill />,
-        iconOpened: <RiArrowUpSFill />,
-
-        subNav: [
-            {
-                lvl:1,
-                title: 'Employees by department',
-                path: '/dashboard/reports/employees-by-dept',
-                icon: <BiSolidReport />,
-                cName: 'sub-nav'
-            },
-            {
-                lvl:1,
-                title: 'Leaves by department',
-                path: '/dashboard/reports/leaves-by-dept',
-                icon: <BiSolidReport />,
-                cName: 'sub-nav'
-            },
-            {
-                lvl: 1,
-                title: 'Employee reports',
-                path: '/dashboard/reports/employee-reports',
-                icon: <BiSolidReport />
-            },
-            {
-                lvl: 1,
-                title: 'Custom report',
-                path: '/dashboard/reports/custom-report',
-                icon: <BiSolidReport />
-            }
-        ]
-    },
-
     {
         lvl: 1,
         title: 'Log out',   //todo //handle logout

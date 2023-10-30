@@ -2,6 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();
+let pid;
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
@@ -11,6 +12,7 @@ export const AuthContextProvider = ({ children }) => {
   const login = async (inputs) => {
     console.log(inputs);
     const res = await axios.post("/auth/login", inputs);
+    pid = res.data.permission_level_id
     setCurrentUser(res.data);
   };
 
@@ -30,3 +32,7 @@ export const AuthContextProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const getPermissionLevel = () => {
+  return pid;
+}

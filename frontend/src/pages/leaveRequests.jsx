@@ -30,7 +30,7 @@ const LeaveRequests = () => {
           employee_id: element.employee_id,
           requester_name: element.leave_request_id,
           description: element.description,
-          dates: element.date,
+          dates: element.date.slice(0,10),
         }));
         
         setState({

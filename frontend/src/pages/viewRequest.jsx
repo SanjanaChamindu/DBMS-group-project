@@ -113,15 +113,7 @@ const ViewRequest = () => {
         </div>
         <div className="row" style={{ marginBottom: '10px' }}>
           <div className="col-md-4">
-            <p className="font-weight-bold">Request Date:</p>
-          </div>
-          <div className="col-md-8">
-            <p>{storedLeave.requested_date}</p>
-          </div>
-        </div>
-        <div className="row" style={{ marginBottom: '10px' }}>
-          <div className="col-md-4">
-            <p className="font-weight-bold">Leave Date(s):</p>
+            <p className="font-weight-bold">Leave Date:</p>
           </div>
           <div className="col-md-8">
               {console.log("dsd",storedLeave.dates)}
@@ -146,8 +138,9 @@ const ViewRequest = () => {
             <p className="font-weight-bold">Status:</p>
           </div>
           <div className="col-md-8">
-            <p>{storedLeave.status}</p>
+            <p>{storedLeave.status === null || storedLeave.status === undefined ? 'Pending' : storedLeave.status}</p>
           </div>
+
         </div>
         )}
 

@@ -44,7 +44,7 @@ export const allEmp = (req, res) => {
   jwt.verify(token, "secretkey", (err, userInfo) => {
       if (err) return res.status(403).json("Token is not valid!");
       const permission_level_id = userInfo.permission_level_id;
-      if (permission_level_id === '8193600004'){
+      if (permission_level_id >= '8193600003'){
         let job_titles;
         db.query("SELECT * FROM job_title", (err, data) => {
           if (err) return res.status(500).json(err);
