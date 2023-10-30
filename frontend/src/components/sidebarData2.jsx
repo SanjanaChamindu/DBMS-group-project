@@ -1,17 +1,25 @@
 import React from 'react';
 import { BiLogOut, BiSolidReport } from 'react-icons/bi';
+import { BsPeopleFill } from 'react-icons/bs';
 import { CgProfile } from 'react-icons/cg';
-import { FaEnvelopeOpenText } from 'react-icons/fa';
+import { FaEnvelopeOpenText, FaRegHandPointRight } from 'react-icons/fa';
 import { IoIosPaper } from 'react-icons/io';
-import { MdPeopleAlt } from 'react-icons/md';
+import { MdPeople, MdPeopleAlt } from 'react-icons/md';
 import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
 
-export const SidebarData = [
+export const SidebarData2 = [
     {
         lvl: 1,
         title: 'Profile',
         path: '/dashboard/profile',
         icon: <CgProfile />
+    },
+
+    {
+        lvl: 2,
+        title: 'Leave Requests',
+        path: '/dashboard/leave-requests',
+        icon: <FaRegHandPointRight/>
     },
 
     {
@@ -23,9 +31,27 @@ export const SidebarData = [
 
     {
         lvl: 1,
-        title: 'All employees',
-        path: '/dashboard/employee-details/view-all-employees',
-        icon: <MdPeopleAlt />
+        title: 'Employee details',
+        icon: <BsPeopleFill />,
+        iconClosed: <RiArrowDownSFill />,
+        iconOpened: <RiArrowUpSFill />,
+
+        subNav: [
+            {
+                lvl: 1,
+                title: 'View all employees',
+                path: '/dashboard/employee-details/view-all-employees',
+                icon: <MdPeopleAlt />,
+                cName: 'sub-nav'
+            },
+            {
+                lvl: 2,
+                title: 'View subordinates',
+                path: '/dashboard/employee-details/view-subordinates',
+                icon: <MdPeople />,
+                cName: 'sub-nav'
+            }
+        ]
     },
 
     {

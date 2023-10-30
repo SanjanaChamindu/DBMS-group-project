@@ -12,8 +12,9 @@ import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
 import axios from 'axios';
 
-const AllEmployees = () => {
+const AllEmployees = (props) => {
     const navigate = useNavigate(); // Initialize navigate function
+    const permission_level=props.permission_level;
 
     const [state, setState] = useState({
         employees: [],
@@ -57,9 +58,9 @@ const AllEmployees = () => {
         }
         setState({ ...state, sortColumn });
     }
-
+    const page=1;
     const viewEmployee = (employee, edit) => {
-        navigate(`/dashboard/Employee`, { state: { employee, edit } });
+        navigate(`/dashboard/Employee`, { state: { employee, edit, page } });
     };
 
     const deleteEmployee = (employee) => {
@@ -104,8 +105,8 @@ const AllEmployees = () => {
                             <th className='clickable' onClick={() => handleSort("employee_id")}>Employee ID {renderSortIcon("employee_id")}</th>
                             <th className='clickable' onClick={() => handleSort("employee_name")}>Name {renderSortIcon("employee_name")}</th>
                             <th className='clickable' onClick={() => handleSort("job_title")}>Job Title {renderSortIcon("job_title")}</th>
-                            <th />
-                            <th/>
+                            {permission_level >=3 && <th/>}
+                            {permission_level >=3 && <th/>}
                         </tr>
                     </thead>
                     <tbody>
@@ -114,12 +115,12 @@ const AllEmployees = () => {
                                 <td onClick={() => viewEmployee(employee,false)}>{employee.employee_id}</td>
                                 <td onClick={() => viewEmployee(employee,false)}>{employee.employee_name}</td>
                                 <td onClick={() => viewEmployee(employee,false)}>{employee.job_title}</td>
-                                <td>
+                                {permission_level >=3 && <td>
                                     <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => viewEmployee(employee,true)}><BiSolidEdit/></Button>{' '}
-                                </td>
-                                <td>
+                                </td>}
+                                {permission_level >=3 && <td>
                                     <Button variant="outline-danger" style={{ width: '70px' }} onClick={() => deleteEmployee(employee)}><RiDeleteBin6Line/></Button>{' '}
-                                </td>
+                                </td>}
                             </tr>
                         ))}
                     </tbody>

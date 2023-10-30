@@ -13,9 +13,9 @@ import CustomAttributes from '../pages/customAttributes';
 import CustomReport from '../pages/customReport';
 import DeptEmployees from '../pages/deptEmployees';
 import DeptLeaves from '../pages/deptLeaves';
+import EditAbsFunc from '../pages/editAbsFunct';
 import EmployeeByDept from '../pages/employeeByDept';
 import EmployeeReports from '../pages/employeeReports';
-import Leave from '../pages/leave';
 import LeaveRequests from '../pages/leaveRequests';
 import Leaves from '../pages/leaves';
 import LeavesByDept from '../pages/leavesByDept';
@@ -27,6 +27,9 @@ import CusRepEmp from '../pages/viewCustomReports';
 import RepEmployees from '../pages/viewEmpReports';
 import ViewRequest from '../pages/viewRequest';
 import { SidebarData } from './sidebarData';
+import { SidebarData2 } from './sidebarData2';
+import { SidebarData3 } from './sidebarData3';
+import { SidebarData4 } from './sidebarData4';
 import SubMenu from './subMenu';
 
 const Nav = styled.div`
@@ -84,7 +87,7 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);     // This is the function that will be called when the sidebar is clicked
-    // console.log(localStorage.user);
+    const permission_level = 4; //data from backend    // console.log(localStorage.user);
     return (
         <React.Fragment>
             <IconContext.Provider value={{ color: '#fff' }}>
@@ -103,44 +106,70 @@ const Sidebar = () => {
                         <NavIcon to='#'>
                             <AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
-                        {SidebarData.map((item, index) => {
-                            return <SubMenu item={item} key={index}/>;
-                        })}
+                        {permission_level === 1 &&
+                            SidebarData.map((item, index) => {
+                                return <SubMenu item={item} key={index}/>;
+                            })}
+                        {permission_level === 2 &&
+                            SidebarData2.map((item, index) => {
+                                return <SubMenu item={item} key={index}/>;
+                            })}
+                        {permission_level === 3 &&
+                            SidebarData3.map((item, index) => {
+                                return <SubMenu item={item} key={index}/>;
+                            })}
+                        {permission_level === 4 &&
+                            SidebarData4.map((item, index) => {
+                                return <SubMenu item={item} key={index}/>;
+                            })}
                     </SidebarWrap>
                 </SidebarNav>
             </IconContext.Provider>
 
             <Content $sidebar={sidebar} onClick={()=>setSidebar(false)}>
-                <Routes>
+                
                     {/* Routes of the Navigation Sidebar */}
-
-                    <Route path='/profile' element={<Profile/>} />
-                    <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
-                    <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
-                    <Route path='/reports/employee-reports' element={<EmployeeReports/>} />
-                    <Route path='/reports/custom-report' element={<CustomReport/>} />
-                    <Route path='/custom-attributes' element={<CustomAttributes/>} />
-                    <Route path='/leave-requests' element={<LeaveRequests/>} />
-
-                    <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
-                    <Route path='/employee-details/view-all-employees' element={<AllEmployees/>} />
-                    <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
-                    <Route path='/deptEmployees' element={<DeptEmployees/>} />
-                    <Route path='/viewEmpReports' element={<RepEmployees/>} />
-                    <Route path='/viewCustomReports' element={<CusRepEmp/>} />
-                    <Route path='/viewRequest' element={<ViewRequest/>} />
-                    <Route path='/deptLeaves' element={<DeptLeaves/>} />
-                    <Route path="/Employee" element={<Employee/>} />
-
-                    <Route path='/abs-func' element={<AbsenceFunc/>} />
-					<Route path="/leave/new" element={<RequestNewLeave />} />
-                    <Route path='/leaves' element={<Leaves/>} />
-                    <Route path='/leave' element={<Leave/>} />
-                    <Route path="/logout" element={<Logout />} />
-
-                    <Route path="/" element={<Navigate to="/dashboard/profile"/>} />
-                    <Route path="*" element={<h1>Page Not Found</h1>}/>
-                </Routes>
+                    <Routes>
+                        
+                    {permission_level >= 4 && (<>
+                        <Route path='/custom-attributes' element={<CustomAttributes/>} />
+                        <Route path='/editAbsFunct' element={<EditAbsFunc/>} />
+                        </>
+                    )}
+                    {permission_level >= 3 && (
+                        <>
+                        <Route path='/employee-details/add-new-employee' element={<NewEmployee/>} />
+                        <Route path='/abs-func' element={<AbsenceFunc permission_level={permission_level}/>} />
+                        </>
+                    )}
+                    {permission_level >= 2 && (
+                        <>
+                        <Route path='/employee-details/view-subordinates' element={<Subordinates/>} />
+                        <Route path='/leave-requests' element={<LeaveRequests/>} />
+                        </>
+                    )}
+                    {permission_level >= 1 && (
+                        <>
+                            <Route path='/employee-details/view-all-employees' element={<AllEmployees permission_level={permission_level}/>} />
+                            <Route path='/profile' element={<Profile/>} />
+                            <Route path='/reports/employees-by-dept' element={<EmployeeByDept/>} />
+                            <Route path='/reports/leaves-by-dept' element={<LeavesByDept/>} />
+                            <Route path='/reports/employee-reports' element={<EmployeeReports/>} />
+                            <Route path='/reports/custom-report' element={<CustomReport/>} />
+                            <Route path='/deptEmployees' element={<DeptEmployees/>} />
+                            <Route path='/viewEmpReports' element={<RepEmployees/>} />
+                            <Route path='/viewCustomReports' element={<CusRepEmp/>} />
+                            <Route path='/viewRequest' element={<ViewRequest/>} />
+                            <Route path='/deptLeaves' element={<DeptLeaves/>} />
+                            <Route path="/Employee" element={<Employee/>} />
+                            <Route path="/leave/new" element={<RequestNewLeave />} />
+                            <Route path='/leaves' element={<Leaves/>} />
+                            <Route path="/logout" element={<Logout />} />
+                            <Route path="/" element={<Navigate to="/dashboard/profile"/>} />
+                        </>
+                    )}
+                        <Route path="*" element={<h1 className='paragraph' style={{fontSize:40}}>Page Not Found</h1>}/>
+                    </Routes>
             </Content>
         </React.Fragment>
     );

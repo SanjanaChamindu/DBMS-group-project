@@ -23,8 +23,20 @@ const RequestNewLeave = () => {
     }, []);
 
     const navigateTo = () => {
-        console.log([selectedType, selectedDates, Reason, currentDate]);
-        if (!selectedType || !selectedDates || !Reason) return;
+        console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
+        if (!selectedType || !selectedDates || !Reason) {
+            Swal.fire({
+                title: 'All fields are required!',
+                text: `Please fill the required fields.`,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Select'
+            });
+            return;
+        }
+        
         Swal.fire({
             title: 'Are you sure?',
             text: `Do you want to request a leave with given details?`,
@@ -49,7 +61,25 @@ const RequestNewLeave = () => {
     const handleDateChange = () => {
         if (!date) return;
         if (selectedDates.includes(date)) return;
-        let newDates=[...selectedDates, date]
+        if (selectedDates.length > 0){
+            Swal.fire({
+                text: 'You have already selected a date!',
+                title: `Do you want to change the date?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let newDates=[date]
+                    setSelectedDates(newDates);
+                    Swal.fire('Change!', 'Date has been changed.', 'success');
+                }
+            });
+            return;
+        }
+        let newDates=[date]
         setSelectedDates(newDates);
     }
 
@@ -80,10 +110,10 @@ const RequestNewLeave = () => {
                 </ul>
 						<div className='reports-min'>
                             <div>
-                                <label className="label" htmlFor="end-date"> Selected Dates</label>
+                                <label className="label" htmlFor="end-date"> Selected Date</label>
                             </div>
                             {selectedDates.length === 0
-                            ? <div className='paragraph-min' key="0">No dates selected</div>
+                            ? <div className='paragraph-min' key="0">Please select the date below</div>
                             : selectedDates.map((date) => {
                                 return <div key={date} className='paragraph-min'>{date}</div>;
                             })}

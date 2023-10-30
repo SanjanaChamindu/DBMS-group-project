@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import '../../../node_modules/sweetalert2/dist/sweetalert2.js';
 import './dropdown.css';
 
 const DropdownMenu = (props) => {
@@ -12,7 +14,21 @@ const DropdownMenu = (props) => {
     }
     
     const navigateTo = (item) => {
-        if (!item) return;
+        if (!item) {
+            Swal.fire({
+                title: 'No options selected',
+                text: `Select the department to generate the list`,
+                icon: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Close'
+            })
+            console.log("No options selected");
+            return;
+        }
+        ////////////////////calling backend api////////////////////////
+        //call the backend api
         console.log("navigate called",item);
         navigate(path, { state: { item } });
     }

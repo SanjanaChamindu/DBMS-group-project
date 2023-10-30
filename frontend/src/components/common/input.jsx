@@ -19,5 +19,7 @@ const Input = ({name,label,error,...rest}) => {
             {error && <div className="alert alert-danger">{error}</div>}        {/*if error is truthy, the div will be rendered*/}
         </div>
     );
+
+    
 }
 export default Input;

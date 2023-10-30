@@ -14,8 +14,9 @@ import axios from "axios";
 
 //todo: all
 
-const AbsenceFunc = () => {
-  const navigate = useNavigate(); // Initialize navigate function
+const AbsenceFunc = (props) => {
+    const navigate = useNavigate(); // Initialize navigate function
+    const permission_level =props.permission_level;
 
   const [state, setState] = useState({
     leaves: [],
@@ -62,9 +63,9 @@ const AbsenceFunc = () => {
     setState({ ...state, sortColumn });
   };
 
-  const editLeave = (leave) => {
-    navigate(`/dashboard/leave`, { state: { leave } });
-  };
+    const editLeave = (leave) => {
+        navigate(`/dashboard/editAbsFunct`, { state: { leave} });
+    };
 
   const deleteLeave = (leave) => {
     Swal.fire({
@@ -105,108 +106,55 @@ const AbsenceFunc = () => {
   );
   const leavesInPage = paginate(sorted, state.currentPage, state.pageSize);
 
-  return (
-    <React.Fragment>
-      <p className="paragraph">Total leave types : {count}</p>
-      <div className="table-container">
-        <table className="table">
-          <thead>
-            <tr>
-              <th
-                className="clickable"
-                onClick={() => handleSort("paygrade_id")}
-              >
-                Pay Grade ID {renderSortIcon("paygrade_id")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("leave_type_name")}
-              >
-                Leave Type {renderSortIcon("leave_type_name")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("basic_salary")}
-              >
-                Basic Salary {renderSortIcon("basic_salary")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("ot_benificts")}
-              >
-                OT Benefits {renderSortIcon("ot_benificts")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("number_of_annual_leaves")}
-              >
-                Annual Leaves {renderSortIcon("number_of_annual_leaves")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("number_of_casual_leaves")}
-              >
-                Casual Leaves {renderSortIcon("number_of_casual_leaves")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("number_of_maternity_leaves")}
-              >
-                Maternity Leaves {renderSortIcon("number_of_maternity_leaves")}
-              </th>
-              <th
-                className="clickable"
-                onClick={() => handleSort("number_of_no_pay_leaves")}
-              >
-                No Pay Leaves {renderSortIcon("number_of_no_pay_leaves")}
-              </th>
-              <th />
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {leavesInPage.map((leave) => (
-              <tr key={leave.paygrade_id}>
-                <td>{leave.paygrade_id}</td>
-                <td>{leave.leave_type_name}</td>
-                <td>{leave.basic_salary}</td>
-                <td>{leave.ot_benificts}</td>
-                <td>{leave.number_of_annual_leaves}</td>
-                <td>{leave.number_of_casual_leaves}</td>
-                <td>{leave.number_of_maternity_leaves}</td>
-                <td>{leave.number_of_no_pay_leaves}</td>
-                <td>
-                  <Button
-                    variant="outline-primary"
-                    style={{ width: "70px" }}
-                    onClick={() => editLeave(leave)}
-                  >
-                    <BiSolidEdit />
-                  </Button>{" "}
-                </td>
-                <td>
-                  <Button
-                    variant="outline-danger"
-                    style={{ width: "70px" }}
-                    onClick={() => deleteLeave(leave)}
-                  >
-                    <RiDeleteBin6Line />
-                  </Button>{" "}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <Pagination
-        className="pagination"
-        itemsCount={count}
-        pageChange={handlePageChange}
-        pageSize={state.pageSize}
-        currentPage={state.currentPage}
-      />
-    </React.Fragment>
-  );
-};
+    return (
+        <React.Fragment>
+            <p className='paragraph'>Total leave types : {count}</p>
+            <div className='table-container'>
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th className='clickable' onClick={() => handleSort("paygrade_id")}>Pay Grade ID {renderSortIcon("paygrade_id")}</th>
+                            <th className='clickable' onClick={() => handleSort("leave_type_name")}>Leave Type {renderSortIcon("leave_type_name")}</th>
+                            <th className='clickable' onClick={() => handleSort("basic_salary")}>Basic Salary {renderSortIcon("basic_salary")}</th>
+                            <th className='clickable' onClick={() => handleSort("ot_benificts")}>OT Benefits {renderSortIcon("ot_benificts")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_annual_leaves")}>Annual Leaves {renderSortIcon("number_of_annual_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_casual_leaves")}>Casual Leaves {renderSortIcon("number_of_casual_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_maternity_leaves")}>Maternity Leaves {renderSortIcon("number_of_maternity_leaves")}</th>
+                            <th className='clickable' onClick={() => handleSort("number_of_no_pay_leaves")}>No Pay Leaves {renderSortIcon("number_of_no_pay_leaves")}</th>
+                            {permission_level==4 && <th />}
+                            {permission_level==4 && <th />}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {leavesInPage.map(leave => (
+                            <tr key={leave.paygrade_id}>
+                                <td >{leave.paygrade_id}</td>
+                                <td >{leave.leave_type_name}</td>
+                                <td >{leave.basic_salary}</td>
+                                <td >{leave.ot_benificts}</td>
+                                <td >{leave.number_of_annual_leaves}</td>
+                                <td >{leave.number_of_casual_leaves}</td>
+                                <td >{leave.number_of_maternity_leaves}</td>
+                                <td >{leave.number_of_no_pay_leaves}</td>
+                                {permission_level==4 && <td>
+                                    <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => editLeave(leave)}><BiSolidEdit/></Button>{' '}
+                                </td>}
+                                {permission_level==4 && <td>
+                                    <Button variant="outline-danger" style={{ width: '70px' }} onClick={() => deleteLeave(leave)}><RiDeleteBin6Line/></Button>{' '}
+                                </td>}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+            <Pagination className='pagination'
+                itemsCount={count}
+                pageChange={handlePageChange}
+                pageSize={state.pageSize}
+                currentPage={state.currentPage}
+            />
+        </React.Fragment>
+    );
+}
 
 export default AbsenceFunc;
