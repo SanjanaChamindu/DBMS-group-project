@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(true);
@@ -69,6 +70,21 @@ export default function ProfilePage() {
       supervisorID,
       department,
     });
+    const updatedData = {
+      fullName: fullName,
+      nic: nic,
+      gender: gender,
+      employeeID: employeeID,
+      jobTitle: jobTitle,
+      supervisorID: supervisorID,
+      department: department,
+    };
+    try {
+      console.log(updatedData);
+      axios.post('/users', updatedData);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
 

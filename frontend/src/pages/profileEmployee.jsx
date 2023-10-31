@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function ProfilePage(props) {
+export default function EmpProfilePage(props) {
   const permission_level=props.permission_level;
   const [isEditing, setIsEditing] = useState(false);
   const [dataFromBackend, setDataFromBackend] = useState({});
