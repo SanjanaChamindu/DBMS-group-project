@@ -1,17 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import { getDepts } from '../services/fakeDeptService';
 import './css/LeaveByDept.css';
+import axios from 'axios';
 
 const LeavesByDept = () => {
     const navigate = useNavigate()
     const [selectedDept, setSelectedDept] = useState(null);
+    const [state, setState] = useState({depts : []});//getDepts(); // Assuming getDepts returns an array of department items
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.get("/reports/depts");
+                const deptData = res.data.map((element) => ({
+                    dept_name: element.department_name,
+                    dept_id: element.department_id,
+                }));
+                console.log(deptData);
+                setState({
+                    ...state,
+                    depts: deptData,
+                })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchData();
+    }, []);
     const [selectedStart, setSelectedStart] = useState('');
     const [selectedEnd, setSelectedEnd] = useState('');
 
-    const depts = getDepts();
+    // const depts = getDepts();
+
+
 
     const handleItemClick = (item) => {
         setSelectedDept(item);
@@ -62,7 +86,7 @@ const LeavesByDept = () => {
                     {selectedDept ? selectedDept.dept_name : 'Select Department'}
                 </button>
                 <ul className="dropdown-menu">
-                    {depts.map(item => (
+                    {state.depts.map(item => (
                         <li key={item.dept_id}>
                             <a
                                 className="dropdown-item"

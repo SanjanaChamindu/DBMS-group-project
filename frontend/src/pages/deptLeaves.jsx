@@ -7,6 +7,7 @@ import Pagination from '../components/common/pagination.jsx';
 import { getEmpLeaves } from '../services/leavesForReports.js';
 import { paginate } from '../utils/paginate.js';
 import './css/allEmployees.css';
+import axios from 'axios';
 
 const DeptLeaves = () => {
     const location = useLocation();
@@ -38,11 +39,56 @@ const DeptLeaves = () => {
     };
 
     const [state, setState] = useState({
-        leaves: getEmpLeaves(),
+        leaves: [], //getEmpLeaves(),
         pageSize: 14,
         currentPage: 1,
         sortColumn: { path: 'leave_id', order: 'asc' }
     });
+
+
+    const input_data = {"start_date":storedItem.selectedStart,"end_date":storedItem.selectedEnd, "department_id":storedItem.selectedDept.dept_id}
+    // console.log(input_data);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await axios.post("/queries/leaves", input_data);
+                const leaveData = res.data.map((element) => ({
+                    // Table columns
+                    // {
+                    //     leave_id: "leave_9",
+                    //     dates: ["2023-10-21"],
+                    //     requested_date: "2023-10-20",
+                    //     employee_id: "emp_1",
+                    //     reason: "Going to a wedding",
+                    //        },
+                    // Backend response
+                    // {
+                    //     "leave_request_id": 5,
+                    //     "employee_id": "1820244756",
+                    //     "date": "2023-10-04T18:30:00.000Z",
+                    //     "leave_type": "Casual",
+                    //     "full_name": "Daria Casari",
+                    //     "department_id": "2505000005"
+                    // },
+                    leave_id : element.leave_request_id,
+                    employee_id: element.employee_id,
+                    employee_name: element.full_name,
+                    // date: element.date.slice(0,10),
+                    // reason: element.description,
+                    leave_type : element.leave_type
+                }))
+                console.log(leaveData);
+                setState({
+                    ...state,
+                    leaves: leaveData
+                })
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        fetchData();
+    }, [])
 
     const handlePageChange = (page) => {
         setState({ ...state, currentPage: page });

@@ -144,4 +144,35 @@ export const returnDistinctValues = (req, res) => {
     });
 }
 
- 
+export const leavesByDateRange = (req, res) => {
+    // return res.json(req.body)
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not authenticated!");
+    jwt.verify(token, "secretkey", (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+
+        const permission_level_id = userInfo.permission_level_id;
+        if (permission_level_id >= '8193600004') {
+            const q1 = `SELECT l.leave_request_id, l.employee_id, l.date, l.leave_type, e.full_name, e.department_id FROM leave_request l LEFT JOIN employee e ON e.employee_id = l.employee_id WHERE date BETWEEN ? AND ? AND e.department_id = ? `;
+            db.query(q1, [req.body.start_date, req.body.end_date, req.body.department_id], (err, data1) => {
+                if (err) return res.status(500).json(err);
+                return res.json(data1);
+            });
+        }
+    });
+}
+
+export const getEmpReport = (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not authenticated!");
+    jwt.verify(token, "secretkey", (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+        const permission_level_id = userInfo.permission_level_id;
+        if (permission_level_id >= '8193600004') {
+            const q1 = `SELECT * FROM employee where job_title_id = ? AND department_id = ? AND gender = ?`;
+            db.query(q1, [req.body.job_title_id, req.body.department_id, req.body.gender], (err, data1) => {
+                if (err) return res.status(500).json(err);
+                return res.json(data1);
+            });
+        }});
+}

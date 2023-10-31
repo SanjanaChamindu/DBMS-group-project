@@ -7,19 +7,21 @@ import Pagination from '../components/common/pagination';
 import { getEmployees } from '../services/fakeDeptEmployees.js';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
+import axios from 'axios';
 
 
 const DeptEmployees = () => {
     const location = useLocation();
     const navigate = useNavigate(); // Initialize navigate function
     let item;
-    
     if (location.state) {
         ({item} = location.state);
     }
-
+    
     // Define a state to store the item
     const [storedItem, setStoredItem] = useState(item);
+    const dept_id = storedItem.dept_id;
+    // console.log(dept_name)
 
     useEffect(() => {
         if (item) {
@@ -33,11 +35,31 @@ const DeptEmployees = () => {
     {/* /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
     const [state, setState] = useState({
-        employees: getEmployees(),
+        employees: [],//getEmployees(),
         pageSize: 14,
         currentPage: 1,
         sortColumn: { path: 'employee_id', order: 'asc' }
     });
+
+    useEffect(() => {
+        console.log(`/reports/depts/${dept_id}`)
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`/reports/depts/${dept_id}`);
+                const employeeData = res.data.map((element) => ({
+                    employee_id: element.employee_id,
+                    employee_name: element.full_name,
+                    job_title: element.job_title_id}));
+                setState({
+                    ...state,
+                    employees: employeeData,
+                });
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
 
     const handlePageChange = (page) => {
         setState({ ...state, currentPage: page });

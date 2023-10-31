@@ -7,6 +7,7 @@ import Pagination from '../components/common/pagination';
 import { getEmployees } from '../services/fakeEmployeesOfselectedField.js';
 import { paginate } from '../utils/paginate';
 import './css/allEmployees.css';
+import axios from 'axios';
 
 const RepEmployees = () => {
     const location = useLocation();
@@ -28,34 +29,67 @@ const RepEmployees = () => {
 
     console.log("inside",storedItem);
     //calling backend/////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (storedItem.selectedDept !== null) {
-        const { dept_id, dept_name } = storedItem.selectedDept;
-    } else {
-        const dept_id=-1; //indicates it is not selected
-    }
+    // if (storedItem.department !== null) {
+    //     const { dept_id, dept_name } = storedItem.department;
+    // } else {
+    //     const dept_id=-1; //indicates it is not selected
+    // }
 
-    if (storedItem.selectedJob !== null) {
-        const { job_title_id, job_title_name } = storedItem.selectedJob;
-    } else {
-        const job_title_id=-1; //indicates it is not selected
-    }
+    // if (storedItem.job !== null) {
+    //     const { job_title_id, job_title_name } = storedItem.job;
+    // } else {
+    //     const job_title_id=-1; //indicates it is not selected
+    // }
 
-    if (storedItem.selectedGender !== null) {
-        const { item_id, item_name } = storedItem.selectedGender;
-    } else {
-        const item_id=-1; //indicates it is not selected
-    }
+    // if (storedItem.selectedGender !== null) {
+    //     const { item_id, item_name } = storedItem.selectedGender;
+    // } else {
+    //     const item_id=-1; //indicates it is not selected
+    // }
     //calling backend/////////////////////////////////////////////////////////////////////////////////////////////////////
 
     {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
     const navigate = useNavigate(); // Initialize navigate function
 
     const [state, setState] = useState({
-        employees: getEmployees(),
+        employees: [], //getEmployees(),
         pageSize: 14,
         currentPage: 1,
         sortColumn: { path: 'employee_id', order: 'asc' }
     });
+
+    useEffect (() => {
+        const fetchData = async () => {
+            try {
+                const inputs = {
+                    "department_id":storedItem.department.dept_id,
+                    "job_title_id":storedItem.job.job_title_id,
+                    "gender":storedItem.selectedGender.item_id
+                }
+                console.log(inputs)
+                const res = await axios.post("/queries/empreports", inputs);
+                console.log(res.data);
+                const employees = res.data.map((element) => ({
+                    // table columns
+                    // {
+                    //     employee_id: 2,
+                    //     employee_name: 'Jane Smith',
+                    //     job_title: 'Product Manager'
+                    // },
+                    employee_id : element.employee_id,
+                    employee_name : element.full_name,
+                    job_title : element.job_title_id
+                }))
+                setState({
+                    ...state,
+                    employees: employees
+                })
+            }  catch(err)  {
+                console.log(err);
+            }
+        }
+        fetchData();
+    }, []);
 
     const handlePageChange = (page) => {
         setState({ ...state, currentPage: page });

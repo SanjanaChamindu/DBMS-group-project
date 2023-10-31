@@ -1,5 +1,5 @@
 import express from "express";
-import { departmentQuery, departmentLeaves, manyAttributes, customAttribute, returnDistinctValues, returnCustomAttribute } from "../controllers/queries.js";
+import { departmentQuery,getEmpReport, leavesByDateRange, departmentLeaves, manyAttributes, customAttribute, returnDistinctValues, returnCustomAttribute } from "../controllers/queries.js";
 
 const router = express.Router();
 
@@ -10,5 +10,7 @@ router.post("/customAttribute", customAttribute)
 
 router.get("/returnDistinctValues", returnDistinctValues)
 router.get("/returnCustomAttribute", returnCustomAttribute)
+router.post("/leaves", leavesByDateRange)
+router.post("/empreport", getEmpReport);
 
 export default router;
