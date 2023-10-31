@@ -1,56 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(true);
   
-  //const [pageNumber, setPageNumber] = useState(1);
   // Basic Details
-  const [fullName, setFullName] = useState('');
-  const [nic, setNIC] = useState('');
-  const [gender, setGender] = useState('');
-  const [employeeID, setEmployeeID] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
-  const [supervisorID, setSupervisorID] = useState('');
-  const [department, setDepartment] = useState('');
-  //const [password, setPassword] = useState('');
-
+  const [paygrade, setPaygrade] = useState('');
+  const [basicSalary, setBasicSalary] = useState('');
+  const [otBenefits, setOtBenefits] = useState('');
+  const [annualLeaves, setAnnualLeaves] = useState('');
+  const [casualLeaves, setCasualLeaves] = useState('');
+  const [maternityLeaves, setMaternityLeaves] = useState('');
+  const [no_payLeaves, setNoPayLeaves] = useState('');
 
 
     // Temporary array to store the data
     const [temporaryData, setTemporaryData] = useState({
-        fullName: '',
-        nic: '',
-        gender: '',
-        employeeID: '',
-        jobTitle: '',
-        supervisorID: '',
-        department: '',
+        paygrade: '',
+        basicSalary: '',
+        otBenefits: '',
+        annualLeaves: '',
+        casualLeaves: '',
+        maternityLeaves: '',
+        no_payLeaves: ''
       });
-
-
 
 
   useEffect(() => {
     // Simulate an asynchronous API call with setTimeout
     setTimeout(() => {
       const dataFromBackend = {
-        fullName: '',
-        nic: '',
-        gender: '',
-        employeeID: '',
-        jobTitle: '',
-        supervisorID: '',
-        department: '',
+        paygrade: '',
+        basicSalary: '',
+        otBenefits: '',
+        annualLeaves: '',
+        casualLeaves: '',
+        maternityLeaves: '',
+        no_payLeaves: ''
+
       };
 
-      setFullName(dataFromBackend.fullName);
-      setNIC(dataFromBackend.nic);
-      setGender(dataFromBackend.gender);
-      setEmployeeID(dataFromBackend.employeeID);
-      setJobTitle(dataFromBackend.jobTitle);
-      setSupervisorID(dataFromBackend.supervisorID);
-      setDepartment(dataFromBackend.department);
+      setEmployeeID(dataFromBackend.paygrade);
+      setUserName(dataFromBackend.basicSalary);
+      setOldPassword(dataFromBackend.otBenefits);
+      setNewPassword(dataFromBackend.annualLeaves);
+      setReNewPassword(dataFromBackend.casualLeaves);
+      setNewPassword(dataFromBackend.maternityLeaves);
+      setReNewPassword(dataFromBackend.no_payLeaves);
     }, 1000); // Simulate a 1-second delay for the API call
   }, []);
 
@@ -62,29 +57,14 @@ export default function ProfilePage() {
     setIsEditing(false);
 
     setTemporaryData({
-      fullName,
-      nic,
-      gender,
-      employeeID,
-      jobTitle,
-      supervisorID,
-      department,
+      paygrade,
+      basicSalary,
+      otBenefits,
+      annualLeaves,
+      casualLeaves,
+      maternityLeaves,
+      no_payLeaves
     });
-    const updatedData = {
-      fullName: fullName,
-      nic: nic,
-      gender: gender,
-      employeeID: employeeID,
-      jobTitle: jobTitle,
-      supervisorID: supervisorID,
-      department: department,
-    };
-    try {
-      console.log(updatedData);
-      axios.post('/users', updatedData);
-    } catch (error) {
-      console.error(error);
-    }
   };
 
 
@@ -95,20 +75,20 @@ const handleDoneClick = () => {
     } else {
       // Check if all required fields are filled
       if (
-        fullName.trim() === '' ||
-        nic.trim() === '' ||
-        gender.trim() === '' ||
-        employeeID.trim() === '' ||
-        jobTitle.trim() === '' ||
-        supervisorID.trim() === '' ||
-        department.trim() === ''
+        paygrade.trim() === '' ||
+        basicSalary.trim() === '' ||
+        otBenefits.trim() === '' ||
+        annualLeaves.trim() === '' ||
+        casualLeaves.trim() === '' ||
+        maternityLeaves.trim() === '' ||
+        no_payLeaves.trim() === ''
       ) {
         alert('Please fill all the fields.');
-      } else {
-        // All required fields are filled, proceed with employee creation
+      }  else {
+        // All required fields are filled, proceed with password change
         // Send temporaryData to the backend
         // Example API call:
-        alert('Employee created');
+        alert('Absence Functions Changed');
       }
     }
   };
@@ -118,145 +98,145 @@ const handleDoneClick = () => {
 
 
   return (
-<div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '100vh' }}>
-          <div className="col-md-12 d-flex justify-content-center" style={{ marginLeft: '10px', marginTop: '10px', maxWidth: '800px' }}>
+<div>
+          <div className="col-md-8 d-flex justify-content-end" style={{ marginTop: '10px' }}>
             <div className="card mb-4">
-              <div className="card-body" style={{ width: '600px' }}>
+              <div className="card-body" style={{ width: '800px' }}>
 
 
                 {/* Basic Details Section */}
                 <div className="card mb-4">
                   <div className="card-body">
-                    <h3 className="card-title" style={{ marginBottom: '10px' }}>Basic Details</h3>
+                    <h3 className="card-title" style={{ marginBottom: '10px' }}>Change Password</h3>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">Full Name:</p>
+                        <p className="font-weight-bold">Paygrade:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
                             type="text"
                             className="form-control"
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
+                            value={paygrade}
+                            onChange={(e) => setPaygrade(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{fullName}</p>
+                          <p>{paygrade}</p>
                         )}
                       </div>
                     </div>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">NIC:</p>
+                        <p className="font-weight-bold">Basic Salary:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
                             type="text"
                             className="form-control"
-                            value={nic}
-                            onChange={(e) => setNIC(e.target.value)}
+                            value={basicSalary}
+                            onChange={(e) => setBasicSalary(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{nic}</p>
+                          <p>{basicSalary}</p>
                         )}
                       </div>
                     </div>
+
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">Gender:</p>
+                        <p className="font-weight-bold">OT Benefits:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
                             type="text"
                             className="form-control"
-                            value={gender}
-                            onChange={(e) => setGender(e.target.value)}
+                            value={otBenefits}
+                            onChange={(e) => setOtBenefits(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{gender}</p>
+                          <p>{otBenefits}</p>
                         )}
                       </div>
                     </div>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">Employee ID:</p>
+                        <p className="font-weight-bold">Annual Leaves:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
-                            type="text"
+                            type="date"
                             className="form-control"
-                            value={employeeID}
-                            onChange={(e) => setEmployeeID(e.target.value)}
+                            value={annualLeaves}
+                            onChange={(e) => setAnnualLeaves(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{employeeID}</p>
+                          <p>{annualLeaves}</p>
+                        )}
+                      </div>
+                    </div> 
+                    <div className="row" style={{ marginBottom: '10px' }}>
+                      <div className="col-md-4">
+                        <p className="font-weight-bold">Casual Leaves:</p>
+                      </div>
+                      <div className="col-md-8">
+                        {isEditing ? (
+                          <input
+                            type="date"
+                            className="form-control"
+                            value={casualLeaves}
+                            onChange={(e) => setCasualLeaves(e.target.value)}
+                            required
+                          />
+                        ) : (
+                          <p>{casualLeaves}</p>
                         )}
                       </div>
                     </div>
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">Job Title:</p>
+                        <p className="font-weight-bold">Maternity Leaves:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
-                            type="text"
+                            type="date"
                             className="form-control"
-                            value={jobTitle}
-                            onChange={(e) => setJobTitle(e.target.value)}
+                            value={maternityLeaves}
+                            onChange={(e) => setMaternityLeaves(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{jobTitle}</p>
+                          <p>{maternityLeaves}</p>
                         )}
                       </div>
-                    </div>
+                    </div>  
                     <div className="row" style={{ marginBottom: '10px' }}>
                       <div className="col-md-4">
-                        <p className="font-weight-bold">Supervisor ID:</p>
+                        <p className="font-weight-bold">No_Pay Leaves:</p>
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
                           <input
-                            type="text"
+                            type="date"
                             className="form-control"
-                            value={supervisorID}
-                            onChange={(e) => setSupervisorID(e.target.value)}
+                            value={no_payLeaves}
+                            onChange={(e) => setNoPayLeaves(e.target.value)}
                             required
                           />
                         ) : (
-                          <p>{supervisorID}</p>
+                          <p>{no_payLeaves}</p>
                         )}
                       </div>
-                    </div>
-                    <div className="row" style={{ marginBottom: '10px' }}>
-                      <div className="col-md-4">
-                        <p className="font-weight-bold">Department:</p>
-                      </div>
-                      <div className="col-md-8">
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={department}
-                            onChange={(e) => setDepartment(e.target.value)}
-                            required
-                          />
-                        ) : (
-                          <p>{department}</p>
-                        )}
-                      </div>
-                    </div>
-                
+                    </div>                
+                </div>
               </div>
-            </div>
             </div>
 
         {/* Edit Details Button */}
@@ -278,7 +258,6 @@ const handleDoneClick = () => {
     </button>
   </div>
 </div>
-
 
 
 </div>
