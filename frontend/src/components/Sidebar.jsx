@@ -19,6 +19,7 @@ import EmployeeReports from '../pages/employeeReports';
 import LeaveRequests from '../pages/leaveRequests';
 import Leaves from '../pages/leaves';
 import LeavesByDept from '../pages/leavesByDept';
+import NewCustomAttribute from '../pages/newCustomAttribute';
 import NewEmployee from '../pages/newEmployee';
 import Profile from '../pages/profile';
 import RequestNewLeave from '../pages/requestNewLeave';
@@ -132,6 +133,7 @@ const Sidebar = () => {
                     <Routes>
                         
                     {permission_level >= 4 && (<>
+                        <Route path='/custom-attribute/new' element={<NewCustomAttribute/>} />
                         <Route path='/custom-attributes' element={<CustomAttributes/>} />
                         <Route path='/editAbsFunct' element={<EditAbsFunc/>} />
                         </>
