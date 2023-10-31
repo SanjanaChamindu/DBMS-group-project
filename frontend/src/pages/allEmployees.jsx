@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { BiSolidEdit } from 'react-icons/bi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import Pagination from '../components/common/pagination';
 import { getEmployees } from '../services/fakeEmployeeService';
@@ -39,6 +40,26 @@ const AllEmployees = (props) => {
     const viewEmployee = (employee, edit) => {
         navigate(`/dashboard/Employee`, { state: { employee, edit, page } });
     };
+
+    const deleteEmployee = (employee) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `Do you want to delete ${employee.employee_name}?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                //call backend to delete employee
+                const employees = state.employees.filter(e => e.employee_id !== employee.employee_id);
+                setState({ ...state, employees });
+                Swal.fire('Deleted!', 'The employee has been deleted.', 'success');
+            }
+        });
+    };
+
 
     const renderSortIcon = (column) => {
         if (column !== state.sortColumn.path) return null;
