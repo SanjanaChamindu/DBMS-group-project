@@ -102,7 +102,7 @@ const handleDoneClick = () => {
 
 
   return (
-<div><div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '100vh' }}>
+<div className="d-flex justify-content-center align-items-center" style={{ width: '100%', height: '100vh' }}>
           <div className="col-md-12 d-flex justify-content-center" style={{ marginLeft: '10px', marginTop: '10px', maxWidth: '800px' }}>
             <div className="card mb-4">
               <div className="card-body" style={{ width: '600px' }}>
@@ -268,7 +268,6 @@ const handleDoneClick = () => {
 </div>
 </div>
 
-</div>
 </div>
 
   );
