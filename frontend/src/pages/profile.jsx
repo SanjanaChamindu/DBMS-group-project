@@ -67,6 +67,15 @@ export default function ProfilePage(props) {
         setEmergencyContact1(dataFromBackend.emergencyContact1);
         setEmergencyContact2(dataFromBackend.emergencyContact2);
         setAddedCustomFields(dataFromBackend.addedCustomFields);
+
+
+
+        setMothersName(dataFromBackend.mothersNAme);
+        setFathersName(dataFromBackend.fathersName);
+        setHealthConditions(dataFromBackend.healthConditions);
+
+
+
         console.log(dataFromBackend);
       } catch (err) {
         console.log(err);
@@ -87,6 +96,12 @@ export default function ProfilePage(props) {
   const [supervisorID, setSupervisorID] = useState("");
   const [department, setDepartment] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
+
+
+
+  const [mothersName, setMothersName] = useState("");
+  const [fathersName, setFathersName] = useState("");
+  const [healthConditions, setHealthConditions] = useState("");
 
   // Work Details
   const [personalAddress, setPersonalAddress] = useState("");
@@ -176,6 +191,9 @@ export default function ProfilePage(props) {
       emailAddress,
       emergencyContact1,
       emergencyContact2,
+      mothersName,
+      fathersName,
+      healthConditions,
     };
     const res = axios.put("/updateProfile", updatedData);
     console.log(updatedData);
@@ -431,6 +449,57 @@ export default function ProfilePage(props) {
                       />
                     ) : (
                       <p>{employmentStatus}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Mothers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={mothersName}
+                        onChange={(e) => setMothersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{mothersName}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Fathers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={fathersName}
+                        onChange={(e) => setFathersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{fathersName}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Health Conditions:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={healthConditions}
+                        onChange={(e) => setHealthConditions(e.target.value)}
+                      />
+                    ) : (
+                      <p>{healthConditions}</p>
                     )}
                   </div>
                 </div>
