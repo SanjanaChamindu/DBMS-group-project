@@ -452,57 +452,7 @@ export default function ProfilePage(props) {
                     )}
                   </div>
                 </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Mothers Name:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={mothersName}
-                        onChange={(e) => setMothersName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{mothersName}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Fathers Name:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={fathersName}
-                        onChange={(e) => setFathersName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{fathersName}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Health Conditions:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={healthConditions}
-                        onChange={(e) => setHealthConditions(e.target.value)}
-                      />
-                    ) : (
-                      <p>{healthConditions}</p>
-                    )}
-                  </div>
-                </div>
+                
 
                 {/* Custom Fields Section */}
                 {renderCustomFields()}
@@ -585,16 +535,51 @@ export default function ProfilePage(props) {
                     )}
                   </div>
                 </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Mothers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={mothersName}
+                        onChange={(e) => setMothersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{mothersName}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Fathers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={fathersName}
+                        onChange={(e) => setFathersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{fathersName}</p>
+                    )}
+                  </div>
+                </div>
+
               </div>
             </div>
 
             {/* Emergency Contacts Section */}
             <div className="card">
               <div className="card-body">
-                <h3 className="card-title" style={{ marginBottom: "10px" }}>
-                  Emergency Contacts
+                <h3 className="card-title" style={{ marginBottom: "20px" }}>
+                  Emergency Details
                 </h3>
-                <div className="row">
+                <div className="row" style={{ marginBottom: "60px" }}>
                   <div className="col-md-6">
                     <p className="font-weight-bold">Emergency Contact 1:</p>
                     {isEditing ? (
@@ -785,6 +770,23 @@ export default function ProfilePage(props) {
                           </label>
                         </div> */}
                       </div>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Health Conditions:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={healthConditions}
+                        onChange={(e) => setHealthConditions(e.target.value)}
+                      />
+                    ) : (
+                      <p>{healthConditions}</p>
                     )}
                   </div>
                 </div>
