@@ -71,13 +71,13 @@ export const registerEmployee = (req, res) => {
 
       const permission_level_id = userInfo.permission_level_id;
 
-      if (permission_level_id > '8193600002'){
+      if (permission_level_id > '8193600003'){
         const q1 = "SELECT attribute_name FROM custum_attributes"
         db.query(q1, (err, data1) => {
             if (err) return res.status(500).json(err);
 
-            const attribute_names = data1.map((item) => item.attribute_name);
-            const attribute_values = attribute_names.map((name) => req.body[name]);
+            // const attribute_names = data1.map((item) => item.attribute_name);
+            // const attribute_values = attribute_names.map((name) => req.body[name]);
             const values = [
               req.body.employee_id, //
               req.body.nic, //
@@ -86,12 +86,13 @@ export const registerEmployee = (req, res) => {
               req.body.supervisor_id, //
               req.body.job_title_id, // name
               req.body.department_id, // name
-              req.body.employment_status,
-              req.body.birth_day,
-              req.body.marital_status,
-              ...attribute_values
+              // req.body.employment_status,
+              // req.body.birth_day,
+              // req.body.marital_status,
+              // ...attribute_values
             ];
-            const q = "INSERT INTO employee (`Employee_id`, `NIC`, `Full_Name`, `Gender`, `supervisor_id`, `job_title_id`, `department_id`, `employment_status`, `birth_day`, `marital_status`, `"+ attribute_names.join("`, `") +"`) VALUES (?)";
+            // const q = "INSERT INTO employee (`Employee_id`, `NIC`, `Full_Name`, `Gender`, `supervisor_id`, `job_title_id`, `department_id`, `employment_status`, `birth_day`, `marital_status`, `"+ attribute_names.join("`, `") +"`) VALUES (?)";
+            const q = "INSERT INTO employee (`Employee_id`, `NIC`, `Full_Name`, `Gender`, `supervisor_id`, `job_title_id`, `department_id`) VALUES (?)";
             db.query(q, [values], (err, result) => {
               if (err) return res.status(500).json(err);
               return res.status(200).json("Employee has been created!");

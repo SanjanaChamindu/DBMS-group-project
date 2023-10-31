@@ -22,7 +22,7 @@ const CustomReports = () => {
                     const q = "/queries/attribvals/" + element;
                     console.log(q);
                     const response = await axios.get(q);
-                    return { label: element, options: [response.data] };
+                    return { label: element, options: response.data };
                 });
     
                 // Wait for all attribute value requests to complete
