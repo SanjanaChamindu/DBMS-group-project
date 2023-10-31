@@ -128,19 +128,31 @@ export const customAttribute = (req, res) => {
 // For the frontend
 
 export const returnCustomAttribute = (req, res) => {
-    q = "SELECT attribute_name FROM custum_attributes"
+    // return res.json("HELLO");
+    const q = "SELECT attribute_name FROM custom_attributes"
     db.query(q, (err, data) => {
         if (err) return res.status(500).json(err);
-        return res.json(data);
+        // return res.json(data);
+        let temp_arr = []
+        data.forEach(element => {
+            temp_arr.push(element.attribute_name);
+        });
+        return res.json(temp_arr);
     });
 }
 
 export const returnDistinctValues = (req, res) => {
     const attribute_name = req.params.attribute_name;
     const q = "SELECT DISTINCT " + attribute_name + " FROM employee"
+    // return res.json([q]);
     db.query(q, (err, data) => {
+        // return res.json(data);
         if (err) return res.status(500).json(err);
-        return res.json(data);
+        let temp_arr = []
+        data.forEach(element => {
+            temp_arr.push(element[attribute_name]);
+        });
+        return res.json(temp_arr);
     });
 }
 

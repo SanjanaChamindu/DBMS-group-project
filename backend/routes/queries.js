@@ -8,8 +8,8 @@ router.post("/departmentLeaves", departmentLeaves)
 router.post("/manyAttributes", manyAttributes)
 router.post("/customAttribute", customAttribute)
 
-router.get("/returnDistinctValues", returnDistinctValues)
-router.get("/returnCustomAttribute", returnCustomAttribute)
+router.get("/attribvals/:attribute_name", returnDistinctValues)
+router.get("/attribs", returnCustomAttribute)
 router.post("/leaves", leavesByDateRange)
 router.post("/empreport", getEmpReport);
 

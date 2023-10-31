@@ -16,7 +16,7 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/custom", customs);
 app.use("/api/users", users);
-app.use("/api/queries/", queries)
+app.use("/api/queries", queries)
 
 app.listen(8800, () => {
   console.log("Connected!");

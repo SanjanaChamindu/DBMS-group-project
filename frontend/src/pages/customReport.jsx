@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Swal from 'sweetalert2';
 import '../../node_modules/sweetalert2/dist/sweetalert2.js';
 import { getDropdownData } from '../services/customFields.js';
@@ -7,9 +8,34 @@ import { getDropdownData } from '../services/customFields.js';
 const CustomReports = () => {
     const navigate = useNavigate()
     const [selectedOptions, setSelectedOptions] = useState({});
-    console.log("kkk",selectedOptions);
-
-    const dropdownData = getDropdownData();
+    const [dropdownData, setDropdownData] = useState([]);
+    console.log("selected Option is", selectedOptions);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const attribsResponse = await axios.get("/queries/attribs");
+                const attributeNames = attribsResponse.data;
+    
+                // Use Promise.all to fetch attribute values concurrently
+                const attributeValuePromises = attributeNames.map(async (element) => {
+                    const q = "/queries/attribvals/" + element;
+                    console.log(q);
+                    const response = await axios.get(q);
+                    return { label: element, options: [response.data] };
+                });
+    
+                // Wait for all attribute value requests to complete
+                const tempData = await Promise.all(attributeValuePromises);
+                console.log(tempData);
+                setDropdownData(tempData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
+    
 
     const handleOptionSelect = (dropdownLabel, option) => {
         setSelectedOptions(prevState => ({
