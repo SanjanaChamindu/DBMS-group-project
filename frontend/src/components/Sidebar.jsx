@@ -22,6 +22,7 @@ import LeavesByDept from '../pages/leavesByDept';
 import NewCustomAttribute from '../pages/newCustomAttribute';
 import NewEmployee from '../pages/newEmployee';
 import Profile from '../pages/profile';
+import Credentials from '../pages/credentials';
 import RequestNewLeave from '../pages/requestNewLeave';
 import Subordinates from '../pages/subordinates';
 import CusRepEmp from '../pages/viewCustomReports';
@@ -168,6 +169,7 @@ const Sidebar = () => {
                             <Route path='/leaves' element={<Leaves/>} />
                             <Route path="/logout" element={<Logout />} />
                             <Route path="/" element={<Navigate to="/dashboard/profile"/>} />
+                            <Route path="/credentials" element={<Credentials/>} />
                         </>
                     )}
                         <Route path="*" element={<h1 className='paragraph' style={{fontSize:40}}>Page Not Found</h1>}/>
