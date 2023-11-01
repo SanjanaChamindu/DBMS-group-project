@@ -137,13 +137,16 @@ const CustomAttributes = () => {
     const temp = {};
     const temp2 = {};
     temp["attribute_name"] = state.data["New Attribute"];
-    temp2["attribute"] = state.data["New Attribute"];
     console.log("Temp is ", temp);
     try {
       console.log("Trying");
       const res = axios.post(`/custom/customfield/add`, temp);
+      temp2["attribute"] = state.data["New Attribute"];
       const newAttributes=[...state.attributes,temp2]
-      setState({ ...state, attributes: newAttributes });
+
+      console.log("temp2222222222",temp2);
+      temp2["attribute"] != "" && setState({ ...state, attributes: newAttributes,});
+      
       console.log("newAttributes",newAttributes);
       // alert("New attribute added");
     } catch (error) {
