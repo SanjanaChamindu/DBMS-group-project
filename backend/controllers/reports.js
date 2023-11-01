@@ -98,7 +98,9 @@ export const subDetails = (req, res) => {
               const q4 = "SELECT " + attribute_names.join(", ") + " FROM employee where employee_id = ?";
               db.query(q4, sub_employee_id, (err, data4) => {
                 if (err) return res.status(500).json(err);
-                const result = { data, data2,  data4 };
+                data3 = data2
+                data2 = data4
+                const result = { data, data2,  data3 };
                 return res.json(result);
               });
           });
@@ -136,35 +138,35 @@ export const editEmp = (req, res) => {
             const attribute_names = data2.map((item) => item.attribute_name);
             const q3 = "UPDATE `Employee`  SET `NIC`=?,`Full_Name`=?,`Gender`=?,`user_name`=?,`supervisor_id`=?,`job_title_id`=?,`department_id`=?,`employment_status`=?,`birth_day`=?,`marital_status`=? where Employee_id=?";
             const values1 = [
-            req.body.NIC,
-            req.body.Full_Name,
-            req.body.Gender,
-            req.body.user_name,
-            req.body.supervisor_id,
-            req.body.job_title_id,
-            req.body.department_id,
-            req.body.employment_status,
-            req.body.birth_day,
-            req.body.marital_status,
+            req.body.data[0].nic,
+            req.body.data[0].full_name,
+            req.body.data[0].gender,
+            req.body.data[0].user_name,
+            req.body.data[0].supervisor_id,
+            req.body.data[0].job_title_id,
+            req.body.data[0].department_id,
+            req.body.data[0].employment_status,
+            req.body.data[0].birth_day,
+            req.body.data[0].marital_status,
             req.params.id
             ]
             db.query(q3, [...values1], (err, data3) => {
               if (err) return res.status(500).json(err);
               const q3 = `UPDATE Employee SET ${attribute_names.map((name) => `${name}=?`).join(",")} WHERE Employee_id=?`
-              const attribute_values = attribute_names.map((name) => req.body[name]);
+              const attribute_values = attribute_names.map((name) => req.body.data2[0][name]);
               db.query(q3, [...attribute_values, req.params.id], (err, data4) => {
                 if (err) return res.status(500).json(err);
                 const q4 = "UPDATE `contact_details` SET `primary_phone_number`=?,`secondary_phone_number`=?,`email_address`=?, `primary_emergency_contact`=?, `primary_emergency_contact`=?, `Address`=?, `Mothers_name`=?, `Fathers_name`=?, `Health_conditions`=? WHERE employee_id = ?";
                 const values2 = [
-                  req.body.Primary_phone_number,
-                  req.body.Secondary_phone_number,
-                  req.body.Email_address,
-                  req.body.Primary_emergency_contact,
-                  req.body.Secondary_emergency_contact,
-                  req.body.Address,
-                  req.body.Mothers_name,
-                  req.body.Fathers_name,
-                  req.body.Health_conditions,
+                  req.body.data3[0].primary_phone_number,
+                  req.body.data3[0].secondary_phone_number,
+                  req.body.data3[0].email_address,
+                  req.body.data3[0].primary_emergency_contact,
+                  req.body.data3[0].secondary_emergency_contact,
+                  req.body.data3[0].address,
+                  req.body.data3[0].mothers_name,
+                  req.body.data3[0].fathers_name,
+                  req.body.data3[0].health_conditions,
                   req.params.id,
                 ];
                 db.query(q4, [...values2], (err, data5) => {
@@ -183,3 +185,9 @@ export const editEmp = (req, res) => {
     });  
   });
 };
+
+
+
+
+
+

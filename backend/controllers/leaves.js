@@ -88,7 +88,7 @@ export const viewSubRequests = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600001'){
-            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?) AND supervisor_approval = 0";  
+            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?) AND supervisor_approval = 2";  
             db.query(q1, [employee_id], (err, data1) => {
                 if (err) return res.status(500).json(err);
                 return res.json(data1);
@@ -109,9 +109,30 @@ export const approveLeave = (req, res) => {
 
         if (permission_level_id > '8193600001'){
             const q1 = "UPDATE leave_request SET supervisor_approval = ? WHERE leave_request_id = ?";
-            db.query(q1, [req.body.supervisor_approval, req.params.id], (err, data1) => {
+            db.query(q1, [1, req.params.id], (err, data1) => {
                 if (err) return res.status(500).json(err);
                 return res.json("Leave request approved successfully!");
+            });
+
+        } else{
+            return res.status(403).json("You are not authorized to view this data!");
+        }
+});
+}
+
+export const rejectLeave = (req, res) => {
+    const token = req.cookies.access_token;
+    if (!token) return res.status(401).json("Not authenticated!");
+    jwt.verify(token, "secretkey", (err, userInfo) => {
+        if (err) return res.status(403).json("Token is not valid!");
+
+        const permission_level_id = userInfo.permission_level_id;
+
+        if (permission_level_id > '8193600001'){
+            const q1 = "UPDATE leave_request SET supervisor_approval = ? WHERE leave_request_id = ?";
+            db.query(q1, [0, req.params.id], (err, data1) => {
+                if (err) return res.status(500).json(err);
+                return res.json("Leave request rejected successfully!");
             });
 
         } else{

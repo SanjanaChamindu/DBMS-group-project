@@ -55,13 +55,18 @@ export const departmentLeaves = (req, res) => {
                 "SELECT * FROM leave_record where employee_id = ?";
               db.query(q3, employee_id, (err, data3) => {
                 if (err) return res.status(500).json(err);
-                leaves +=
-                  data3[0].Annual_leaves_taken +
-                  data3[0].Casual_leaves_taken +
-                  data3[0].Maternity_leaves_taken +
-                  data3[0].No_pay_leaves_taken;
-                if (index === employee_ids.length - 1) {
-                  return res.json(leaves);
+                if (data3.length>0){
+                    leaves +=
+                      data3[0].Annual_leaves_taken +
+                      data3[0].Casual_leaves_taken +
+                      data3[0].Maternity_leaves_taken +
+                      data3[0].No_pay_leaves_taken;
+                    if (index === employee_ids.length - 1) {
+                        console.log(leaves);
+                        return res.json(leaves);
+                    }
+                } else{
+                    return res.json(0);
                 }
               });
             });
@@ -115,8 +120,11 @@ export const customAttribute = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600002'){
-            const q = "SELECT employee_id, Full_name, job_title_id, employment_status FROM employee WHERE " + req.body.attribute_name + " = ?"
-            db.query(q, req.body.attribute_value, (err, data) => {
+            const attributes = Object.entries(req.body).filter(([key, value]) => key !== 'attribute_name' && key !== 'attribute_value');
+            const queryParts = attributes.map(([key, value]) => `${key} = ?`).join(' AND ');
+            const q = `SELECT employee_id, Full_name, job_title_id, employment_status FROM employee WHERE ${queryParts}`;
+            const values = attributes.map(([key, value]) => value);
+            db.query(q, values, (err, data) => {
                 if (err) return res.status(500).json(err);
                 return res.json(data);
             });
