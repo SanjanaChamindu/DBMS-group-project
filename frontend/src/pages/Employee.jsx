@@ -1,96 +1,138 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import Profileview from './profileviewemp';
+import Profileview from "./profileviewemp";
 import axios from "axios";
 
 const Employee = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    let employee, edit, page,storedItem, permission_level;
-    
-    if (location.state) {
-        ({ employee, edit, page,storedItem, permission_level } = location.state);
+  const navigate = useNavigate();
+  const location = useLocation();
+  let employee, edit, page, storedItem, permission_level;
+
+  if (location.state) {
+    ({ employee, edit, page, storedItem, permission_level } = location.state);
+  }
+
+  // Define a state to store the employee
+  console.log("inside", page);
+  const [storedEmployee, setStoredEmployee] = useState(employee);
+  const [editEmployee, setEditEmployee] = useState(edit);
+
+  useEffect(() => {
+    if (employee) {
+      // If employee is passed in location state, update storedEmployee and editEmployee
+      setStoredEmployee(employee);
+      setEditEmployee(edit);
     }
+  }, [employee, edit]);
 
-    // Define a state to store the employee
-    console.log("inside",page);
-    const [storedEmployee, setStoredEmployee] = useState(employee);
-    const [editEmployee, setEditEmployee] = useState(edit);
+  const handleClicked = () => {
+    console.log("handleClicked", page);
+    if (page === 1) {
+      navigate(`/dashboard/employee-details/view-all-employees`);
+    } else if (page === 2) {
+      navigate(`/dashboard/employee-details/view-subordinates`);
+    } else if (page === 3) {
+      let passingData = storedItem;
+      navigate(`/dashboard/viewEmpReports`, { state: { passingData } });
+    } else if (page === 4) {
+      let passingData = storedItem;
+      navigate(`/dashboard/viewCustomReports`, { state: { passingData } });
+    } else return;
+  };
 
-    useEffect(() => {
-        if (employee) {
-            // If employee is passed in location state, update storedEmployee and editEmployee
-            setStoredEmployee(employee);
-            setEditEmployee(edit);
-        }
-    }, [employee, edit]);
-
-    const handleClicked = () => {
-        console.log("handleClicked",page);
-        if (page===1) {
-            navigate(`/dashboard/employee-details/view-all-employees`);}
-        else if (page===2) {
-            navigate(`/dashboard/employee-details/view-subordinates`);}
-        else if (page===3) {
-            let passingData=storedItem;
-            navigate(`/dashboard/viewEmpReports`, { state: { passingData} });}
-        else if (page===4) {
-            let passingData=storedItem;
-            navigate(`/dashboard/viewCustomReports`, { state: { passingData} });}
-        else return;
-        }
-
-        //! /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //! /////////////////////////////////////////////////////////////////////////////////////////////////////////
   const [isEditing, setIsEditing] = useState(edit);
   const [dataFromBackend, setDataFromBackend] = useState({});
   // const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const the_string = "/reports/emp/" + employee.employee_id;
+        const the_string = "/reports/empbyid/" + employee.employee_id;
         const res = await axios.get(the_string);
         // setPosts(res.data);
         console.log("posts", res);
-        dataFromBackend["fullName"] = res.data.data[0].full_name;
-        dataFromBackend["nic"] = res.data.data[0].nic;
-        dataFromBackend["gender"] = res.data.data[0].gender;
-        dataFromBackend["birthday"] = res.data.data[0].birth_day.slice(0, 10);
-        dataFromBackend["healthConditions"] = res.data.data3[0].health_conditions;
-        dataFromBackend["maritalStatus"] = res.data.data[0].marital_status;
-        dataFromBackend["employeeID"] = res.data.data[0].employee_id;
-        dataFromBackend["userName"] = res.data.data[0].user_name;
-        dataFromBackend["jobTitle"] = res.data.data[0].job_title_id;
-        dataFromBackend["supervisorID"] = res.data.data[0].supervisor_id;
-        dataFromBackend["department"] = res.data.data[0].department_id;
+        dataFromBackend["fullName"] = res.data.data[0].full_name || "";
+        dataFromBackend["nic"] = res.data.data[0].nic || "";
+        dataFromBackend["gender"] = res.data.data[0].gender || "";
+        dataFromBackend["birthday"] =
+          (res.data.data[0].birth_day &&
+            res.data.data[0].birth_day.slice(0, 10)) ||
+          "";
+        dataFromBackend["healthConditions"] =
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].health_conditions) ||
+          "";
+        dataFromBackend["maritalStatus"] =
+          res.data.data[0].marital_status || "";
+        dataFromBackend["employeeID"] = res.data.data[0].employee_id || "";
+        dataFromBackend["userName"] = res.data.data[0].user_name || "";
+        dataFromBackend["jobTitle"] = res.data.data[0].job_title_id || "";
+        dataFromBackend["supervisorID"] = res.data.data[0].supervisor_id || "";
+        dataFromBackend["department"] = res.data.data[0].department_id || "";
         dataFromBackend["employmentStatus"] =
-          res.data.data[0].employment_status;
-        dataFromBackend["personalAddress"] = res.data.data3[0].address;
+          res.data.data[0].employment_status || "";
+        dataFromBackend["personalAddress"] =
+          (res.data.data3 && res.data.data3[0] && res.data.data3[0].address) ||
+          "";
         dataFromBackend["primaryPhoneNumber"] =
-          res.data.data3[0].primary_phone_number;
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].primary_phone_number) ||
+          "";
         dataFromBackend["secondaryPhoneNumber"] =
-          res.data.data3[0].secondary_phone_number;
-        dataFromBackend["emailAddress"] = res.data.data3[0].email_address;
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].secondary_phone_number) ||
+          "";
+        dataFromBackend["emailAddress"] =
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].email_address) ||
+          "";
         dataFromBackend["emergencyContact1"] = {};
         dataFromBackend["emergencyContact1"]["phoneNumber"] =
-          res.data.data3[0].primary_emergency_contact;
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].primary_emergency_contact) ||
+          "";
         dataFromBackend["emergencyContact2"] = {};
         dataFromBackend["emergencyContact2"]["phoneNumber"] =
-          res.data.data3[0].secondary_emergency_contact;
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].secondary_emergency_contact) ||
+          "";
         let addedCustomFields = [];
-        dataFromBackend["mothersName"] = res.data.data3[0].mothers_name;
-        dataFromBackend["fathersName"] = res.data.data3[0].fathers_name;
-        dataFromBackend["healthConditions"] = res.data.data3[0].health_conditions;
-        res.data.data2.forEach((element) => {
-          for (const [key, value] of Object.entries(element)) {
-            console.log(key, value);
-            let templist = {};
-            templist["label"] = key;
-            templist["value"] = value;
-            addedCustomFields.push(templist);
-            console.log(addedCustomFields);
+        dataFromBackend["mothersName"] =
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].mothers_name) ||
+          "";
+        dataFromBackend["fathersName"] =
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].fathers_name) ||
+          "";
+        dataFromBackend["healthConditions"] =
+          (res.data.data3 &&
+            res.data.data3[0] &&
+            res.data.data3[0].health_conditions) ||
+          "";
+        if (res.data.data2) {
+          if (res.data.data2[0]) {
+            res.data.data2.forEach((element) => {
+              for (const [key, value] of Object.entries(element)) {
+                console.log(key, value);
+                let templist = {};
+                templist["label"] = key;
+                templist["value"] = value;
+                addedCustomFields.push(templist);
+                console.log(addedCustomFields);
+              }
+            });
           }
-        });
+        }
         dataFromBackend["addedCustomFields"] = addedCustomFields;
         setFullName(dataFromBackend.fullName);
         setNIC(dataFromBackend.nic);
@@ -196,47 +238,50 @@ const Employee = () => {
 
   const saveDataChanges = async (updatedData) => {
     try {
-      const temp_list = []
+      const temp_list = [];
+      const temp_obj = {};
       updatedData.addedCustomFields.forEach((field) => {
-        const temp_obj = {};
-        temp_obj[field.label] = field.value
-        temp_list.push(temp_obj)
-      })
+        temp_obj[field.label] = field.value;
+      });
+      temp_list.push(temp_obj);
       const inputData = {
-        "data": [
-            {
-                "employee_id": updatedData.employeeID,
-                "nic": updatedData.nic,
-                "full_name": updatedData.fullName,
-                "gender": updatedData.gender,
-                "user_name": updatedData.userName,
-                "supervisor_id": updatedData.supervisorID,
-                "job_title_id": updatedData.jobTitle,
-                "department_id": updatedData.department,
-                "employment_status": updatedData.employmentStatus,
-                "birth_day": updatedData.birthday,
-                "marital_status": updatedData.maritalStatus
-            }
+        data: [
+          {
+            employee_id: updatedData.employeeID,
+            nic: updatedData.nic,
+            full_name: updatedData.fullName,
+            gender: updatedData.gender,
+            user_name: updatedData.userName,
+            supervisor_id: updatedData.supervisorID,
+            job_title_id: updatedData.jobTitle,
+            department_id: updatedData.department,
+            employment_status: updatedData.employmentStatus,
+            birth_day: updatedData.birthday,
+            marital_status: updatedData.maritalStatus,
+          },
         ],
-        "data2": temp_list,
-        "data3": [
-            {
-                "employee_id": updatedData.employeeID,
-                "primary_phone_number": updatedData.emergencyContact1.phoneNumber,
-                "secondary_phone_number": updatedData.emergencyContact2.phoneNumber,
-                "email_address": updatedData.emailAddress,
-                "primary_emergency_contact": updatedData.primaryPhoneNumber,
-                "secondary_emergency_contact": updatedData.secondaryPhoneNumber,
-                "address": updatedData.personalAddress,
-                "mothers_name": updatedData.mothersName,
-                "fathers_name": updatedData.fathersName,
-                "health_conditions": updatedData.HealthConditions
-            }
-        ]
-    }
-      console.log("INPUT LIST",inputData)
-      // const res = await axios.put("/updateProfile", updatedData); // Send a PUT request to update the data
-      // console.log("Data updated successfully:", res);
+        data2: temp_list,
+        data3: [
+          {
+            employee_id: updatedData.employeeID,
+            primary_phone_number: updatedData.emergencyContact1.phoneNumber,
+            secondary_phone_number: updatedData.emergencyContact2.phoneNumber,
+            email_address: updatedData.emailAddress,
+            primary_emergency_contact: updatedData.primaryPhoneNumber,
+            secondary_emergency_contact: updatedData.secondaryPhoneNumber,
+            address: updatedData.personalAddress,
+            mothers_name: updatedData.mothersName,
+            fathers_name: updatedData.fathersName,
+            health_conditions: updatedData.HealthConditions,
+          },
+        ],
+      };
+      console.log("INPUT LIST", inputData);
+      const q = "/reports/editt/" + updatedData.employeeID
+      console.log(q);
+      const res = await axios.put(q, inputData); // Send a PUT request to update the data
+      console.log(res);
+      console.log("Data updated successfully:", res);
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -266,8 +311,7 @@ const Employee = () => {
       fathersName,
       emergencyContact2,
       healthConditions,
-      addedCustomFields
-
+      addedCustomFields,
     };
     console.log(updatedData);
     setDataFromBackend(updatedData);
@@ -285,378 +329,386 @@ const Employee = () => {
     }
   };
 
-
-    return (
-        <React.Fragment>
-            <Button onClick={handleClicked} style={{ marginLeft: '20px', marginRight: '10px', marginTop: '10px' }}>Back</Button>
-            {/* <div style={{ color: "#fff" }}>
+  return (
+    <React.Fragment>
+      <Button
+        onClick={handleClicked}
+        style={{ marginLeft: "20px", marginRight: "10px", marginTop: "10px" }}
+      >
+        Back
+      </Button>
+      {/* <div style={{ color: "#fff" }}>
                 <Profileview isEditing={editEmployee} employee={storedEmployee}/>
             </div> */}
 
-            <div
-      className="row"
-      style={{ marginLeft: "10px", marginRight: "10px", marginTop: "10px" }}
-    >
-      <div className="col-lg-4">
-        <div className="card mb-4">
-          <div className="card-body text-center">
-            <img
-              src={profilePicture}
-              alt="avatar"
-              className="rounded-circle mb-3"
-              style={{ width: "150px", height: "150px" }} // Set fixed width and height
-            />
-            <h5 className="mb-1">{fullName}</h5>
-            <p className="mb-1">{jobTitle}</p>
-            <p className="mb-1">Employee ID: {employeeID}</p>
-            <div className="d-flex justify-content-center mb-2">
-              <input
-                type="file"
-                accept="image/*"
-                id="profile-picture-input"
-                style={{ display: "none" }}
-                onChange={handleProfilePictureChange}
+      <div
+        className="row"
+        style={{ marginLeft: "10px", marginRight: "10px", marginTop: "10px" }}
+      >
+        <div className="col-lg-4">
+          <div className="card mb-4">
+            <div className="card-body text-center">
+              <img
+                src={profilePicture}
+                alt="avatar"
+                className="rounded-circle mb-3"
+                style={{ width: "150px", height: "150px" }} // Set fixed width and height
               />
-              <label
-                htmlFor="profile-picture-input"
-                className="btn btn-primary"
-                style={{ cursor: "pointer" }}
-              >
-                Change Profile Picture
-              </label>
+              <h5 className="mb-1">{fullName}</h5>
+              <p className="mb-1">{jobTitle}</p>
+              <p className="mb-1">Employee ID: {employeeID}</p>
+              <div className="d-flex justify-content-center mb-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="profile-picture-input"
+                  style={{ display: "none" }}
+                  onChange={handleProfilePictureChange}
+                />
+                <label
+                  htmlFor="profile-picture-input"
+                  className="btn btn-primary"
+                  style={{ cursor: "pointer" }}
+                >
+                  Change Profile Picture
+                </label>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="col-lg-8">
-        <div className="card mb-4">
-          <div className="card-body">
-            <h2 className="mb-4">User Profile</h2>
+        <div className="col-lg-8">
+          <div className="card mb-4">
+            <div className="card-body">
+              <h2 className="mb-4">User Profile</h2>
 
-            {/* Basic Details Section */}
-            <div className="card mb-4">
-              <div className="card-body">
-                <h3 className="card-title" style={{ marginBottom: "10px" }}>
-                  Basic Details
-                </h3>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Full Name:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{fullName}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">NIC:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={nic}
-                        onChange={(e) => setNIC(e.target.value)}
-                      />
-                    ) : (
-                      <p>{nic}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Gender:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                      />
-                    ) : (
-                      <p>{gender}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Birthday:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={birthday}
-                        onChange={(e) => setBirthday(e.target.value)}
-                      />
-                    ) : (
-                      <p>{birthday}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Marital Status:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={maritalStatus}
-                        onChange={(e) => setMaritalStatus(e.target.value)}
-                      />
-                    ) : (
-                      <p>{maritalStatus}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Employee ID:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={employeeID}
-                        onChange={(e) => setEmployeeID(e.target.value)}
-                      />
-                    ) : (
-                      <p>{employeeID}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">User Name:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{userName}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Job Title:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={jobTitle}
-                        onChange={(e) => setJobTitle(e.target.value)}
-                      />
-                    ) : (
-                      <p>{jobTitle}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Supervisor ID:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={supervisorID}
-                        onChange={(e) => setSupervisorID(e.target.value)}
-                      />
-                    ) : (
-                      <p>{supervisorID}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Department:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
-                      />
-                    ) : (
-                      <p>{department}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Employment Status:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={employmentStatus}
-                        onChange={(e) => setEmploymentStatus(e.target.value)}
-                      />
-                    ) : (
-                      <p>{employmentStatus}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Custom Fields Section */}
-                {renderCustomFields()}
-              </div>
-            </div>
-
-            {/* Contact Details Section */}
-            <div className="card mb-4">
-              <div className="card-body">
-                <h3 className="card-title" style={{ marginBottom: "10px" }}>
-                  Contact Details
-                </h3>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Personal Address:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={personalAddress}
-                        onChange={(e) => setPersonalAddress(e.target.value)}
-                      />
-                    ) : (
-                      <p>{personalAddress}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Primary Phone Number:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={primaryPhoneNumber}
-                        onChange={(e) => setPrimaryPhoneNumber(e.target.value)}
-                      />
-                    ) : (
-                      <p>{primaryPhoneNumber}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Secondary Phone Number:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={secondaryPhoneNumber}
-                        onChange={(e) =>
-                          setSecondaryPhoneNumber(e.target.value)
-                        }
-                      />
-                    ) : (
-                      <p>{secondaryPhoneNumber}</p>
-                    )}
-                  </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Email Address:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={emailAddress}
-                        onChange={(e) => setEmailAddress(e.target.value)}
-                      />
-                    ) : (
-                      <p>{emailAddress}</p>
-                    )}
+              {/* Basic Details Section */}
+              <div className="card mb-4">
+                <div className="card-body">
+                  <h3 className="card-title" style={{ marginBottom: "10px" }}>
+                    Basic Details
+                  </h3>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Full Name:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                        />
+                      ) : (
+                        <p>{fullName}</p>
+                      )}
+                    </div>
                   </div>
                   <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Mothers Name:</p>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">NIC:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={nic}
+                          onChange={(e) => setNIC(e.target.value)}
+                        />
+                      ) : (
+                        <p>{nic}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={mothersName}
-                        onChange={(e) => setMothersName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{mothersName}</p>
-                    )}
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Gender:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={gender}
+                          onChange={(e) => setGender(e.target.value)}
+                        />
+                      ) : (
+                        <p>{gender}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Fathers Name:</p>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Birthday:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={birthday}
+                          onChange={(e) => setBirthday(e.target.value)}
+                        />
+                      ) : (
+                        <p>{birthday}</p>
+                      )}
+                    </div>
                   </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={fathersName}
-                        onChange={(e) => setFathersName(e.target.value)}
-                      />
-                    ) : (
-                      <p>{fathersName}</p>
-                    )}
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Marital Status:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={maritalStatus}
+                          onChange={(e) => setMaritalStatus(e.target.value)}
+                        />
+                      ) : (
+                        <p>{maritalStatus}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Employee ID:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={employeeID}
+                          onChange={(e) => setEmployeeID(e.target.value)}
+                        />
+                      ) : (
+                        <p>{employeeID}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">User Name:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={userName}
+                          onChange={(e) => setUserName(e.target.value)}
+                        />
+                      ) : (
+                        <p>{userName}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Job Title:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={jobTitle}
+                          onChange={(e) => setJobTitle(e.target.value)}
+                        />
+                      ) : (
+                        <p>{jobTitle}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Supervisor ID:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={supervisorID}
+                          onChange={(e) => setSupervisorID(e.target.value)}
+                        />
+                      ) : (
+                        <p>{supervisorID}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Department:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={department}
+                          onChange={(e) => setDepartment(e.target.value)}
+                        />
+                      ) : (
+                        <p>{department}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Employment Status:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={employmentStatus}
+                          onChange={(e) => setEmploymentStatus(e.target.value)}
+                        />
+                      ) : (
+                        <p>{employmentStatus}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Custom Fields Section */}
+                  {renderCustomFields()}
                 </div>
               </div>
-            </div>
 
-            {/* Emergency Contacts Section */}
-            <div className="card">
-              <div className="card-body">
-                <h3 className="card-title" style={{ marginBottom: "10px" }}>
-                  Emergency Contacts
-                </h3>
-                <div className="row">
-                  <div className="col-md-6">
-                    <p className="font-weight-bold">Emergency Contact 1:</p>
-                    {isEditing ? (
-                      <div>
-                        {/* <div
+              {/* Contact Details Section */}
+              <div className="card mb-4">
+                <div className="card-body">
+                  <h3 className="card-title" style={{ marginBottom: "10px" }}>
+                    Contact Details
+                  </h3>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Personal Address:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={personalAddress}
+                          onChange={(e) => setPersonalAddress(e.target.value)}
+                        />
+                      ) : (
+                        <p>{personalAddress}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Primary Phone Number:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={primaryPhoneNumber}
+                          onChange={(e) =>
+                            setPrimaryPhoneNumber(e.target.value)
+                          }
+                        />
+                      ) : (
+                        <p>{primaryPhoneNumber}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">
+                        Secondary Phone Number:
+                      </p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={secondaryPhoneNumber}
+                          onChange={(e) =>
+                            setSecondaryPhoneNumber(e.target.value)
+                          }
+                        />
+                      ) : (
+                        <p>{secondaryPhoneNumber}</p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Email Address:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={emailAddress}
+                          onChange={(e) => setEmailAddress(e.target.value)}
+                        />
+                      ) : (
+                        <p>{emailAddress}</p>
+                      )}
+                    </div>
+                    <div className="row" style={{ marginBottom: "10px" }}>
+                      <div className="col-md-4">
+                        <p className="font-weight-bold">Mothers Name:</p>
+                      </div>
+                      <div className="col-md-8">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={mothersName}
+                            onChange={(e) => setMothersName(e.target.value)}
+                          />
+                        ) : (
+                          <p>{mothersName}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="row" style={{ marginBottom: "10px" }}>
+                      <div className="col-md-4">
+                        <p className="font-weight-bold">Fathers Name:</p>
+                      </div>
+                      <div className="col-md-8">
+                        {isEditing ? (
+                          <input
+                            type="text"
+                            className="form-control"
+                            value={fathersName}
+                            onChange={(e) => setFathersName(e.target.value)}
+                          />
+                        ) : (
+                          <p>{fathersName}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Emergency Contacts Section */}
+              <div className="card">
+                <div className="card-body">
+                  <h3 className="card-title" style={{ marginBottom: "10px" }}>
+                    Emergency Contacts
+                  </h3>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <p className="font-weight-bold">Emergency Contact 1:</p>
+                      {isEditing ? (
+                        <div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -676,27 +728,27 @@ const Employee = () => {
                             }
                           />
                         </div> */}
-                        <div
-                          className="form-group"
-                          style={{ marginBottom: "10px" }}
-                        >
-                          <label>
-                            <strong>Phone Number:</strong>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Phone Number"
-                            value={emergencyContact1.phoneNumber}
-                            onChange={(e) =>
-                              setEmergencyContact1({
-                                ...emergencyContact1,
-                                phoneNumber: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        {/* <div
+                          <div
+                            className="form-group"
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <label>
+                              <strong>Phone Number:</strong>
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Phone Number"
+                              value={emergencyContact1.phoneNumber}
+                              onChange={(e) =>
+                                setEmergencyContact1({
+                                  ...emergencyContact1,
+                                  phoneNumber: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -716,10 +768,10 @@ const Employee = () => {
                             }
                           />
                         </div> */}
-                      </div>
-                    ) : (
-                      <div>
-                        {/* <div
+                        </div>
+                      ) : (
+                        <div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -727,16 +779,16 @@ const Employee = () => {
                             <strong>Name:</strong> {emergencyContact1.name}
                           </label>
                         </div> */}
-                        <div
-                          className="form-group"
-                          style={{ marginBottom: "10px" }}
-                        >
-                          <label>
-                            <strong>Phone Number:</strong>{" "}
-                            {emergencyContact1.phoneNumber}
-                          </label>
-                        </div>
-                        {/* <div
+                          <div
+                            className="form-group"
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <label>
+                              <strong>Phone Number:</strong>{" "}
+                              {emergencyContact1.phoneNumber}
+                            </label>
+                          </div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -745,14 +797,14 @@ const Employee = () => {
                             {emergencyContact1.relation}
                           </label>
                         </div> */}
-                      </div>
-                    )}
-                  </div>
-                  <div className="col-md-6">
-                    <p className="font-weight-bold">Emergency Contact 2:</p>
-                    {isEditing ? (
-                      <div>
-                        {/* <div
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6">
+                      <p className="font-weight-bold">Emergency Contact 2:</p>
+                      {isEditing ? (
+                        <div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -772,27 +824,27 @@ const Employee = () => {
                             }
                           />
                         </div> */}
-                        <div
-                          className="form-group"
-                          style={{ marginBottom: "10px" }}
-                        >
-                          <label>
-                            <strong>Phone Number:</strong>
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Phone Number"
-                            value={emergencyContact2.phoneNumber}
-                            onChange={(e) =>
-                              setEmergencyContact2({
-                                ...emergencyContact2,
-                                phoneNumber: e.target.value,
-                              })
-                            }
-                          />
-                        </div>
-                        {/* <div
+                          <div
+                            className="form-group"
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <label>
+                              <strong>Phone Number:</strong>
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Phone Number"
+                              value={emergencyContact2.phoneNumber}
+                              onChange={(e) =>
+                                setEmergencyContact2({
+                                  ...emergencyContact2,
+                                  phoneNumber: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -812,10 +864,10 @@ const Employee = () => {
                             }
                           />
                         </div> */}
-                      </div>
-                    ) : (
-                      <div>
-                        {/* <div
+                        </div>
+                      ) : (
+                        <div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -823,16 +875,16 @@ const Employee = () => {
                             <strong>Name:</strong> {emergencyContact2.name}
                           </label>
                         </div> */}
-                        <div
-                          className="form-group"
-                          style={{ marginBottom: "10px" }}
-                        >
-                          <label>
-                            <strong>Phone Number:</strong>{" "}
-                            {emergencyContact2.phoneNumber}
-                          </label>
-                        </div>
-                        {/* <div
+                          <div
+                            className="form-group"
+                            style={{ marginBottom: "10px" }}
+                          >
+                            <label>
+                              <strong>Phone Number:</strong>{" "}
+                              {emergencyContact2.phoneNumber}
+                            </label>
+                          </div>
+                          {/* <div
                           className="form-group"
                           style={{ marginBottom: "10px" }}
                         >
@@ -841,61 +893,61 @@ const Employee = () => {
                             {emergencyContact2.relation}
                           </label>
                         </div> */}
-                      </div>
-                    )}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="row" style={{ marginBottom: "10px" }}>
-                  <div className="col-md-4">
-                    <p className="font-weight-bold">Health Conditions:</p>
-                  </div>
-                  <div className="col-md-8">
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={healthConditions}
-                        onChange={(e) => setHealthConditions(e.target.value)}
-                      />
-                    ) : (
-                      <p>{healthConditions}</p>
-                    )}
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                    <div className="col-md-4">
+                      <p className="font-weight-bold">Health Conditions:</p>
+                    </div>
+                    <div className="col-md-8">
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={healthConditions}
+                          onChange={(e) => setHealthConditions(e.target.value)}
+                        />
+                      ) : (
+                        <p>{healthConditions}</p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Edit Details Button */}
-          <div
-            className="d-flex justify-content-left mb-2"
-            style={{ marginLeft: "15px" }}
-          >
-            {permission_level===4 && (isEditing ? (
-              <button
-                className="btn btn-primary"
-                style={{ width: "150px", height: "40px" }}
-                onClick={handleSaveClick}
-              >
-                Save
-              </button>
-            ) : (
-              <button
-                className="btn btn-primary"
-                style={{ width: "150px", height: "40px" }}
-                onClick={handleEditClick}
-              >
-                Edit Details
-              </button>
-            ))}
+            {/* Edit Details Button */}
+            <div
+              className="d-flex justify-content-left mb-2"
+              style={{ marginLeft: "15px" }}
+            >
+              {permission_level === 4 &&
+                (isEditing ? (
+                  <button
+                    className="btn btn-primary"
+                    style={{ width: "150px", height: "40px" }}
+                    onClick={handleSaveClick}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-primary"
+                    style={{ width: "150px", height: "40px" }}
+                    onClick={handleEditClick}
+                  >
+                    Edit Details
+                  </button>
+                ))}
+            </div>
           </div>
         </div>
+        console.log(posts.data[0].full_name);
       </div>
-      console.log(posts.data[0].full_name);
-    </div>
-
-        </React.Fragment>
-    );
-}
+    </React.Fragment>
+  );
+};
 
 export default Employee;

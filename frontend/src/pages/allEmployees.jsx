@@ -75,9 +75,15 @@ const AllEmployees = (props) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 //call backend to delete employee
+                // console.log("employee_Id", employee.employee_id)
+                try {
+                const res = axios.delete(`/users/deleteemp/${employee.employee_id}`);
                 const employees = state.employees.filter(e => e.employee_id !== employee.employee_id);
                 setState({ ...state, employees });
-                Swal.fire('Deleted!', 'The employee has been deleted.', 'success');
+                Swal.fire('Deleted!', 'The employee has been deleted.', 'success');}
+                catch (error) {
+                    console.log(error);
+                }
             }
         });
     };
