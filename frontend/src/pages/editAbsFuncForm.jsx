@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function ProfilePage() {
+export default function EditAbsFunc() {
   const [isEditing, setIsEditing] = useState(true);
   
   // Basic Details
@@ -38,15 +38,14 @@ export default function ProfilePage() {
         no_payLeaves: ''
 
       };
-
-      setEmployeeID(dataFromBackend.paygrade);
-      setUserName(dataFromBackend.basicSalary);
-      setOldPassword(dataFromBackend.otBenefits);
-      setNewPassword(dataFromBackend.annualLeaves);
-      setReNewPassword(dataFromBackend.casualLeaves);
-      setNewPassword(dataFromBackend.maternityLeaves);
-      setReNewPassword(dataFromBackend.no_payLeaves);
-    }, 1000); // Simulate a 1-second delay for the API call
+      setPaygrade(dataFromBackend.paygrade)
+      setBasicSalary(dataFromBackend.basicSalary)
+      setOtBenefits(dataFromBackend.otBenefits)
+      setAnnualLeaves(dataFromBackend.annualLeaves)
+      setCasualLeaves(dataFromBackend.casualLeaves)
+      setMaternityLeaves(dataFromBackend.no_payLeaves)
+      setNoPayLeaves(dataFromBackend.no_payLeaves)
+    }); // Simulate a 1-second delay for the API call
   }, []);
 
   const handleEditClick = () => {

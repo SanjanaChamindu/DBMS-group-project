@@ -38,7 +38,7 @@ const Leaves = () => {
             //   "employee_id": "1820267651",
             //   "date": "2023-11-30T18:30:00.000Z",
             //   "description": "Personal Health Checkup",
-            //   "supervisor_approval": null,
+            //   "supervisor_approval": null, 
             //   "leave_type": "Annual"
             }));
             console.log(leaveData);

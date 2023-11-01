@@ -12,10 +12,57 @@ export default function ProfilePage() {
   const [employeeID, setEmployeeID] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [supervisorID, setSupervisorID] = useState('');
-  const [department, setDepartment] = useState('');
-  //const [password, setPassword] = useState('');
 
+  const [department, setDepartment] = useState(null);
+  const [job, setJob] = useState(null);
 
+  const [selectedDept, setSelectedDept] = useState({depts : []});
+  const [selectedJob, setSelectedJob] = useState({jobs : []});
+  const [selectedGender, setSelectedGender] = useState(null);
+
+  // const Job_titles=getJobTitles();
+  // const depts =  getDepts();
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const res = await axios.get("/reports/depts");
+              const deptData = res.data.map((element) => ({
+                  dept_name: element.department_name,
+                  dept_id: element.department_id,
+              }));
+              setSelectedDept({
+                  ...selectedDept,
+                  depts: deptData,
+              })
+              console.log(deptData.jobs);
+          } catch (error) {
+              console.log(error);
+          }
+      }
+      fetchData();
+  }, []);
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const res = await axios.get("/reports/jobs");
+              const jobData = res.data.map((element) => ({
+                  job_title_id: element.job_title_id,
+                  job_title_name: element.job_title_name,
+                  paygrade_id: element.paygrade_id,
+              }));
+              console.log(jobData);
+              setSelectedJob({
+                  ...selectedJob,
+                  jobs: jobData,
+              })
+          } catch (error) {
+              console.log(error);
+          }
+      }
+      fetchData();
+  }, []);
 
     // Temporary array to store the data
     const [temporaryData, setTemporaryData] = useState({
@@ -206,13 +253,25 @@ const handleDoneClick = () => {
                       </div>
                       <div className="col-md-8">
                         {isEditing ? (
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={jobTitle}
-                            onChange={(e) => setJobTitle(e.target.value)}
-                            required
-                          />
+                          <div>
+                                      <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                                          {job ? job.job_title_name : 'Select Job Title'}
+                                      </button>
+                                  
+                                      <ul className="dropdown-menu">
+                                          {selectedJob.jobs.map(item => (
+                                              <li key={item.job_title_id}>
+                                                  <a
+                                                      className="dropdown-item"
+                                                      href="#"
+                                                      onClick={() => setJob(item)}
+                                                  >
+                                                      {item.job_title_name}
+                                                  </a>
+                                              </li>
+                                          ))}
+                                      </ul>
+                                    </div>
                         ) : (
                           <p>{jobTitle}</p>
                         )}
@@ -250,7 +309,25 @@ const handleDoneClick = () => {
                             required
                           />
                         ) : (
-                          <p>{department}</p>
+                          <div>
+                                                  <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                            {department ? department.dept_name : 'Select Department'}
+                    </button>
+                
+                    <ul className="dropdown-menu">
+                        {selectedDept.depts.map(item => (
+                            <li key={item.dept_id}>
+                                <a
+                                    className="dropdown-item"
+                                    href="#"
+                                    onClick={() => setDepartment(item)}
+                                >
+                                    {item.dept_name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                          </div>
                         )}
                       </div>
                     </div>

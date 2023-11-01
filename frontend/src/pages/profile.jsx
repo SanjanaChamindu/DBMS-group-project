@@ -37,6 +37,9 @@ export default function ProfilePage(props) {
         dataFromBackend["emergencyContact2"] = {};
         dataFromBackend["emergencyContact2"]["phoneNumber"] =
           res.data.data3[0].secondary_emergency_contact;
+        dataFromBackend["mothersName"] = res.data.data3.mothers_name;
+        dataFromBackend["fathersName"] = res.data.data3.fathers_name;
+        dataFromBackend["healthConditions"] = res.data.data3.health_conditions;
         let addedCustomFields = [];
         res.data.data2.forEach((element) => {
           for (const [key, value] of Object.entries(element)) {
@@ -70,7 +73,7 @@ export default function ProfilePage(props) {
 
 
 
-        setMothersName(dataFromBackend.mothersNAme);
+        setMothersName(dataFromBackend.mothersName);
         setFathersName(dataFromBackend.fathersName);
         setHealthConditions(dataFromBackend.healthConditions);
 

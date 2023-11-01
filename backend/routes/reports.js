@@ -7,12 +7,15 @@ import {
   editLeaves,
   getDepts,
   empByDept,
-  getJobs
+  getJobs,
+  getEmp,
+  empById
 } from "../controllers/reports.js";
 
 const router = express.Router();
 
 router.get("/", getReport);
+router.get("/emp/:id", getEmp);
 router.get("/subordinates", getSub);
 router.get("/subordinates/:id", subDetails);
 router.put("/edit/:id", editEmp);
@@ -20,5 +23,6 @@ router.put("/editleaves", editLeaves);
 router.get("/depts", getDepts);
 router.get("/jobs", getJobs);
 router.get("/depts/:id", empByDept);
+router.get("/empbyid/:id", empById);
 
 export default router;

@@ -33,6 +33,7 @@ import { SidebarData2 } from './sidebarData2';
 import { SidebarData3 } from './sidebarData3';
 import { SidebarData4 } from './sidebarData4';
 import SubMenu from './subMenu';
+import { getPermissionLevel } from '../context/authContext';
 
 const Nav = styled.div`
     background: #333;
@@ -89,7 +90,7 @@ const SidebarWrap = styled.div`
 const Sidebar = () => {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);     // This is the function that will be called when the sidebar is clicked
-    const permission_level = 4; //data from backend
+    const permission_level = getPermissionLevel()%10;
     return (
         <React.Fragment>
             <IconContext.Provider value={{ color: '#fff' }}>

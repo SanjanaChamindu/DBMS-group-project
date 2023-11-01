@@ -122,7 +122,6 @@ const AbsenceFunc = (props) => {
                             <th className='clickable' onClick={() => handleSort("number_of_maternity_leaves")}>Maternity Leaves {renderSortIcon("number_of_maternity_leaves")}</th>
                             <th className='clickable' onClick={() => handleSort("number_of_no_pay_leaves")}>No Pay Leaves {renderSortIcon("number_of_no_pay_leaves")}</th>
                             {permission_level==4 && <th />}
-                            {permission_level==4 && <th />}
                         </tr>
                     </thead>
                     <tbody>
@@ -138,9 +137,6 @@ const AbsenceFunc = (props) => {
                                 <td >{leave.number_of_no_pay_leaves}</td>
                                 {permission_level==4 && <td>
                                     <Button variant="outline-primary" style={{ width: '70px' }} onClick={() => editLeave(leave)}><BiSolidEdit/></Button>{' '}
-                                </td>}
-                                {permission_level==4 && <td>
-                                    <Button variant="outline-danger" style={{ width: '70px' }} onClick={() => deleteLeave(leave)}><RiDeleteBin6Line/></Button>{' '}
                                 </td>}
                             </tr>
                         ))}

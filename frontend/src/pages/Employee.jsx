@@ -48,7 +48,8 @@ const Employee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("/reports");
+        const the_string = "/reports/empbyid/" + employee.employee_id;
+        const res = await axios.get(the_string);
         // setPosts(res.data);
         console.log("posts", res);
         dataFromBackend["fullName"] = res.data.data[0].full_name;
