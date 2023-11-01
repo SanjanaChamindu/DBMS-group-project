@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(true);
+  const [selectedDept, setSelectedDept] = useState({depts: []});
   
   //const [pageNumber, setPageNumber] = useState(1);
   // Basic Details
@@ -310,24 +311,32 @@ const handleDoneClick = () => {
                           />
                         ) : (
                           <div>
-                                                  <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
-                            {department ? department.dept_name : 'Select Department'}
-                    </button>
-                
-                    <ul className="dropdown-menu">
-                        {selectedDept.depts.map(item => (
-                            <li key={item.dept_id}>
-                                <a
+                          <div className="dropdown">
+                            <button
+                              className="btn btn-secondary dropdown-toggle"
+                              type="button"
+                              id="departmentDropdown"
+                              data-bs-toggle="dropdown"
+                              aria-haspopup="true"
+                              aria-expanded="false"
+                            >
+                              Select Department
+                            </button>
+                            <ul className="dropdown-menu" aria-labelledby="departmentDropdown">
+                              {selectedDept.depts.map(item => (
+                                <li key={item.dept_id}>
+                                  <a
                                     className="dropdown-item"
                                     href="#"
-                                    onClick={() => setDepartment(item)}
-                                >
+                                    onClick={() => setSelectedDepartment(item)}
+                                  >
                                     {item.dept_name}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
                           </div>
+                        </div>
                         )}
                       </div>
                     </div>
