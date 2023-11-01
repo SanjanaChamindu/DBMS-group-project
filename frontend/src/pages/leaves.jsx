@@ -15,18 +15,26 @@ const Leaves = () => {
     const [state, setState] = useState({
         // leaves: getEmpLeaves(),
         leaves : [],
-        pageSize: 4,
+        pageSize: 10,
         currentPage: 1,
-        sortColumn: { path: 'leave_id', order: 'asc' }
+        sortColumn: { path: 'status', order: 'desc' }
     }); 
 
-    const curr_status = { null: "Pending", 0: "Approved", 1: "Rejected" };
+    const curr_status = { 2: "Pending", 1: "Approved", 0: "Rejected" };
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const res = await axios.get("/leaves/requests/subordinates");
+            const res = await axios.get("/leaves/requests/myrequests");
             const leaveData = res.data.map((element) => ({
+                // {
+                //     "leave_request_id": 2,
+                //     "employee_id": "1820267651",
+                //     "date": "2024-11-15T18:30:00.000Z",
+                //     "description": "Another request",
+                //     "supervisor_approval": 2,
+                //     "leave_type": "Annual"
+                // },
               request_id: element.leave_request_id,
               employee_id: element.employee_id,
               requested_date: element.date.slice(0,10),
@@ -126,6 +134,7 @@ const Leaves = () => {
                                 <td onClick={() => navigateTo(leave)}>{leave.request_id}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.leave_type}</td>
                                 <td onClick={() => navigateTo(leave)}>{leave.requested_date}<span> </span></td>
+                                <>{console.log("this is a leave" ,leave)}</>
                                 <td onClick={() => navigateTo(leave)}>{leave.status}</td>
                             </tr>
                         ))}

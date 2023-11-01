@@ -26,7 +26,7 @@ const RequestNewLeave = () => {
     const navigateTo = () => {
         console.log("navigate called", selectedType, selectedDates, Reason, currentDate);
       
-        if (!selectedType || !selectedDates || !Reason) {
+        if (!selectedType || (selectedDates.length ==0) || !Reason) {
           Swal.fire({
             title: 'All fields are required!',
             text: `Please fill the required fields.`,

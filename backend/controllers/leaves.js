@@ -92,7 +92,7 @@ export const viewSubRequests = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600001'){
-            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?)";
+            const q1 = "SELECT * FROM leave_request WHERE employee_id IN (SELECT employee_id FROM employee WHERE supervisor_id = ?) AND supervisor_approval = 2";
             db.query(q1, [employee_id], (err, data1) => {
                 if (err) return res.status(500).json(err);
                 return res.json(data1);
@@ -133,8 +133,8 @@ export const approveLeave = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600001'){
-            const q1 = "UPDATE leave_request SET supervisor_approval = '1' WHERE (leave_request_id = ?)";
-            db.query(q1, [req.body.supervisor_approval, req.params.id], (err, data1) => {
+            const q1 = "UPDATE leave_request SET supervisor_approval = ? WHERE leave_request_id = ?";
+            db.query(q1, [1, req.params.id], (err, data1) => {
                 if (err) return res.status(500).json(err);
                 return res.json("Leave request approved successfully!");
             });
@@ -154,15 +154,15 @@ export const declineLeave = (req, res) => {
         const permission_level_id = userInfo.permission_level_id;
 
         if (permission_level_id > '8193600001'){
-            const q1 = "UPDATE leave_request SET supervisor_approval = '0' WHERE (leave_request_id = ?)";
-            db.query(q1, [req.body.supervisor_approval, req.params.id], (err, data1) => {
+            const q1 = "UPDATE leave_request SET supervisor_approval = ? WHERE leave_request_id = ?";
+            db.query(q1, [0, req.params.id], (err, data1) => {
                 if (err) return res.status(500).json(err);
-                return res.json("Leave request declined successfully!");
+                return res.json("Leave request rejected successfully!");
             });
 
         } else{
             return res.status(403).json("You are not authorized to view this data!");
-        }
+        }
 });
 }
 

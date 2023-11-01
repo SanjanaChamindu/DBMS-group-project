@@ -31,6 +31,7 @@ const LeaveRequests = () => {
           requester_name: element.leave_request_id,
           description: element.description,
           dates: element.date.slice(0,10),
+          leave_type: element.leave_type
         }));
         
         setState({

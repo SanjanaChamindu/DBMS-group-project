@@ -14,11 +14,12 @@ export const getReport = (req, res) => {
     db.query(q, [userInfo.user_name], (err, data) => {
       if (err) return res.status(500).json(err);
 
-      const q1 = "SELECT attribute_name FROM custum_attributes";
+      const q1 = "SELECT attribute_name FROM custom_attributes";
       db.query(q1, (err, data1) => {
         if (err) return res.status(500).json(err);
 
         const attribute_names = data1.map((item) => item.attribute_name);
+        console.log(attribute_names);
         const q2 =
           "SELECT " +
           attribute_names.join(", ") +
@@ -65,7 +66,7 @@ export const getEmp = (req, res) => {
       db.query(q, [req.params.id], (err, data) => {
         if (err) return res.status(500).json(err);
 
-        const q1 = "SELECT attribute_name FROM custum_attributes";
+        const q1 = "SELECT attribute_name FROM custom_attributes";
         db.query(q1, (err, data1) => {
           if (err) return res.status(500).json(err);
 
@@ -369,4 +370,25 @@ export const empById = (req, res) => {
   
   
 
+};
+
+export const customAttribute = (req, res) => {
+  const token = req.cookies.access_token;
+  if (!token) return res.status(401).json("Not authenticated!");
+  jwt.verify(token, "secretkey", (err, userInfo) => {
+      if (err) return res.status(403).json("Token is not valid!");
+
+      const permission_level_id = userInfo.permission_level_id;
+
+      if (permission_level_id > '8193600002'){
+          const attributes = Object.entries(req.body).filter(([key, value]) => key !== 'attribute_name' && key !== 'attribute_value');
+          const queryParts = attributes.map(([key, value]) => `${key} = ?`).join(' AND ');
+          const q = `SELECT employee_id, Full_name, job_title_id, employment_status FROM employee WHERE ${queryParts}`;
+          const values = attributes.map(([key, value]) => value);
+          db.query(q, values, (err, data) => {
+              if (err) return res.status(500).json(err);
+              return res.json(data);
+          });
+      }
+    });
 };

@@ -48,7 +48,7 @@ const Employee = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const the_string = "/reports/empbyid/" + employee.employee_id;
+        const the_string = "/reports/emp/" + employee.employee_id;
         const res = await axios.get(the_string);
         // setPosts(res.data);
         console.log("posts", res);
@@ -56,6 +56,7 @@ const Employee = () => {
         dataFromBackend["nic"] = res.data.data[0].nic;
         dataFromBackend["gender"] = res.data.data[0].gender;
         dataFromBackend["birthday"] = res.data.data[0].birth_day.slice(0, 10);
+        dataFromBackend["healthConditions"] = res.data.data3[0].health_conditions;
         dataFromBackend["maritalStatus"] = res.data.data[0].marital_status;
         dataFromBackend["employeeID"] = res.data.data[0].employee_id;
         dataFromBackend["userName"] = res.data.data[0].user_name;
@@ -77,6 +78,9 @@ const Employee = () => {
         dataFromBackend["emergencyContact2"]["phoneNumber"] =
           res.data.data3[0].secondary_emergency_contact;
         let addedCustomFields = [];
+        dataFromBackend["mothersName"] = res.data.data3[0].mothers_name;
+        dataFromBackend["fathersName"] = res.data.data3[0].fathers_name;
+        dataFromBackend["healthConditions"] = res.data.data3[0].health_conditions;
         res.data.data2.forEach((element) => {
           for (const [key, value] of Object.entries(element)) {
             console.log(key, value);
@@ -106,6 +110,9 @@ const Employee = () => {
         setEmergencyContact1(dataFromBackend.emergencyContact1);
         setEmergencyContact2(dataFromBackend.emergencyContact2);
         setAddedCustomFields(dataFromBackend.addedCustomFields);
+        setMothersName(dataFromBackend.mothersName);
+        setFathersName(dataFromBackend.fathersName);
+        setHealthConditions(dataFromBackend.healthConditions);
         console.log(dataFromBackend);
       } catch (err) {
         console.log(err);
@@ -126,6 +133,9 @@ const Employee = () => {
   const [supervisorID, setSupervisorID] = useState("");
   const [department, setDepartment] = useState("");
   const [employmentStatus, setEmploymentStatus] = useState("");
+  const [mothersName, setMothersName] = useState("");
+  const [fathersName, setFathersName] = useState("");
+  const [healthConditions, setHealthConditions] = useState("");
 
   // Work Details
   const [personalAddress, setPersonalAddress] = useState("");
@@ -186,8 +196,47 @@ const Employee = () => {
 
   const saveDataChanges = async (updatedData) => {
     try {
-      const res = await axios.put("/updateProfile", updatedData); // Send a PUT request to update the data
-      console.log("Data updated successfully:", res);
+      const temp_list = []
+      updatedData.addedCustomFields.forEach((field) => {
+        const temp_obj = {};
+        temp_obj[field.label] = field.value
+        temp_list.push(temp_obj)
+      })
+      const inputData = {
+        "data": [
+            {
+                "employee_id": updatedData.employeeID,
+                "nic": updatedData.nic,
+                "full_name": updatedData.fullName,
+                "gender": updatedData.gender,
+                "user_name": updatedData.userName,
+                "supervisor_id": updatedData.supervisorID,
+                "job_title_id": updatedData.jobTitle,
+                "department_id": updatedData.department,
+                "employment_status": updatedData.employmentStatus,
+                "birth_day": updatedData.birthday,
+                "marital_status": updatedData.maritalStatus
+            }
+        ],
+        "data2": temp_list,
+        "data3": [
+            {
+                "employee_id": updatedData.employeeID,
+                "primary_phone_number": updatedData.emergencyContact1.phoneNumber,
+                "secondary_phone_number": updatedData.emergencyContact2.phoneNumber,
+                "email_address": updatedData.emailAddress,
+                "primary_emergency_contact": updatedData.primaryPhoneNumber,
+                "secondary_emergency_contact": updatedData.secondaryPhoneNumber,
+                "address": updatedData.personalAddress,
+                "mothers_name": updatedData.mothersName,
+                "fathers_name": updatedData.fathersName,
+                "health_conditions": updatedData.HealthConditions
+            }
+        ]
+    }
+      console.log("INPUT LIST",inputData)
+      // const res = await axios.put("/updateProfile", updatedData); // Send a PUT request to update the data
+      // console.log("Data updated successfully:", res);
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -213,8 +262,12 @@ const Employee = () => {
       secondaryPhoneNumber,
       emailAddress,
       emergencyContact1,
+      mothersName,
+      fathersName,
       emergencyContact2,
+      healthConditions,
       addedCustomFields
+
     };
     console.log(updatedData);
     setDataFromBackend(updatedData);
@@ -554,6 +607,40 @@ const Employee = () => {
                       <p>{emailAddress}</p>
                     )}
                   </div>
+                  <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Mothers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={mothersName}
+                        onChange={(e) => setMothersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{mothersName}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Fathers Name:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={fathersName}
+                        onChange={(e) => setFathersName(e.target.value)}
+                      />
+                    ) : (
+                      <p>{fathersName}</p>
+                    )}
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -755,6 +842,23 @@ const Employee = () => {
                           </label>
                         </div> */}
                       </div>
+                    )}
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: "10px" }}>
+                  <div className="col-md-4">
+                    <p className="font-weight-bold">Health Conditions:</p>
+                  </div>
+                  <div className="col-md-8">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        className="form-control"
+                        value={healthConditions}
+                        onChange={(e) => setHealthConditions(e.target.value)}
+                      />
+                    ) : (
+                      <p>{healthConditions}</p>
                     )}
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import '../../node_modules/sweetalert2/dist/sweetalert2.js';
+import axios from "axios";
 
 const ViewRequest = () => {
     const navigate = useNavigate()
@@ -52,9 +53,16 @@ const ViewRequest = () => {
       }).then((result) => {
           if (result.isConfirmed) {
               //call backend to approve leave
-              Swal.fire('Approved!', 'The leave has been approved.', 'success');
-              storedLeave.status = "Approved";
-              goBack();
+              try {
+                const res = axios.put(
+                  `/leaves/requests/subordinates/approve/${leave.request_id}`
+                );
+                Swal.fire('Approved!', 'The leave has been approved.', 'success');
+                storedLeave.status = "Approved";
+                goBack();
+              } catch (err) {
+                console.log(err);
+              }
           }
       }
       );
@@ -73,6 +81,9 @@ const ViewRequest = () => {
       }).then((result) => {
           if (result.isConfirmed) {
               //call backend to decline leave
+              const res = axios.put(
+                `/leaves/requests/subordinates/decline/${leave.request_id}`
+              );
               Swal.fire('Declined!', 'The leave has been declined.', 'success');
               storedLeave.status = "Declined";
               goBack();
@@ -116,9 +127,9 @@ const ViewRequest = () => {
             <p className="font-weight-bold">Leave Date:</p>
           </div>
           <div className="col-md-8">
-              {console.log("dsd",storedLeave.dates)}
+              {console.log("dsd",storedLeave.requested_date)}
               {
-                <>{storedLeave.dates}</>
+                <>{storedLeave.requested_date || storedLeave.dates}</>
               }
           </div>
         </div>
@@ -127,7 +138,7 @@ const ViewRequest = () => {
             <p className="font-weight-bold">Reason:</p>
           </div>
           <div className="col-md-8">
-            <p>{storedLeave.reason}</p>
+            <p>{storedLeave.reason || storedLeave.description}</p>
           </div>
         </div>
 

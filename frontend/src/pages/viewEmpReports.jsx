@@ -66,8 +66,8 @@ const RepEmployees = () => {
                     "job_title_id":storedItem.job.job_title_id,
                     "gender":storedItem.selectedGender.item_id
                 }
-                console.log(inputs)
-                const res = await axios.post("/queries/empreports", inputs);
+                console.log("inside emp", inputs)
+                const res = await axios.post("/queries/empreport", inputs);
                 console.log(res.data);
                 const employees = res.data.map((element) => ({
                     // table columns

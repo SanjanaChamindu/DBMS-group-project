@@ -9,7 +9,8 @@ import {
   empByDept,
   getJobs,
   getEmp,
-  empById
+  empById,
+  customAttribute
 } from "../controllers/reports.js";
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router.get("/depts", getDepts);
 router.get("/jobs", getJobs);
 router.get("/depts/:id", empByDept);
 router.get("/empbyid/:id", empById);
+router.post("/customattributes", customAttribute);
 
 export default router;
